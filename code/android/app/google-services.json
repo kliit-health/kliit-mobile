@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "85922620112",
+    "firebase_url": "https://kliit-health-app.firebaseio.com",
+    "project_id": "kliit-health-app",
+    "storage_bucket": "kliit-health-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85922620112:android:9f74c9b039b99da3",
+        "android_client_info": {
+          "package_name": "com.klit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85922620112-btcp8lo3bce6slgelr8am87fcnpg9vko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZndFV9Q902Fj6Xm1Cex1bYH2IGV3DsFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85922620112-btcp8lo3bce6slgelr8am87fcnpg9vko.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "85922620112-qgvmg2rqm28ash5ng9eiu27b32lql5rf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.klit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
