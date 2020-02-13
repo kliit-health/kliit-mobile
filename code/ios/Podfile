@@ -39,6 +39,10 @@ target 'klit' do
   pod 'Firebase/Storage'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
+  pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Functions'
 
   use_native_modules!
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
 end

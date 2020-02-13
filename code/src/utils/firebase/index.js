@@ -9,7 +9,7 @@ var rsa = new RSAKey();
 const bits = 1024;
 const exponent = '10001';
 const mySecretSalt = 'klit280391';
-let lang = Language['en'];
+let lang = Language.en;
 export function createUser(obj) {
     try {
         displayConsole('\n\n--------------***** createUser Start *********-----------');
@@ -17,19 +17,19 @@ export function createUser(obj) {
         return firebase.auth()
             .createUserWithEmailAndPassword(obj.email, obj.password).then(function (success) {
                 const { user } = success;
-                displayConsole("success", success);
-                displayConsole("user", user.uid);
+                displayConsole('success', success);
+                displayConsole('user', user.uid);
                 displayConsole('--------------***** createUser End *********-----------\n\n');
                 return user;
             }).catch(function (error) {
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 displayConsole('--------------***** createUser End *********-----------\n\n');
                 return error;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------***** createUser End *********-----------\n\n');
         return false;
     }
@@ -42,19 +42,19 @@ export function loginInWithFirebase(obj) {
         return firebase.auth()
             .signInWithEmailAndPassword(obj.email, obj.password).then(function (success) {
                 const { user } = success;
-                displayConsole("success", success);
-                displayConsole("user", user.uid);
+                displayConsole('success', success);
+                displayConsole('user', user.uid);
                 displayConsole('--------------***** loginInWithFirebase End *********-----------\n\n');
                 return user;
             }).catch(function (error) {
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 displayConsole('--------------***** loginInWithFirebase End *********-----------\n\n');
                 return error;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------***** loginInWithFirebase End *********-----------\n\n');
         return false;
     }
@@ -88,7 +88,7 @@ export function uploadImage(obj, success, error) {
                 return obj;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------***** uploadImage End *********-----------\n\n');
         return false;
     }
@@ -98,7 +98,7 @@ export function addUserData(obj) {
     try {
         displayConsole('\n\n--------------**** addUserData Start ********-----------');
         displayConsole('obj', obj);
-        return firebase.firestore().collection("users").where("uid", "==", obj.uid).get()
+        return firebase.firestore().collection('users').where('uid', '==', obj.uid).get()
             .then(querySnapshot => {
                 displayConsole('querySnapshot', querySnapshot);
                 var userData;
@@ -108,16 +108,16 @@ export function addUserData(obj) {
                 displayConsole('userData', userData);
                 return userData ? firebase.firestore().collection('users').doc(obj.uid).update(obj)
                     .then(function () {
-                        displayConsole("success", true);
+                        displayConsole('success', true);
                         displayConsole('--------------***** addUserData End *********-----------\n\n');
                         const data = {
-                            success: true
+                            success: true,
                         };
                         return data;
                     }, error => {
                         const { message, code } = error;
-                        displayConsole("error message", message);
-                        displayConsole("error code", code);
+                        displayConsole('error message', message);
+                        displayConsole('error code', code);
                         const data = {
                             success: false,
                             message: message,
@@ -127,29 +127,29 @@ export function addUserData(obj) {
                     }) :
                     firebase.firestore().collection('users').doc(obj.uid).set(obj)
                         .then(function () {
-                            displayConsole("success", true);
+                            displayConsole('success', true);
                             displayConsole('--------------***** addUserData End *********-----------\n\n');
                             const data = {
-                                success: true
+                                success: true,
                             };
                             return data;
                         }, error => {
                             const { message, code } = error;
-                            displayConsole("error message", message);
-                            displayConsole("error code", code);
+                            displayConsole('error message', message);
+                            displayConsole('error code', code);
                             const data = {
                                 success: false,
                                 message: message,
                             };
                             displayConsole('--------------***** addUserData End *********-----------\n\n');
                             return data;
-                        })
+                        });
             })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -162,7 +162,7 @@ export function addUserData(obj) {
         const data = {
             success: false,
         };
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** addUserData End ********-----------\n\n');
         return data;
     }
@@ -210,7 +210,7 @@ export function getUserData(obj, success, error) {
         let userRef = firebase.firestore().doc(`${obj.tableName}/${obj.uid}`);
         return userRef.onSnapshot(success, error);
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getUserData End ********-----------\n\n');
         return false;
     }
@@ -223,17 +223,17 @@ export function getDataFromTable(obj) {
         let userRef = firebase.firestore().doc(`${obj.tableName}/${obj.uid}`).get();
         return userRef
             .then((doc) => {
-                displayConsole("doc", doc);
-                displayConsole("doc.data()", doc.data());
+                displayConsole('doc', doc);
+                displayConsole('doc.data()', doc.data());
                 displayConsole('--------------**** getDataFromTable End ********-----------\n\n');
                 return doc.data();
             })
             .catch(e => {
-                displayConsole("e", e);
+                displayConsole('e', e);
                 return false;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getDataFromTable End ********-----------\n\n');
         return false;
     }
@@ -253,17 +253,17 @@ export function getCollectionData(obj) {
                 });
                 const data = {
                     success: true,
-                    data: arr
+                    data: arr,
                 };
                 displayConsole('data', data);
                 displayConsole('--------------**** getCollectionData End ********-----------\n\n');
                 return data;
             })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -273,7 +273,7 @@ export function getCollectionData(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getCollectionDataWithCondition End ********-----------\n\n');
         return false;
     }
@@ -283,7 +283,7 @@ export function getCollectionDataWithCondition(obj) {
     try {
         displayConsole('\n\n--------------**** getCollectionDataWithCondition Start ********-----------');
         displayConsole('obj', obj);
-        let userRef = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value).get();
+        let userRef = firebase.firestore().collection(obj.tableName).where(obj.key, '==', obj.value).get();
         return userRef
             .then(querySnapshot => {
                 displayConsole('querySnapshot', querySnapshot);
@@ -293,17 +293,17 @@ export function getCollectionDataWithCondition(obj) {
                 });
                 const data = {
                     success: true,
-                    data: arr
+                    data: arr,
                 };
                 displayConsole('data', data);
                 displayConsole('--------------**** getCollectionDataWithCondition End ********-----------\n\n');
                 return data;
             })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -313,7 +313,7 @@ export function getCollectionDataWithCondition(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getCollectionDataWithCondition End ********-----------\n\n');
         return false;
     }
@@ -325,15 +325,15 @@ export function getQuestionsData(obj, success, error) {
         displayConsole('obj', obj);
         let ref;
         if (obj.value) {
-            ref = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value).where("isRated", "==", true).where(obj.userConditionKey, "==", obj.uid);
+            ref = firebase.firestore().collection(obj.tableName).where(obj.key, '==', obj.value).where('isRated', '==', true).where(obj.userConditionKey, '==', obj.uid);
         } else {
-            ref = firebase.firestore().collection(obj.tableName).where("isRated", "==", false).where(obj.userConditionKey, "==", obj.uid);
+            ref = firebase.firestore().collection(obj.tableName).where('isRated', '==', false).where(obj.userConditionKey, '==', obj.uid);
         }
         // let ref = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value).where(obj.userConditionKey, "==", obj.uid);
         // let ref = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value).where("isRated", "==", "false").where(obj.userConditionKey, "==", obj.uid);
         return ref.onSnapshot(success, error);
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getChildCollectionDataWithCondition End ********-----------\n\n');
         return false;
     }
@@ -343,10 +343,10 @@ export function getExpertQuestionsData(obj, success, error) {
     try {
         displayConsole('\n\n--------------**** getExpertQuestionsData Start ********-----------');
         displayConsole('obj', obj);
-        let ref = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value).where(obj.userConditionKey, "==", obj.uid);
+        let ref = firebase.firestore().collection(obj.tableName).where(obj.key, '==', obj.value).where(obj.userConditionKey, '==', obj.uid);
         return ref.onSnapshot(success, error);
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getExpertQuestionsData End ********-----------\n\n');
         return false;
     }
@@ -356,23 +356,23 @@ export function getExpertQuestionsData(obj, success, error) {
 export function logout(userData) {
     try {
         displayConsole('--------------***** logout Start *********-----------\n\n');
-        displayConsole("userData", userData);
+        displayConsole('userData', userData);
         return firebase.auth().signOut()
             .then(function () {
-                displayConsole("success", true);
+                displayConsole('success', true);
                 displayConsole('--------------***** logout End *********-----------\n\n');
                 const data = {
-                    success: true
+                    success: true,
                 };
                 return data;
             }, error => {
                 let data = {};
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 if (code === 'auth/no-current-user') {
                     data = {
-                        success: true
+                        success: true,
                     };
                 } else {
                     data = {
@@ -382,9 +382,9 @@ export function logout(userData) {
                 }
                 displayConsole('--------------***** logout End *********-----------\n\n');
                 return data;
-            })
+            });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** logout End ********-----------\n\n');
         return false;
     }
@@ -394,16 +394,16 @@ export function logout(userData) {
 export function resetPassword(email) {
     try {
         return firebase.auth().sendPasswordResetEmail(email.trim()).then(function () {
-            displayConsole("success", true);
+            displayConsole('success', true);
             displayConsole('--------------***** forgotPassword End *********-----------\n\n');
             const data = {
-                success: true
+                success: true,
             };
             return data;
         }).catch(function (error) {
             const { message, code } = error;
-            displayConsole("error message", message);
-            displayConsole("error code", code);
+            displayConsole('error message', message);
+            displayConsole('error code', code);
             const data = {
                 success: false,
                 message: message,
@@ -412,7 +412,7 @@ export function resetPassword(email) {
             return data;
         });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** forgotPassword End ********-----------\n\n');
         return false;
     }
@@ -423,10 +423,10 @@ export function getFilterDataWithCondition(obj) {
         displayConsole('--------------**** getFilterDataWithCondition Start ********-----------\n\n');
         displayConsole('obj********', obj);
         var db = firebase.firestore();
-        let collection = db.collection(obj.tableName)
-        collection = collection.where(obj.roleKey, "==", obj.roleValue)
+        let collection = db.collection(obj.tableName);
+        collection = collection.where(obj.roleKey, '==', obj.roleValue);
         if (obj.genderKey && obj.genderValue) {
-            collection = collection.where(obj.genderKey, "==", obj.genderValue)
+            collection = collection.where(obj.genderKey, '==', obj.genderValue);
         }
         return collection.get().then(querySnapshot => {
             displayConsole('querySnapshotS********', querySnapshot);
@@ -471,17 +471,17 @@ export function getFilterDataWithCondition(obj) {
             });
             const data = {
                 success: true,
-                data: arr
+                data: arr,
             };
             displayConsole('data', data);
             displayConsole('--------------**** getFilterDataWithCondition End ********-----------\n\n');
             return data;
         })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -491,7 +491,7 @@ export function getFilterDataWithCondition(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getFilterDataWithCondition End ********-----------\n\n');
         return false;
     }
@@ -508,15 +508,15 @@ export function reAunthenticate(userProvidedPassword) {
         );
         return user.reauthenticateWithCredential(credential).then(function () {
             const data = {
-                success: true
+                success: true,
             };
             displayConsole('data', data);
             displayConsole('--------------**** reAunthenticate End ********-----------\n\n');
             return data;
         }).catch(function (error) {
             const { message, code } = error;
-            displayConsole("error message", message);
-            displayConsole("error code", code);
+            displayConsole('error message', message);
+            displayConsole('error code', code);
             const data = {
                 success: false,
                 message,
@@ -526,7 +526,7 @@ export function reAunthenticate(userProvidedPassword) {
             return data;
         });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** reAunthenticate End ********-----------\n\n');
         return false;
     }
@@ -539,15 +539,15 @@ export function changePassword(newPassword) {
         var user = firebase.auth().currentUser;
         return user.updatePassword(newPassword).then(function () {
             const data = {
-                success: true
+                success: true,
             };
             displayConsole('data', data);
             displayConsole('--------------**** changePassword End ********-----------\n\n');
             return reAunthenticate(newPassword);
         }).catch(function (error) {
             const { message, code } = error;
-            displayConsole("error message", message);
-            displayConsole("error code", code);
+            displayConsole('error message', message);
+            displayConsole('error code', code);
             const data = {
                 success: false,
                 message,
@@ -556,33 +556,33 @@ export function changePassword(newPassword) {
             displayConsole('--------------**** changePassword End ********-----------\n\n');
         });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** logout End ********-----------\n\n');
         return false;
     }
 }
 
 export const cipher = salt => {
-    let textToChars = text => text.split('').map(c => c.charCodeAt(0))
-    let byteHex = n => ("0" + Number(n).toString(16)).substr(-2)
-    let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code)
+    let textToChars = text => text.split('').map(c => c.charCodeAt(0));
+    let byteHex = n => ('0' + Number(n).toString(16)).substr(-2);
+    let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
 
     return text => text.split('')
         .map(textToChars)
         .map(applySaltToChar)
         .map(byteHex)
-        .join('')
-}
+        .join('');
+};
 
 export const decipher = salt => {
-    let textToChars = text => text.split('').map(c => c.charCodeAt(0))
-    let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code)
+    let textToChars = text => text.split('').map(c => c.charCodeAt(0));
+    let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
     return encoded => encoded.match(/.{1,2}/g)
         .map(hex => parseInt(hex, 16))
         .map(applySaltToChar)
         .map(charCode => String.fromCharCode(charCode))
-        .join('')
-}
+        .join('');
+};
 
 export function sendEncryptedKeyToFirebase() {
     displayConsole('--------------**** sendEncryptedKeyToFirebase Start ********-----------\n\n');
@@ -590,8 +590,8 @@ export function sendEncryptedKeyToFirebase() {
     return Keyref
         .then((doc) => {
             if (doc.exists) {
-                displayConsole("Keyref doc", doc._data.salt.key);
-                let myDecipher = decipher(mySecretSalt)
+                displayConsole('Keyref doc', doc._data.salt.key);
+                let myDecipher = decipher(mySecretSalt);
                 displayConsole('sendEncryptedKeyToFirebase Decrypt', JSON.parse(myDecipher(doc._data.salt.key)));
                 displayConsole('--------------**** sendEncryptedKeyToFirebase End ********-----------\n\n');
                 return JSON.parse(myDecipher(doc._data.salt.key));
@@ -601,29 +601,29 @@ export function sendEncryptedKeyToFirebase() {
                 const privateKey = rsa.getPrivateString();
                 const keys = {
                     publicKey: JSON.stringify(publicKey),
-                    privateKey: JSON.stringify(privateKey)
-                }
+                    privateKey: JSON.stringify(privateKey),
+                };
                 // Encrypt keys using cipher
-                let myCipher = cipher(mySecretSalt)
-                // Save Key to FireStore Db 
+                let myCipher = cipher(mySecretSalt);
+                // Save Key to FireStore Db
                 firebase.firestore().collection('EncryptedKeys').doc('EncryptedKeysDoc').set({
                     salt: {
-                        key: myCipher(JSON.stringify(keys))
-                    }
+                        key: myCipher(JSON.stringify(keys)),
+                    },
                 }).then(function () {
-                    displayConsole("success", true);
+                    displayConsole('success', true);
                     displayConsole('--------------**** sendEncryptedKeyToFirebase End ********-----------\n\n');
                     return JSON.parse(JSON.stringify(keys));
                 }, error => {
                     const { message, code } = error;
-                    displayConsole("message", message);
-                    displayConsole("code", code);
+                    displayConsole('message', message);
+                    displayConsole('code', code);
 
-                })
+                });
             }
         })
         .catch(e => {
-            displayConsole("e", e);
+            displayConsole('e', e);
             return false;
         });
 }
@@ -631,12 +631,12 @@ export function sendEncryptedKeyToFirebase() {
 export const deleteEncryptedKeyCollection = () => {
     firebase.firestore().collection('EncryptedKeys').get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-            displayConsole("deleteCollection doc", doc);
+            displayConsole('deleteCollection doc', doc);
             doc.ref.delete();
         });
     });
 
-}
+};
 
 export const sendMessage = (obj) => {
     try {
@@ -651,60 +651,60 @@ export const sendMessage = (obj) => {
             modifiedDate: moment().unix(),
             userUnreadCount: userUnreadCount ? userUnreadCount : 0,
             expertUnreadCount: expertUnreadCount ? expertUnreadCount : 0,
-        }
+        };
         firebase.firestore().collection(Constant.App.firebaseTableNames.questions).doc(obj.questionId).update(updateData);
         displayConsole('--------------**** update question end ********-----------\n\n');
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         console.log('--------------*** sendMessage End *******-----------\n\n');
     }
-}
+};
 
 export const loadMessages = (obj, success, error) => {
     displayConsole('--------------**** loadMessages Start ********-----------\n\n');
     displayConsole('obj', obj);
-    let ref = firebase.firestore().collection(Constant.App.firebaseTableNames.messages).doc(`${obj.id}`).collection('chat').orderBy("createdAt", "desc");
+    let ref = firebase.firestore().collection(Constant.App.firebaseTableNames.messages).doc(`${obj.id}`).collection('chat').orderBy('createdAt', 'desc');
     return ref.onSnapshot(success, error);
-}
+};
 
 export const checkStatus = (obj, success, error) => {
     displayConsole('--------------**** checkStatus Start ********-----------\n\n');
     displayConsole('obj', obj);
     let ref = firebase.firestore().collection('users').doc(`${obj.id}`);
     return ref.onSnapshot(success, error);
-}
+};
 
 export const checkQuestionStatus = (obj, success, error) => {
     displayConsole('--------------**** checkQuestionStatus Start ********-----------\n\n');
     displayConsole('obj', obj);
     let ref = firebase.firestore().collection(Constant.App.firebaseTableNames.questions).doc(`${obj.id}`);
     return ref.onSnapshot(success, error);
-}
+};
 export const updateRefrealcodeForAllUsers = (uid, data) => {
     console.log('updateRefrealcodeForAllUsers', uid);
     displayConsole('--------------**** updateRefrealcodeForAllUsers Start ********-----------\n\n');
     firebase.firestore().collection('users').doc(uid).set(data, { merge: true }).then(function () {
-        displayConsole("updateRefrealcodeForAllUsers success", true);
+        displayConsole('updateRefrealcodeForAllUsers success', true);
         console.log('--------------**** updateRefrealcodeForAllUsers Id End ********-----------\n\n');
     }, error => {
         const { message, code } = error;
-        displayConsole("updateRefrealcodeForAllUsers error message", message);
-        displayConsole("updateRefrealcodeForAllUserserror code", code);
-    })
+        displayConsole('updateRefrealcodeForAllUsers error message', message);
+        displayConsole('updateRefrealcodeForAllUserserror code', code);
+    });
     displayConsole('--------------**** updateRefrealcodeForAllUsers End ********-----------\n\n');
-}
+};
 export const updateStatus = (obj) => {
     displayConsole('--------------**** updateStatusCredit Start ********-----------\n\n');
     displayConsole('obj', obj);
     firebase.firestore().collection('users').doc(obj.uid).update(obj.updatedData);
     console.log('--------------**** updateStatusCredit End ********-----------\n\n');
-}
+};
 
 export const updateUnreadCount = (obj) => {
     displayConsole('--------------**** updateUnreadCount Start ********-----------\n\n');
     displayConsole('obj', obj);
     firebase.firestore().collection(Constant.App.firebaseTableNames.questions).doc(obj.questionData.questionId).update(obj.updateData);
-}
+};
 
 export function saveQuestion(obj) {
     try {
@@ -712,37 +712,37 @@ export function saveQuestion(obj) {
         displayConsole('obj', obj);
         return firebase.firestore().collection(Constant.App.firebaseTableNames.questions).add(obj)
             .then(function (success) {
-                displayConsole("success", success);
-                displayConsole("documentID", success.id);
+                displayConsole('success', success);
+                displayConsole('documentID', success.id);
                 displayConsole('--------------***** saveQuestion End *********-----------\n\n');
-                obj.messageId = `${success.id}${obj.userInfo.uid}${obj.expertInfo.uid}`
+                obj.messageId = `${success.id}${obj.userInfo.uid}${obj.expertInfo.uid}`;
                 obj.questionId = success.id;
                 return firebase.firestore().collection(Constant.App.firebaseTableNames.questions).doc(success.id).set(obj)
                     .then(function () {
-                        displayConsole("success", true);
+                        displayConsole('success', true);
                         const data = {
                             success: true,
                             data: obj,
                         };
-                        displayConsole("data", data);
+                        displayConsole('data', data);
                         console.log('--------------**** saveQuestion Id End ********-----------\n\n');
                         return data;
                     }, error => {
                         const { message, code } = error;
-                        displayConsole("error message", message);
-                        displayConsole("error code", code);
+                        displayConsole('error message', message);
+                        displayConsole('error code', code);
                         const data = {
                             success: false,
                             message: message,
                         };
-                        displayConsole("data", data);
+                        displayConsole('data', data);
                         console.log('--------------**** saveQuestion Id End ********-----------\n\n');
                         return data;
-                    })
+                    });
             }, error => {
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -750,12 +750,12 @@ export function saveQuestion(obj) {
                 displayConsole('data', data);
                 displayConsole('--------------***** saveQuestion End *********-----------\n\n');
                 return data;
-            })
+            });
     } catch (error) {
         const data = {
             success: false,
         };
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** testAddData End ********-----------\n\n');
         return data;
     }
@@ -767,18 +767,18 @@ export function resolvedQuestion(obj) {
         displayConsole('obj', obj);
         return firebase.firestore().collection(Constant.App.firebaseTableNames.questions).doc(`${obj.questionId}`).set(obj)
             .then(function (success) {
-                displayConsole("success", true);
-                displayConsole("docref", success);
+                displayConsole('success', true);
+                displayConsole('docref', success);
                 const data = {
                     success: true,
                 };
-                displayConsole("data", data);
+                displayConsole('data', data);
                 console.log('--------------**** resolvedQuestion End ********-----------\n\n');
                 return data;
             }, error => {
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -786,12 +786,12 @@ export function resolvedQuestion(obj) {
                 displayConsole('data', data);
                 displayConsole('--------------***** resolvedQuestion End *********-----------\n\n');
                 return data;
-            })
+            });
     } catch (error) {
         const data = {
             success: false,
         };
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** resolvedQuestion End ********-----------\n\n');
         return data;
     }
@@ -804,10 +804,10 @@ export function updateReadMessageStatus(obj) {
         let batch = firebase.firestore().batch();
         let questionDocRef = firebase.firestore().collection(Constant.App.firebaseTableNames.messages).doc(obj.id).collection('chat').where(obj.key, '==', obj.value).get();
         questionDocRef.then(querySnapshotQuestionDoc => {
-            displayConsole("querySnapshotQuestionDoc", querySnapshotQuestionDoc);
+            displayConsole('querySnapshotQuestionDoc', querySnapshotQuestionDoc);
             querySnapshotQuestionDoc.docs.forEach(element => {
-                displayConsole("element", element.data());
-                displayConsole("element", element.id);
+                displayConsole('element', element.data());
+                displayConsole('element', element.id);
                 batch.update(element._ref, {
                     'isRead': true,
                 });
@@ -821,10 +821,10 @@ export function updateReadMessageStatus(obj) {
                 displayConsole('--------------**** updateReadMessageStatus End ********-----------\n\n');
             })
                 .catch(error => {
-                    displayConsole("batch error", error);
+                    displayConsole('batch error', error);
                     const { message, code } = error;
-                    displayConsole("batch error message", message);
-                    displayConsole("batch error code", code);
+                    displayConsole('batch error message', message);
+                    displayConsole('batch error code', code);
                     const data = {
                         success: false,
                         message: message,
@@ -833,10 +833,10 @@ export function updateReadMessageStatus(obj) {
                     displayConsole('--------------**** updateReadMessageStatus End ********-----------\n\n');
                 });
         }).catch(error => {
-            displayConsole("questionDocRef error", error);
+            displayConsole('questionDocRef error', error);
             const { message, code } = error;
-            displayConsole("questionDocRef error message", message);
-            displayConsole("questionDocRef error code", code);
+            displayConsole('questionDocRef error message', message);
+            displayConsole('questionDocRef error code', code);
             const data = {
                 success: false,
                 message: message,
@@ -847,7 +847,7 @@ export function updateReadMessageStatus(obj) {
         const data = {
             success: false,
         };
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** testAddData End ********-----------\n\n');
         return data;
     }
@@ -869,7 +869,7 @@ export function checkSecretKey(obj) {
     try {
         displayConsole('\n\n--------------**** getSecretKey Start ********-----------');
         displayConsole('obj', obj);
-        let userRef = firebase.firestore().collection("userSecretKey").where("secretKey", "==", obj.secretKey).get();
+        let userRef = firebase.firestore().collection('userSecretKey').where('secretKey', '==', obj.secretKey).get();
         return userRef
             .then(querySnapshot => {
                 displayConsole('querySnapshot', querySnapshot);
@@ -886,10 +886,10 @@ export function checkSecretKey(obj) {
                 return data;
             })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -899,7 +899,7 @@ export function checkSecretKey(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getSecretKey End ********-----------\n\n');
         return false;
     }
@@ -909,7 +909,7 @@ export function checkReferedUserData(obj) {
     try {
         displayConsole('\n\n--------------**** getReferedUserData Start ********-----------');
         displayConsole('obj', obj);
-        let userRef = firebase.firestore().collection("users").where("referalCode", "==", obj.referralCode).get();
+        let userRef = firebase.firestore().collection('users').where('referalCode', '==', obj.referralCode).get();
         return userRef
             .then(querySnapshot => {
                 displayConsole('querySnapshot', querySnapshot);
@@ -926,10 +926,10 @@ export function checkReferedUserData(obj) {
                 return data;
             })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -939,7 +939,7 @@ export function checkReferedUserData(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getReferedUserData End ********-----------\n\n');
         return false;
     }
@@ -950,31 +950,31 @@ export function checkReferedUserData(obj) {
 export function setDataTesting() {
     try {
         displayConsole('\n\n--------------**** addUserData Start ********-----------');
-        firebase.firestore().doc(`userSecretKey/bc8uTx6LvbqkvhTrGVHY`).get();
-        return firebase.firestore().collection('userSecretKey').doc("bc8uTx6LvbqkvhTrGVHY").update({ secretKey: "Admin123#" })
+        firebase.firestore().doc('userSecretKey/bc8uTx6LvbqkvhTrGVHY').get();
+        return firebase.firestore().collection('userSecretKey').doc('bc8uTx6LvbqkvhTrGVHY').update({ secretKey: 'Admin123#' })
             .then(function () {
-                displayConsole("success", true);
+                displayConsole('success', true);
                 displayConsole('--------------***** addUserData End *********-----------\n\n');
                 const data = {
-                    success: true
+                    success: true,
                 };
                 return data;
             }, error => {
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
                 };
                 displayConsole('--------------***** addUserData End *********-----------\n\n');
                 return data;
-            })
+            });
     } catch (error) {
         const data = {
             success: false,
         };
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** addUserData End ********-----------\n\n');
         return data;
     }
@@ -984,23 +984,23 @@ export function deleteUser() {
     try {
         displayConsole('--------------***** deleteUser Start *********-----------\n\n');
         return firebase.auth().currentUser.delete().then(function () {
-            displayConsole("success", true);
+            displayConsole('success', true);
             displayConsole('--------------***** deleteUser End *********-----------\n\n');
             const data = {
-                success: true
+                success: true,
             };
             return data;
         }, function (error) {
             let data = {};
             const { message, code } = error;
-            displayConsole("error message", message);
-            displayConsole("error code", code);
+            displayConsole('error message', message);
+            displayConsole('error code', code);
             if (code === 'auth/no-current-user') {
                 data = {
-                    success: true
+                    success: true,
                 };
             } else {
-                firebase.auth().signOut()
+                firebase.auth().signOut();
                 data = {
                     success: false,
                     message,
@@ -1010,7 +1010,7 @@ export function deleteUser() {
             return data;
         });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** deleteUser End ********-----------\n\n');
         return false;
     }
@@ -1021,10 +1021,10 @@ export function getRecentExpertsData(obj, success, error) {
     try {
         displayConsole('\n\n--------------**** getRecentExpertsData Start ********-----------');
         displayConsole('obj', obj);
-        let ref = firebase.firestore().collection(obj.tableName).where(obj.key, "==", obj.value);
+        let ref = firebase.firestore().collection(obj.tableName).where(obj.key, '==', obj.value);
         return ref.onSnapshot(success, error);
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getRecentExpertsData End ********-----------\n\n');
         return false;
     }
@@ -1037,14 +1037,14 @@ export function getExpertsData(obj, success, error) {
         displayConsole('obj', obj);
         // let ref = firebase.firestore().collection(obj.tableName).where(obj.roleKey, "==", obj.roleValue);
         var db = firebase.firestore();
-        let collection = db.collection(obj.tableName)
-        collection = collection.where(obj.roleKey, "==", obj.roleValue)
+        let collection = db.collection(obj.tableName);
+        collection = collection.where(obj.roleKey, '==', obj.roleValue);
         if (obj.genderKey && obj.genderValue) {
-            collection = collection.where(obj.genderKey, "==", obj.genderValue)
+            collection = collection.where(obj.genderKey, '==', obj.genderValue);
         }
         return collection.onSnapshot(success, error);
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getExpertsData End ********-----------\n\n');
         return false;
     }
@@ -1055,10 +1055,10 @@ export function getFiltersDataWithCondition(obj) {
         displayConsole('--------------**** getFilterDataWithCondition Start ********-----------\n\n');
         displayConsole('obj********', obj);
         var db = firebase.firestore();
-        let collection = db.collection(obj.tableName)
-        collection = collection.where(obj.roleKey, "==", obj.roleValue)
+        let collection = db.collection(obj.tableName);
+        collection = collection.where(obj.roleKey, '==', obj.roleValue);
         if (obj.genderKey && obj.genderValue) {
-            collection = collection.where(obj.genderKey, "==", obj.genderValue)
+            collection = collection.where(obj.genderKey, '==', obj.genderValue);
         }
         return collection.get().then(querySnapshot => {
             displayConsole('querySnapshotS********', querySnapshot);
@@ -1103,17 +1103,17 @@ export function getFiltersDataWithCondition(obj) {
             });
             const data = {
                 success: true,
-                data: arr
+                data: arr,
             };
             displayConsole('data', data);
             displayConsole('--------------**** getFilterDataWithCondition End ********-----------\n\n');
             return data;
         })
             .catch(error => {
-                displayConsole("e", error);
+                displayConsole('e', error);
                 const { message, code } = error;
-                displayConsole("error message", message);
-                displayConsole("error code", code);
+                displayConsole('error message', message);
+                displayConsole('error code', code);
                 const data = {
                     success: false,
                     message: message,
@@ -1123,10 +1123,39 @@ export function getFiltersDataWithCondition(obj) {
                 return data;
             });
     } catch (error) {
-        displayConsole("Crash error", error);
+        displayConsole('Crash error', error);
         displayConsole('--------------**** getFilterDataWithCondition End ********-----------\n\n');
         return false;
     }
 }
 
+export async function getCreditAmountsData() {
+    try {
+        await firebase.config().fetch(0);
+        await firebase.config().activateFetched();
+        const snapshot = await firebase.config().getValue('credit_amounts');
+        return snapshot ? snapshot.val() : null;
+    } catch (error) {
+        return null;
+    }
+}
 
+export async function addNewPaymentCard(obj) {
+    try {
+        await firebase.functions().httpsCallable('apiPaymentsAddCard')(...obj);
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+export async function getPaymentMethods() {
+    try {
+        const response = await firebase.functions().httpsCallable('apiPaymentsListCards')();
+        console.warn(response);
+        return { ok: true, data: response.data.data.map(data => data.card) };
+    } catch (err) {
+        let status = err.status ? err.status : 'internal';
+        return { ok: false, status };
+    }
+}

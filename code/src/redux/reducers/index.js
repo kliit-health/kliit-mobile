@@ -11,12 +11,13 @@ import forgotPasswordReducer from '../../screens/forgotPassword/reducer';
 import signupReducer from '../../screens/signUp/reducer';
 import addProfileReducer from '../../screens/addProfileData/reducer';
 import chooseExpertReducer from '../../screens/chooseExpert/reducer';
-import expertProfileReducer from '../../screens/expertProfile/reducer'
+import expertProfileReducer from '../../screens/expertProfile/reducer';
 import settingReducer from '../../screens/setting/reducer';
 import settingExpertReducer from '../../screens/setting/expert/reducer';
 import changePasswordReducer from '../../screens/changePassword/reducer';
 import chat from '../../screens/chat/reducer';
 import chatExpertReducer from '../../screens/chat/expert/reducer';
+import paymentReducer from '../../screens/payment/reducer';
 
 export default combineReducers({
   authLoadingReducer,
@@ -37,4 +38,5 @@ export default combineReducers({
   changePasswordReducer,
   chat,
   chatExpertReducer,
+  paymentReducer,
 });

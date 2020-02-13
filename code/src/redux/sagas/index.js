@@ -13,7 +13,7 @@ import settingExpertSaga from '../../screens/setting/expert/saga';
 import changePasswordSaga from '../../screens/changePassword/saga';
 import chatSaga from '../../screens/chat/saga';
 import chatExpertSaga from '../../screens/chat/expert/saga';
-
+import paymentSaga from '../../screens/payment/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -31,5 +31,6 @@ export default function* rootSaga() {
     changePasswordSaga(),
     chatSaga(),
     chatExpertSaga(),
+    paymentSaga(),
   ]);
 }

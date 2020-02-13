@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,7 +42,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>App would like to use your camera to upload the profile picture</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App would like access to your photo gallery to upload the profile picture.</string>
 	<key>UIAppFonts</key>
@@ -84,6 +84,11 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Poppins-Light2.ttf</string>
+		<string>Avenir-Medium.ttf</string>
+		<string>Avenir-Book.ttf</string>
+		<string>ProximaNova-SemiBold.otf</string>
+		<string>Avenir-Light.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

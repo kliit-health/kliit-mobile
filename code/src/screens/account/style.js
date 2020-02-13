@@ -8,6 +8,9 @@ import { getStatusBarHeight } from '../../components/iPhoneXHelper';
 
 let parentPaddingValue = metrices.DEVICE_WIDTH * 0.1;
 let parentPadding = parentPaddingValue * 2;
+
+export const AVATAR_SIZE = 111;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,7 +29,7 @@ const styles = StyleSheet.create({
   profileInfoParentContainerStyle: {
     flexDirection: 'column',
     alignSelf: 'center',
-    width: metrices.DEVICE_WIDTH - 120 - parentPadding,
+    width: metrices.DEVICE_WIDTH - AVATAR_SIZE - parentPadding,
   },
   profileImageParentContainerStyle: {
     flexDirection: 'column',
@@ -34,23 +37,39 @@ const styles = StyleSheet.create({
   nameTextStyle: {
     textAlign: 'left',
     color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.xLarge,
-    fontFamily: Constant.App.fontFamily.headerBold,
+    fontSize: Constant.App.textSize.xxLarge,
+    fontFamily: Constant.App.fontFamily.headerSemiBold,
   },
   genderTextStyle: {
     textAlign: 'left',
     paddingTop: 5,
     color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.Normal,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
+    fontSize: Constant.App.textSize.xLarge,
+    fontFamily: Constant.App.fontFamily.headerLight,
+    fontWeight: '400',
   },
   creditTextStyle: {
     textAlign: 'left',
     paddingTop: 10,
     color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.Large,
-    fontFamily: Constant.App.fontFamily.headerBold,
+    fontSize: Constant.App.textSize.xLarge,
+    fontFamily: Constant.App.fontFamily.headerMedium,
     fontWeight: '500',
+  },
+  creditButtonStyle: {
+    marginLeft: -9,
+    marginTop: 14,
+    width: metrices.DEVICE_WIDTH * 0.49,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: Constant.App.colors.whiteColor,
+  },
+  creditButtonTextStyle: {
+    textAlign: 'center',
+    paddingTop: 11,
+    fontFamily: Constant.App.fontFamily.avenirMedium,
+    fontSize: Constant.App.textSize.Normal,
+    color: Constant.App.colors.blueColor,
   },
   itemsParentContainerStyle: {
     backgroundColor: Constant.App.colors.whiteColor,
