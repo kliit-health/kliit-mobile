@@ -191,6 +191,7 @@ const Language = {
       buyCredits: 'Buy Credits',
       applePayTitle: 'Apple Pay',
       payPalTitle: 'PayPal',
+      googlePayTitle: 'G Pay',
     },
     addCreditOrDebitCard: {
       title: 'Add Credit/Debit Card',

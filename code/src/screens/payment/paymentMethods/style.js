@@ -63,6 +63,18 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
+  expiredContainer: {
+    flex: 1,
+    flexDirection: 'row',
+
+    justifyContent: 'flex-end',
+  },
+  expiredLabel: {
+    paddingRight: 60,
+    color: Constant.App.colors.redColorExpired,
+    fontSize: Constant.App.textSize.Normal,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+  },
   plusIcon: {
     width: 22,
     height: 22,

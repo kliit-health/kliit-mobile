@@ -5,6 +5,7 @@ import {
   createSwitchNavigator,
   createBottomTabNavigator,
 } from 'react-navigation';
+import NavigationService from './navigationService';
 import { Image, View, Linking } from 'react-native';
 import AuthLoadingScreen from '../screens/authLoading';
 import Login from '../screens/login';
@@ -424,3 +425,4 @@ AppStackExpert.router.getStateForAction = (action, state) => {
 };
 
 export default createAppContainer(AppNavigator);
+export { NavigationService };

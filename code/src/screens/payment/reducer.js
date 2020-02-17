@@ -1,8 +1,13 @@
-import { SET_CREDIT_AMOUNT_OPTIONS, SET_PAYMENT_METHODS } from '../../redux/types';
+import {
+  SET_CREDIT_AMOUNT_OPTIONS,
+  SET_PAYMENT_METHODS,
+  SET_NATIVE_PAY_SUPPORT,
+} from '../../redux/types';
 
 const initialState = {
   creditAmountOptions: null,
   paymentMethods: [],
+  isNativePaySupported: false,
 };
 
 const paymentReducer = (state = initialState, action) => {
@@ -13,6 +18,11 @@ const paymentReducer = (state = initialState, action) => {
         ...action.payload,
       };
     case SET_PAYMENT_METHODS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_NATIVE_PAY_SUPPORT:
       return {
         ...state,
         ...action.payload,

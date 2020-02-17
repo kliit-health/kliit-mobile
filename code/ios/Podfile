@@ -28,12 +28,10 @@ target 'klit' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 #  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
@@ -43,6 +41,4 @@ target 'klit' do
   pod 'Firebase/Functions'
 
   use_native_modules!
-  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
-
 end

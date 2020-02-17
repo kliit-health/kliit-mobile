@@ -40,6 +40,7 @@ const Constant = {
     colors: {
       offWhiteColor: '#F9F9F9',
       redColorLogout: '#D41F08',
+      redColorExpired: '#d92405',
       blueColor: '#008AFC',
       chatHighLightedBgColor: '#C3CBDE',
       blueColorCreditText: '#002272',

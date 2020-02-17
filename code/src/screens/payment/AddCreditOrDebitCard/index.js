@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
 import Language from '../../../utils/localization';
 import CustomText from '../../../components/customText';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -40,7 +34,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
         >
           <Image
             style={styles.crossBottom}
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.crossIcon}
           />
         </TouchableOpacity>
@@ -52,19 +46,13 @@ class AddCreditOrDebitCard extends React.PureComponent {
     );
   }
   renderInputTextView() {
-    const {
-      firstName,
-      lastName,
-      cardNumber,
-      securityCode,
-      expireDate,
-    } = this.state;
+    const { firstName, lastName, cardNumber, securityCode, expireDate } = this.state;
 
     return (
       <View style={styles.parentContainerStyle}>
         <View style={styles.inputTextMargin}>
           <CustomInputText
-            autoCapitalize="words"
+            autoCapitalize='words'
             onChangeText={value => this.setState({ cardNumber: value })}
             placeholder={lang.addCreditCardData.cardNumber}
             value={cardNumber}
@@ -79,22 +67,35 @@ class AddCreditOrDebitCard extends React.PureComponent {
         <View style={styles.inputTextContainerStyle}>
           <View>
             <CustomInputText
-              autoCapitalize="words"
-              onChangeText={value => this.setState({ expireDate: value })}
+              maxLength={5}
+              keyboardType={'number-pad'}
+              autoCapitalize='words'
+              onChangeText={value => {
+                var formatted = value;
+                if (value.length == 2) {
+                  if (this.state.expireDate.indexOf('/') == -1) {
+                    formatted = value + '/';
+                  } else {
+                    formatted = value;
+                  }
+                }
+                this.setState({ expireDate: formatted });
+              }}
               placeholder={lang.addCreditCardData.expireDate}
               value={expireDate}
               style={
                 (expireDate
                   ? styles.inputTypeStyle
                   : [styles.inputTypeStyle, { fontWeight: '100' }],
-                  styles.expireDateWidh)
+                styles.expireDateWidh)
               }
               placeholderTextColor={Constant.App.colors.blackColor}
             />
           </View>
           <View>
             <CustomInputText
-              autoCapitalize="words"
+              maxLength={3}
+              autoCapitalize='words'
               onChangeText={value => this.setState({ securityCode: value })}
               placeholder={lang.addCreditCardData.securityCode}
               value={securityCode}
@@ -102,7 +103,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
                 (securityCode
                   ? styles.inputTypeStyle
                   : [styles.inputTypeStyle, { fontWeight: '100' }],
-                  styles.securityCodeWidth)
+                styles.securityCodeWidth)
               }
               placeholderTextColor={Constant.App.colors.blackColor}
             />
@@ -111,7 +112,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
 
         <View style={styles.inputTextMargin}>
           <CustomInputText
-            autoCapitalize="words"
+            autoCapitalize='words'
             onChangeText={value => this.setState({ firstName: value })}
             placeholder={lang.addCreditCardData.firstName}
             value={firstName}
@@ -125,7 +126,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
         </View>
         <View style={styles.inputTextMargin}>
           <CustomInputText
-            autoCapitalize="words"
+            autoCapitalize='words'
             onChangeText={value => this.setState({ lastName: value })}
             placeholder={lang.addCreditCardData.lastName}
             value={lastName}
@@ -142,13 +143,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
   }
   renderButtonView() {
     const { paymentCard, navigation } = this.props;
-    const {
-      firstName,
-      lastName,
-      cardNumber,
-      securityCode,
-      expireDate,
-    } = this.state;
+    const { firstName, lastName, cardNumber, securityCode, expireDate } = this.state;
     return (
       <View style={styles.parentContainerStyle}>
         <CustomButton
@@ -180,7 +175,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
       <View style={styles.parentContainerStyle}>
         <Image
           style={styles.lockImage}
-          resizeMode="contain"
+          resizeMode='contain'
           source={staticImages.lockIcon}
         />
         <CustomText style={styles.footerTextStyle}>
@@ -194,7 +189,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
       <View style={styles.container}>
         {this.renderHeaderView()}
         <ScrollView
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
           showsVerticalScrollIndicator={false}
         >
           {this.renderInputTextView()}
@@ -212,7 +207,4 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   paymentCard: value => dispatch(createPaymentCard(value)),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddCreditOrDebitCard);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCreditOrDebitCard);

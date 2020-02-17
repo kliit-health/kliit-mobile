@@ -4,14 +4,14 @@ import Language from '../../utils/localization';
 const lang = Language.en;
 
 export const parseCardInfo = info => {
-  const { exp_month, exp_year, last4 } = info;
-  if (!exp_month || !exp_year || !last4) { return null; }
+  const { exp_month, exp_year, last4, id } = info;
+  if (!id || !exp_month || !exp_year || !last4) { return null; }
 
   const today = new Date();
   let expDate = new Date();
   expDate.setFullYear(exp_year, exp_month, 1);
 
-  return { last4Digits: last4, isExpired: expDate < today };
+  return { id, last4Digits: last4, isExpired: expDate < today };
 };
 
 export const PaymentMethodsTypes = {
@@ -19,11 +19,18 @@ export const PaymentMethodsTypes = {
   payPal: 'PayPal',
   addPaymentMethod: 'AddPaymentMethod',
   card: 'Card',
+  googlePay: 'GooglePay',
 };
 
-export const DefaultPaymentMethods = [
-  ...Platform.select({
-    android: [],
-    ios: [{ type: PaymentMethodsTypes.applePay, title: lang.buyingCredits.applePayTitle }],
-  }), { type: PaymentMethodsTypes.payPal, title: lang.buyingCredits.payPalTitle },
-];
+const NativePaymentMethod = Platform.select({
+  android: { type: PaymentMethodsTypes.googlePay, title: lang.buyingCredits.googlePayTitle },
+  ios: { type: PaymentMethodsTypes.applePay, title: lang.buyingCredits.applePayTitle },
+});
+
+const PayPalPaymentMethod = { type: PaymentMethodsTypes.payPal, title: lang.buyingCredits.payPalTitle };
+
+export const defaultPaymentMethods = (isNativePaySupported = false) => {
+  return isNativePaySupported ?
+    [NativePaymentMethod, PayPalPaymentMethod] :
+    [PayPalPaymentMethod];
+};

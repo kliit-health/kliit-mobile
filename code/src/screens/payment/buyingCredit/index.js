@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Platform } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import styles, { PaymentDropdownDimensions } from './style';
 import Constant from '../../../utils/constants';
@@ -9,8 +9,10 @@ import Language from '../../../utils/localization';
 import FlyingLabelIcon from '../../../components/FlyingLabelIcon';
 import CustomButton from '../../../components/customButton';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { getCreditAmountsOptions, getPaymentMethods } from '../action';
-import { DefaultPaymentMethods, PaymentMethodsTypes } from '../../../utils/helper/payment';
+import { getCreditAmountsOptions, getPaymentMethods, buyCreditsWithCard, buyCreditsWithToken } from '../action';
+import { defaultPaymentMethods, PaymentMethodsTypes } from '../../../utils/helper/payment';
+import { payWithNativeModule } from '../../../utils/payment';
+import { showOrHideModal } from '../../../components/customModal/action';
 
 const lang = Language.en;
 
@@ -75,10 +77,10 @@ class BuyingCredit extends React.PureComponent {
           </View>
           <View style={styles.footerContainer}>
             <CustomText style={styles.totalText}>
-              {this.currentTotal}
+              {this.currentTotalTitle}
             </CustomText>
             <CustomButton
-              onPress={() => { }}
+              onPress={() => this.buyCredits()}
               text={lang.buyingCredits.buyCredits}
               buttonStyle={styles.buyCreditsButton}
               textStyle={styles.buyCreditsButtonText}
@@ -115,10 +117,38 @@ class BuyingCredit extends React.PureComponent {
     );
   };
 
+  buyCredits = async () => {
+    const paymentMethod = this.state.paymentMethodOption;
+    const credits = this.currentCredits;
+    const amount = this.currentTotal;
+
+    if (paymentMethod.type === PaymentMethodsTypes.card) {
+      this.props.buyCredits(paymentMethod.id, credits, amount);
+    } else if (paymentMethod.type === PaymentMethodsTypes.applePay) {
+      await this.payUsingApplePay(credits, amount);
+    }
+  }
+
+  payUsingApplePay = async (credits, amount) => {
+    const response = await payWithNativeModule(credits, amount);
+
+    // User has no credit cards or user cancelled the operation
+    if (response === null) {
+      return;
+    }
+
+    if (response.ok) {
+      const cardTokenID = response.token.tokenId;
+      this.props.buyCreditsWithToken(cardTokenID, credits, amount);
+    } else {
+      this.props.showAlert(lang.errorMessage.serverError);
+    }
+  }
+
   renderPaymentMethodsDropdown = () => {
     const { navigation } = this.props;
     const paymentMethods = [
-      ...DefaultPaymentMethods,
+      ...defaultPaymentMethods(this.props.isNativePaySupported),
       ...this.props.paymentMethods.map(method => ({ ...method, type: PaymentMethodsTypes.card })),
       AddPaymentMethod,
     ];
@@ -247,17 +277,25 @@ class BuyingCredit extends React.PureComponent {
 
   amountDropdownDisplayOption = credits => credits + ' ' + this.creditsUnit;
 
-  currentAmountDisplayOption = () => {
+  get currentCredits() {
     const { amountOptions } = this.props;
     const index = this.state.amountOptionIndex;
-    const credits = amountOptions ? amountOptions[index].credits : 0;
+    return amountOptions ? amountOptions[index].credits : 0;
+  }
+
+  currentAmountDisplayOption = () => {
+    const credits = this.currentCredits;
     return this.amountDropdownDisplayOption(credits);
   };
 
   get currentTotal() {
     const { amountOptions } = this.props;
     const index = this.state.amountOptionIndex;
-    const amount = amountOptions ? amountOptions[index].amount : 0;
+    return amountOptions ? amountOptions[index].amount : 0;
+  }
+
+  get currentTotalTitle() {
+    const amount = this.currentTotal;
     return `${lang.buyingCredits.totalTitle}: $${amount}`;
   }
 
@@ -275,11 +313,15 @@ const mapStateToProps = state => ({
   userData: state.authLoadingReducer.userData,
   amountOptions: state.paymentReducer.creditAmountOptions,
   paymentMethods: state.paymentReducer.paymentMethods.filter(method => !method.isExpired),
+  isNativePaySupported: state.paymentReducer.isNativePaySupported,
 });
 
 const mapDispatchToProps = dispatch => ({
   getCreditAmountOptions: () => dispatch(getCreditAmountsOptions()),
   getPaymentMethods: () => dispatch(getPaymentMethods()),
+  buyCredits: (cardID, credits, amount) => dispatch(buyCreditsWithCard(cardID, credits, amount)),
+  buyCreditsWithToken: (tokenID, credits, amount) => dispatch(buyCreditsWithToken(tokenID, credits, amount)),
+  showAlert: (message) => dispatch(showOrHideModal(message)),
 });
 
 export default connect(
