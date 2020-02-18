@@ -9,14 +9,27 @@ import Language from '../../../utils/localization';
 import FlyingLabelIcon from '../../../components/FlyingLabelIcon';
 import CustomButton from '../../../components/customButton';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { getCreditAmountsOptions, getPaymentMethods, buyCreditsWithCard, buyCreditsWithToken } from '../action';
-import { defaultPaymentMethods, PaymentMethodsTypes } from '../../../utils/helper/payment';
+import {
+  getCreditAmountsOptions,
+  getPaymentMethods,
+  buyCreditsWithCard,
+  buyCreditsWithToken,
+  buyCreditsUsingPayPal,
+} from '../action';
+import {
+  defaultPaymentMethods,
+  PaymentMethodsTypes,
+} from '../../../utils/helper/payment';
 import { payWithNativeModule } from '../../../utils/payment';
 import { showOrHideModal } from '../../../components/customModal/action';
+import { WebView } from 'react-native-webview';
 
 const lang = Language.en;
 
-const AddPaymentMethod = { type: PaymentMethodsTypes.addPaymentMethod, title: lang.buyingCredits.addPaymentMethod };
+const AddPaymentMethod = {
+  type: PaymentMethodsTypes.addPaymentMethod,
+  title: lang.buyingCredits.addPaymentMethod,
+};
 
 class BuyingCredit extends React.PureComponent {
   constructor(props) {
@@ -31,6 +44,13 @@ class BuyingCredit extends React.PureComponent {
     this.creditsUnit = lang.askUser.credits.toLowerCase();
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.approvalUrl) {
+      this.props.navigation.navigate(Constant.App.screenNames.PayPalApproval);
+    }
+  }
+
   render() {
     const { navigation, userData } = this.props;
 
@@ -43,9 +63,7 @@ class BuyingCredit extends React.PureComponent {
               source={Constant.App.staticImages.xCloseIcon}
               onPress={() => navigation.dismiss()}
             />
-            <CustomText style={styles.title}>
-              {lang.buyingCredits.title}
-            </CustomText>
+            <CustomText style={styles.title}>{lang.buyingCredits.title}</CustomText>
           </View>
           <View style={styles.optionsContainer}>
             <FlyingLabelIcon
@@ -70,15 +88,12 @@ class BuyingCredit extends React.PureComponent {
               title={lang.buyingCredits.paymentTitle}
               label={this.currentPaymentMethodTitle}
               onPress={() => {
-                this.paymentMethodsDropdown &&
-                  this.paymentMethodsDropdown.show();
+                this.paymentMethodsDropdown && this.paymentMethodsDropdown.show();
               }}
             />
           </View>
           <View style={styles.footerContainer}>
-            <CustomText style={styles.totalText}>
-              {this.currentTotalTitle}
-            </CustomText>
+            <CustomText style={styles.totalText}>{this.currentTotalTitle}</CustomText>
             <CustomButton
               onPress={() => this.buyCredits()}
               text={lang.buyingCredits.buyCredits}
@@ -92,7 +107,6 @@ class BuyingCredit extends React.PureComponent {
       </View>
     );
   }
-
   renderAmountDropdown = () => {
     return (
       <View style={styles.amountDropdownContainer}>
@@ -104,7 +118,7 @@ class BuyingCredit extends React.PureComponent {
           dropdownStyle={styles.amountDropdown}
           options={this.props.amountOptions}
           defaultIndex={0}
-          defaultValue=""
+          defaultValue=''
           showsVerticalScrollIndicator={false}
           renderRow={this.renderAmountDropdownCell}
           renderSeparator={() => null}
@@ -126,8 +140,10 @@ class BuyingCredit extends React.PureComponent {
       this.props.buyCredits(paymentMethod.id, credits, amount);
     } else if (paymentMethod.type === PaymentMethodsTypes.applePay) {
       await this.payUsingApplePay(credits, amount);
+    } else if (paymentMethod.type === PaymentMethodsTypes.payPal) {
+      this.props.buyCreditsUsingPayPal(credits, amount);
     }
-  }
+  };
 
   payUsingApplePay = async (credits, amount) => {
     const response = await payWithNativeModule(credits, amount);
@@ -143,18 +159,27 @@ class BuyingCredit extends React.PureComponent {
     } else {
       this.props.showAlert(lang.errorMessage.serverError);
     }
-  }
+  };
 
   renderPaymentMethodsDropdown = () => {
     const { navigation } = this.props;
     const paymentMethods = [
       ...defaultPaymentMethods(this.props.isNativePaySupported),
-      ...this.props.paymentMethods.map(method => ({ ...method, type: PaymentMethodsTypes.card })),
+      ...this.props.paymentMethods.map(method => ({
+        ...method,
+        type: PaymentMethodsTypes.card,
+      })),
       AddPaymentMethod,
     ];
 
-    const { cellHeight, marginVertical, marginRight, marginBottom } = PaymentDropdownDimensions;
-    const dropDownViewHeight = Math.min(paymentMethods.length, 6) * cellHeight + marginVertical;
+    const {
+      cellHeight,
+      marginVertical,
+      marginRight,
+      marginBottom,
+    } = PaymentDropdownDimensions;
+    const dropDownViewHeight =
+      Math.min(paymentMethods.length, 6) * cellHeight + marginVertical;
 
     return (
       <View style={styles.paymentMethodsDropdownContainer}>
@@ -165,7 +190,7 @@ class BuyingCredit extends React.PureComponent {
           dropdownStyle={styles.paymentMethodsDropdown}
           options={paymentMethods}
           defaultIndex={paymentMethods.length > 0 ? 0 : -1}
-          defaultValue=""
+          defaultValue=''
           showsVerticalScrollIndicator={false}
           renderRow={this.renderPaymentDropdownCell}
           renderSeparator={() => null}
@@ -177,7 +202,11 @@ class BuyingCredit extends React.PureComponent {
             }
           }}
           adjustFrame={_ => {
-            return { height: dropDownViewHeight, right: marginRight, bottom: marginBottom };
+            return {
+              height: dropDownViewHeight,
+              right: marginRight,
+              bottom: marginBottom,
+            };
           }}
         />
       </View>
@@ -219,10 +248,7 @@ class BuyingCredit extends React.PureComponent {
   renderAddPaymentMethodCell = () => {
     return (
       <View style={styles.addPaymentMethodCell}>
-        <Image
-          source={Constant.App.staticImages.addIcon}
-          style={styles.addPaymentIcon}
-        />
+        <Image source={Constant.App.staticImages.addIcon} style={styles.addPaymentIcon} />
         <CustomText style={styles.addPaymentTitle}>
           {lang.buyingCredits.addPaymentMethod}
         </CustomText>
@@ -236,14 +262,12 @@ class BuyingCredit extends React.PureComponent {
         <Image
           source={Constant.App.staticImages.payPalIcon}
           style={styles.payPalIcon}
-          resizeMode="contain"
+          resizeMode='contain'
         />
-        <CustomText style={styles.paymentMethodNumber}>
-          {title}
-        </CustomText>
+        <CustomText style={styles.paymentMethodNumber}>{title}</CustomText>
       </View>
     );
-  }
+  };
 
   renderApplePayCell = title => {
     return (
@@ -252,12 +276,10 @@ class BuyingCredit extends React.PureComponent {
           source={Constant.App.staticImages.applePayIcon}
           style={styles.applePayIcon}
         />
-        <CustomText style={styles.paymentMethodNumber}>
-          {title}
-        </CustomText>
+        <CustomText style={styles.paymentMethodNumber}>{title}</CustomText>
       </View>
     );
-  }
+  };
 
   renderAmountDropdownCell = (option, _, isSelected) => {
     const cellColor = isSelected
@@ -265,9 +287,7 @@ class BuyingCredit extends React.PureComponent {
       : Constant.App.colors.whiteColor;
 
     return (
-      <View
-        style={{ ...styles.amountDropdownCell, backgroundColor: cellColor }}
-      >
+      <View style={{ ...styles.amountDropdownCell, backgroundColor: cellColor }}>
         <CustomText style={styles.amountDropdownOption}>
           {this.amountDropdownDisplayOption(option.credits)}
         </CustomText>
@@ -319,12 +339,13 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCreditAmountOptions: () => dispatch(getCreditAmountsOptions()),
   getPaymentMethods: () => dispatch(getPaymentMethods()),
-  buyCredits: (cardID, credits, amount) => dispatch(buyCreditsWithCard(cardID, credits, amount)),
-  buyCreditsWithToken: (tokenID, credits, amount) => dispatch(buyCreditsWithToken(tokenID, credits, amount)),
-  showAlert: (message) => dispatch(showOrHideModal(message)),
+  buyCredits: (cardID, credits, amount) =>
+    dispatch(buyCreditsWithCard(cardID, credits, amount)),
+  buyCreditsWithToken: (tokenID, credits, amount) =>
+    dispatch(buyCreditsWithToken(tokenID, credits, amount)),
+  buyCreditsUsingPayPal: (credits, amount) =>
+    dispatch(buyCreditsUsingPayPal(credits, amount)),
+  showAlert: message => dispatch(showOrHideModal(message)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BuyingCredit);
+export default connect(mapStateToProps, mapDispatchToProps)(BuyingCredit);

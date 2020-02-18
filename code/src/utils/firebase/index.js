@@ -1452,14 +1452,19 @@ export async function payAmount(cardID, amount) {
 }
 
 export async function payAmountWithToken(tokenID, amount) {
-    try {
-        const amountInCents = Number(amount) * 100;
-        const response = await firebase.functions().httpsCallable('apiPaymentsPayAmountApplePay')({ token_id: tokenID, amount: amountInCents });
-        return { ok: response };
-    } catch (err) {
-        let status = err.status ? err.status : 'internal';
-        return { ok: false, status };
-    }
+  try {
+    const amountInCents = Number(amount) * 100;
+    const response = await firebase
+      .functions()
+      .httpsCallable('apiPaymentsPayAmountApplePay')({
+      token_id: tokenID,
+      amount: amountInCents,
+    });
+    return { ok: response };
+  } catch (err) {
+    let status = err.status ? err.status : 'internal';
+    return { ok: false, status };
+  }
 }
 
 export async function addUserCredits(credits) {
@@ -1481,5 +1486,17 @@ export async function addUserCredits(credits) {
     return { ok: true };
   } catch (err) {
     return { ok: false, status: 'internal' };
+  }
+}
+
+export async function getPayPalAccessToken() {
+  try {
+    const response = await firebase
+      .functions()
+      .httpsCallable('apiPaymentsGetPaypalAccesstoken')();
+    return { ok: true, data: response };
+  } catch (err) {
+    let status = err.status ? err.status : 'internal';
+    return { ok: false, status };
   }
 }

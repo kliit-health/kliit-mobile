@@ -120,6 +120,7 @@ const Constant = {
       BuyingCredit: 'BuyingCredit',
       AddCreditOrDebitCard: 'AddCreditOrDebitCard',
       PaymentMethods: 'PaymentMethods',
+      PayPalApproval: 'PayPalApproval',
     },
     fontFamily: {
       headerRegular: 'Poppins-Regular',

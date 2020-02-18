@@ -7,6 +7,8 @@ import {
   GET_PAYMENT_METHODS,
   BUY_CREDITS_WITH_CARD,
   BUY_CREDITS_WITH_TOKEN,
+  BUY_CREDITS_WITH_PAYPAL,
+  CAPTURE_PAYMENT,
 } from '../../redux/types';
 import {
   addNewPaymentCard,
@@ -15,13 +17,18 @@ import {
   payAmount,
   addUserCredits,
   payAmountWithToken,
+  getPayPalAccessToken,
 } from '../../utils/firebase';
+
+import { createPayPalOrder, capturePayPalPaymentAPI } from '../../utils/webServices';
 import {
   createPaymentCard,
   setCreditAmountsOptions,
   setPaymentMethods,
   setNativePaySupport,
+  setOrderData,
 } from './action';
+
 import { showOrHideModal } from '../../components/customModal/action';
 import { parseCardInfo } from '../../utils/helper/payment';
 import { NavigationService } from '../../navigator';
@@ -104,10 +111,43 @@ function* buyCreditsWithToken({ payload: { tokenID, credits, amount } }) {
   yield handlePayResponse(response, credits);
 }
 
+function* buytCreditsWithPayPal({ payload: { credits, amount } }) {
+  yield put(showApiLoader(Lang.apiLoader.loadingText));
+  let response = yield call(getPayPalAccessToken);
+  yield put(hideApiLoader());
+  if (response.ok) {
+    let accessToken = response.data.data;
+    yield put(showApiLoader(Lang.apiLoader.loadingText));
+    let paypalResponse = yield call(createPayPalOrder, accessToken, amount);
+    yield put(hideApiLoader());
+    console.log(paypalResponse);
+    yield put(setOrderData(paypalResponse));
+  } else {
+    yield put(showOrHideModal(Lang.errorMessage.serverError));
+  }
+}
+
+function* capturePayPalPayment({ payload: { capturePaymentURL } }) {
+  yield put(showApiLoader(Lang.apiLoader.loadingText));
+  let response = yield call(getPayPalAccessToken);
+  yield put(hideApiLoader());
+  if (response.ok) {
+    let accessToken = response.data.data;
+    yield put(showApiLoader(Lang.apiLoader.loadingText));
+    yield call(capturePayPalPaymentAPI, accessToken, capturePaymentURL);
+    yield put(hideApiLoader());
+    yield handlePayResponse({ ok: true }, credits);
+  } else {
+    yield put(showOrHideModal(Lang.errorMessage.serverError));
+  }
+}
+
 export default function* paymentSaga() {
   yield takeLatest(CREATE_PAYMENT_CARD, createPayment);
   yield takeLatest(GET_CREDIT_AMOUNT_OPTIONS, getCreditAmounts);
   yield takeLatest(GET_PAYMENT_METHODS, getPaymentMethods);
   yield takeLatest(BUY_CREDITS_WITH_CARD, buyCredits);
   yield takeLatest(BUY_CREDITS_WITH_TOKEN, buyCreditsWithToken);
+  yield takeLatest(BUY_CREDITS_WITH_PAYPAL, buytCreditsWithPayPal);
+  yield takeLatest(CAPTURE_PAYMENT, capturePayPalPayment);
 }

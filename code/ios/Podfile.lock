@@ -207,6 +207,8 @@ PODS:
     - React
   - react-native-image-picker (1.0.2):
     - React
+  - react-native-webview (8.1.0):
+    - React
   - React-RCTActionSheet (0.60.4):
     - React-Core (= 0.60.4)
   - React-RCTAnimation (0.60.4):
@@ -273,6 +275,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -346,6 +349,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-timer"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -418,6 +423,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 73f24a02fa684ed6a2b828ba116874a2191ded88
   react-native-background-timer: 0d34748e53a972507c66963490c775321a88f6f2
   react-native-image-picker: 4c1d9b0377a3291d9b9a0e65c89e87d435e74516
+  react-native-webview: f686ed60541ed7291cb1c2aad56b96c86352cb87
   React-RCTActionSheet: 9f71d7ae3e8fb10e08d162cbf14c621349dbfab3
   React-RCTAnimation: 981d8c95b0e30918a9832ccac32af83562a27fae
   React-RCTBlob: 21e73d1020a302a75fed30dbaee9f15287b80baa
@@ -436,6 +442,6 @@ SPEC CHECKSUMS:
   tipsi-stripe: 3e0073c7eec0b2bfd1d1d5736d843c22e3024485
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
-PODFILE CHECKSUM: a542683209f1b8d359db02d4dfdb74c01af40a21
+PODFILE CHECKSUM: 903f3dd7c35566e167cbaa453c59ebf5d16a1395
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.5
