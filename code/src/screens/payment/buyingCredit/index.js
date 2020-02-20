@@ -44,16 +44,9 @@ class BuyingCredit extends React.PureComponent {
     this.creditsUnit = lang.askUser.credits.toLowerCase();
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    if (nextProps.approvalUrl) {
-      this.props.navigation.navigate(Constant.App.screenNames.PayPalApproval);
-    }
-  }
-
   render() {
     const { navigation, userData } = this.props;
-
+    console.log(userData);
     return (
       <View style={styles.topContainer}>
         <View style={styles.container}>
@@ -135,13 +128,15 @@ class BuyingCredit extends React.PureComponent {
     const paymentMethod = this.state.paymentMethodOption;
     const credits = this.currentCredits;
     const amount = this.currentTotal;
-
+    if (credits <= 0) {
+      return;
+    }
     if (paymentMethod.type === PaymentMethodsTypes.card) {
       this.props.buyCredits(paymentMethod.id, credits, amount);
     } else if (paymentMethod.type === PaymentMethodsTypes.applePay) {
       await this.payUsingApplePay(credits, amount);
     } else if (paymentMethod.type === PaymentMethodsTypes.payPal) {
-      this.props.buyCreditsUsingPayPal(credits, amount);
+      this.props.buyCreditsUsingPayPal(credits, amount, this.props.navigation);
     }
   };
 
@@ -334,6 +329,7 @@ const mapStateToProps = state => ({
   amountOptions: state.paymentReducer.creditAmountOptions,
   paymentMethods: state.paymentReducer.paymentMethods.filter(method => !method.isExpired),
   isNativePaySupported: state.paymentReducer.isNativePaySupported,
+  orderData: state.paymentReducer.orderData,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -343,8 +339,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(buyCreditsWithCard(cardID, credits, amount)),
   buyCreditsWithToken: (tokenID, credits, amount) =>
     dispatch(buyCreditsWithToken(tokenID, credits, amount)),
-  buyCreditsUsingPayPal: (credits, amount) =>
-    dispatch(buyCreditsUsingPayPal(credits, amount)),
+  buyCreditsUsingPayPal: (credits, amount, navigation) =>
+    dispatch(buyCreditsUsingPayPal(credits, amount, navigation)),
   showAlert: message => dispatch(showOrHideModal(message)),
 });
 

@@ -1427,11 +1427,19 @@ export async function addNewPaymentCard(obj) {
 export async function getPaymentMethods() {
   try {
     const response = await firebase.functions().httpsCallable('apiPaymentsListCards')();
-    return {
-      ok: true,
-      data: response.data.data.map(data => ({ ...data.card, id: data.id })),
-    };
+    if (response.data.data) {
+      return {
+        ok: true,
+        data: response.data.data.map(data => ({ ...data.card, id: data.id })),
+      };
+    } else {
+      return {
+        ok: true,
+        data: [],
+      };
+    }
   } catch (err) {
+    console.log('ERRROROROROROROROROROR', err);
     let status = err.status ? err.status : 'internal';
     return { ok: false, status };
   }

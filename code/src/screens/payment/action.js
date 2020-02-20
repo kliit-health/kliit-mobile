@@ -57,17 +57,18 @@ export const buyCreditsWithToken = (tokenID, credits, amount) => ({
   },
 });
 
-export const buyCreditsUsingPayPal = (credits, amount) => ({
+export const buyCreditsUsingPayPal = (credits, amount, navigation) => ({
   type: BUY_CREDITS_WITH_PAYPAL,
   payload: {
     credits,
     amount,
+    navigation,
   },
 });
 
-export const capturePayment = capturePaymentURL => ({
+export const capturePayment = (capturePaymentURL, credits) => ({
   type: CAPTURE_PAYMENT,
-  payload: { capturePaymentURL },
+  payload: { capturePaymentURL, credits },
 });
 
 export const setOrderData = orderData => ({

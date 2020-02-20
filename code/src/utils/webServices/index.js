@@ -117,9 +117,10 @@ export function capturePayPalPaymentAPI(accessToken, capturePaymentURL) {
     })
     .catch(err => {
       console.log({ ...err });
+      return { ok: false };
     });
 }
-export function createPayPalOrder(accessToken, amount) {
+export function createPayPalOrder(accessToken, amount, credits) {
   const dataDetail = {
     intent: 'CAPTURE',
     purchase_units: [
@@ -156,6 +157,7 @@ export function createPayPalOrder(accessToken, amount) {
       return {
         approvalUrl: approvalUrl.href,
         capturePaymentURL: captureUrl.href,
+        credits: credits,
       };
     })
     .catch(err => {

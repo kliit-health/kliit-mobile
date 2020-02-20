@@ -9,6 +9,7 @@ const initialState = {
   creditAmountOptions: null,
   paymentMethods: [],
   isNativePaySupported: false,
+  orderData: null,
 };
 
 const paymentReducer = (state = initialState, action) => {
