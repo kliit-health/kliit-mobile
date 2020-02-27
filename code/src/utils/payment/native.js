@@ -10,10 +10,8 @@ stripe.setOptions({
 export const deviceSupportsNativePay = async () => {
   // Disable android pay and check if iOS devices
   // supports apple pay since iPhone 5S and below don't support
-  return Platform.select({
-    android: false,
-    ios: await stripe.deviceSupportsNativePay(),
-  });
+
+  return Platform.OS === 'ios' ? await stripe.deviceSupportsNativePay() : false;
 };
 
 const payWithNativeModule = async (credits, amount) => {
