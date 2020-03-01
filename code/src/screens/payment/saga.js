@@ -55,6 +55,7 @@ function* createPayment({ data }) {
     yield getPaymentMethods();
     yield put(hideApiLoader());
     if (response.ok) {
+      yield put(showOrHideModal(Lang.successMessages.cardAddedSuccessfully));
       navigation.goBack();
     } else {
       yield put(showOrHideModal(Lang.errorMessage.serverError));
@@ -87,6 +88,7 @@ function* handlePayResponse(response, credits) {
     response = yield call(addUserCredits, credits);
 
     if (response.ok) {
+      yield put(showOrHideModal(Lang.successMessages.creditAddedSuccessfully));
       NavigationService.goBack();
     }
   }

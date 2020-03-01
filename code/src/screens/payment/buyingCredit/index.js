@@ -22,7 +22,6 @@ import {
 } from '../../../utils/helper/payment';
 import { payWithNativeModule } from '../../../utils/payment';
 import { showOrHideModal } from '../../../components/customModal/action';
-import { WebView } from 'react-native-webview';
 
 const lang = Language.en;
 
@@ -111,7 +110,7 @@ class BuyingCredit extends React.PureComponent {
           dropdownStyle={styles.amountDropdown}
           options={this.props.amountOptions}
           defaultIndex={0}
-          defaultValue=''
+          defaultValue=""
           showsVerticalScrollIndicator={false}
           renderRow={this.renderAmountDropdownCell}
           renderSeparator={() => null}
@@ -137,6 +136,8 @@ class BuyingCredit extends React.PureComponent {
       await this.payUsingApplePay(credits, amount);
     } else if (paymentMethod.type === PaymentMethodsTypes.payPal) {
       this.props.buyCreditsUsingPayPal(credits, amount, this.props.navigation);
+    } else {
+      this.props.showAlert(Language.en.buyingCredits.selectPaymentMethod);
     }
   };
 
@@ -185,7 +186,7 @@ class BuyingCredit extends React.PureComponent {
           dropdownStyle={styles.paymentMethodsDropdown}
           options={paymentMethods}
           defaultIndex={paymentMethods.length > 0 ? 0 : -1}
-          defaultValue=''
+          defaultValue=""
           showsVerticalScrollIndicator={false}
           renderRow={this.renderPaymentDropdownCell}
           renderSeparator={() => null}
@@ -257,7 +258,7 @@ class BuyingCredit extends React.PureComponent {
         <Image
           source={Constant.App.staticImages.payPalIcon}
           style={styles.payPalIcon}
-          resizeMode='contain'
+          resizeMode="contain"
         />
         <CustomText style={styles.paymentMethodNumber}>{title}</CustomText>
       </View>
@@ -316,7 +317,7 @@ class BuyingCredit extends React.PureComponent {
 
   get currentPaymentMethodTitle() {
     const option = this.state.paymentMethodOption;
-    if (option.type == PaymentMethodsTypes.card) {
+    if (option.type === PaymentMethodsTypes.card) {
       return `···· ${option.last4Digits}`;
     } else {
       return option.title;

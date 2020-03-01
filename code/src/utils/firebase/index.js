@@ -1278,8 +1278,6 @@ export function getRecentExpertsData(obj, success, error) {
       .where(obj.key, '==', obj.value);
     return ref.onSnapshot(success, error);
   } catch (error) {
-    displayConsole('Crash error', error);
-    displayConsole('--------------**** getRecentExpertsData End ********-----------\n\n');
     return false;
   }
 }
@@ -1297,8 +1295,6 @@ export function getExpertsData(obj, success, error) {
     }
     return collection.onSnapshot(success, error);
   } catch (error) {
-    displayConsole('Crash error', error);
-    displayConsole('--------------**** getExpertsData End ********-----------\n\n');
     return false;
   }
 }
@@ -1491,7 +1487,7 @@ export async function addUserCredits(credits) {
       .update({
         credits: userData.credits + credits,
       });
-    return { ok: true };
+    return { ok: true, newCredits:  userData.credits + credits };
   } catch (err) {
     return { ok: false, status: 'internal' };
   }
