@@ -1,27 +1,28 @@
-import React from 'react'
+import React from 'react';
 import {
   View,
   ScrollView,
   Image,
   TouchableOpacity,
-  Linking
-} from 'react-native'
-import { connect } from 'react-redux'
-import CustomText from '../../components/customText'
-import styles from './style'
-import Constant from '../../utils/constants'
-import CustomInputText from '../../components/customInputText'
-import Language from '../../utils/localization'
-import CustomButton from '../../components/customButton'
-import { isEmail, hasSpecialCharactors } from '../../utils/helper'
-import { showOrHideModal } from '../../components/customModal/action'
-import { createUser } from './action'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
+  Linking,
+  Platform,
+} from 'react-native';
+import { connect } from 'react-redux';
+import CustomText from '../../components/customText';
+import styles from './style';
+import Constant from '../../utils/constants';
+import CustomInputText from '../../components/customInputText';
+import Language from '../../utils/localization';
+import CustomButton from '../../components/customButton';
+import { isEmail, hasSpecialCharactors } from '../../utils/helper';
+import { showOrHideModal } from '../../components/customModal/action';
+import { createUser } from './action';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-let lang = Language['en']
+let lang = Language.en;
 class SignUp extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -29,16 +30,13 @@ class SignUp extends React.PureComponent {
       isUser: true,
       isPasswordHasSpecialChar: false,
       isPasswordContainsSevenChar: false,
-      referralCode: ''
-      // secretKey: '',
-      // referralCodeEditable: true,
-      // secretKeyEditable: true,
-    }
+      referralCode: '',
+    };
   }
 
   renderInputTextView() {
-    const { email, password, showPassword } = this.state
-    const { staticImages } = Constant.App
+    const { email, password, showPassword } = this.state;
+    const { staticImages } = Constant.App;
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
@@ -59,16 +57,16 @@ class SignUp extends React.PureComponent {
           <CustomInputText
             autoCapitalize="none"
             onChangeText={value => {
-              this.setState({ password: value })
+              this.setState({ password: value });
               if (value.trim().length < 7) {
-                this.setState({ isPasswordContainsSevenChar: false })
+                this.setState({ isPasswordContainsSevenChar: false });
               } else {
-                this.setState({ isPasswordContainsSevenChar: true })
+                this.setState({ isPasswordContainsSevenChar: true });
               }
               if (hasSpecialCharactors(value)) {
-                this.setState({ isPasswordHasSpecialChar: true })
+                this.setState({ isPasswordHasSpecialChar: true });
               } else {
-                this.setState({ isPasswordHasSpecialChar: false })
+                this.setState({ isPasswordHasSpecialChar: false });
               }
             }}
             placeholder={lang.login.Password}
@@ -96,7 +94,7 @@ class SignUp extends React.PureComponent {
           </TouchableOpacity>
         </View>
       </View>
-    )
+    );
   }
 
   renderTermsConditionsView() {
@@ -107,7 +105,7 @@ class SignUp extends React.PureComponent {
         </CustomText>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL(Constant.App.termsAndConditionsUrl)
+            Linking.openURL(Constant.App.termsAndConditionsUrl);
           }}
         >
           <CustomText style={styles.termsConditionsTextHighlightedStyle}>
@@ -119,7 +117,7 @@ class SignUp extends React.PureComponent {
         </CustomText>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL(Constant.App.privacyPolicyurl)
+            Linking.openURL(Constant.App.privacyPolicyurl);
           }}
         >
           <CustomText style={styles.termsConditionsTextHighlightedStyle}>
@@ -127,16 +125,16 @@ class SignUp extends React.PureComponent {
           </CustomText>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   renderCrossIconView() {
-    const { navigation } = this.props
-    const { staticImages } = Constant.App
+    const { navigation } = this.props;
+    const { staticImages } = Constant.App;
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.goBack()
+          navigation.goBack();
         }}
       >
         <Image
@@ -145,18 +143,18 @@ class SignUp extends React.PureComponent {
           style={styles.backIconStyle}
         />
       </TouchableOpacity>
-    )
+    );
   }
 
   renderLogoView() {
-    const { staticImages } = Constant.App
+    const { staticImages } = Constant.App;
     return (
       <Image
         resizeMode="contain"
         source={staticImages.loginLogoImage}
         style={styles.logoStyle}
       />
-    )
+    );
   }
 
   renderTitleView() {
@@ -169,12 +167,12 @@ class SignUp extends React.PureComponent {
           {lang.signUp.titleText2}
         </CustomText>
       </View>
-    )
+    );
   }
 
   renderPasswordValidationView() {
-    const { staticImages } = Constant.App
-    const { isPasswordContainsSevenChar, isPasswordHasSpecialChar } = this.state
+    const { staticImages } = Constant.App;
+    const { isPasswordContainsSevenChar, isPasswordHasSpecialChar } = this.state;
     return (
       <View>
         <View style={styles.passwordValidationContainerStyle}>
@@ -206,27 +204,27 @@ class SignUp extends React.PureComponent {
           </CustomText>
         </View>
       </View>
-    )
+    );
   }
 
   renderButtonView() {
-    const { navigation, showHideErrorModal, signUp } = this.props
-    const { email, password, secretKey, referralCode } = this.state
+    const { navigation, showHideErrorModal, signUp } = this.props;
+    const { email, password, referralCode } = this.state;
     return (
       <CustomButton
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
         onPress={() => {
           if (!email.trim()) {
-            showHideErrorModal(lang.signUp.EmptyEmailMsg)
+            showHideErrorModal(lang.signUp.EmptyEmailMsg);
           } else if (!isEmail(email.trim())) {
-            showHideErrorModal(lang.signUp.InvalidEmailMsg)
+            showHideErrorModal(lang.signUp.InvalidEmailMsg);
           } else if (!password.trim()) {
-            showHideErrorModal(lang.signUp.EmptyPasswordMsg)
+            showHideErrorModal(lang.signUp.EmptyPasswordMsg);
           } else if (password.trim().length < 7) {
-            showHideErrorModal(lang.signUp.passwordLimitErrorMsg)
+            showHideErrorModal(lang.signUp.passwordLimitErrorMsg);
           } else if (!hasSpecialCharactors(password)) {
-            showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg)
+            showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg);
           }
           // else if (!secretKey && !referralCode) {
           //   showHideErrorModal(lang.signUp.secretReferralCodeErrorMsg);
@@ -235,18 +233,18 @@ class SignUp extends React.PureComponent {
             const data = {
               params: {
                 email: email.trim(),
-                password: password.trim()
+                password: password.trim(),
               },
               navigation,
               // secretKey,
-              referralCode
-            }
-            signUp(data)
+              referralCode,
+            };
+            signUp(data);
           }
         }}
         text={lang.signUp.signup}
       />
-    )
+    );
   }
 
   renderDescriptionView() {
@@ -254,38 +252,22 @@ class SignUp extends React.PureComponent {
       <CustomText style={styles.descriptionTextStyle}>
         {lang.signUp.description}
       </CustomText>
-    )
+    );
   }
 
   renderReferralSceretCodeView() {
     const {
-      referralCode
-      // secretKey,
-      // referralCodeEditable,
-      // secretKeyEditable,
-    } = this.state
-    // const { staticImages } = Constant.App;
+      referralCode,
+    } = this.state;
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.referralCodeInputTextContainerStyle}>
           <CustomInputText
-            // editable={referralCodeEditable}
             autoCapitalize="none"
             onChangeText={value => {
-              // value ?
-              //   this.setState({
-              //     referralCode: value,
-              //     secretKey: '',
-              //     secretKeyEditable: false,
-              //   }) :
-              //   this.setState({
-              //     referralCode: value,
-              //     secretKey: '',
-              //     secretKeyEditable: true,
-              //   })
               this.setState({
-                referralCode: value
-              })
+                referralCode: value,
+              });
             }}
             placeholder={lang.signUp.referralCode}
             value={referralCode}
@@ -297,34 +279,8 @@ class SignUp extends React.PureComponent {
             placeholderTextColor={Constant.App.colors.blackColor}
           />
         </View>
-        {/* <CustomText style={styles.orTextStyle}>
-          {lang.signUp.or}
-        </CustomText>
-        <View style={styles.referralCodeInputTextContainerStyle}>
-          <CustomInputText
-            editable={secretKeyEditable}
-            autoCapitalize="none"
-            onChangeText={value => {
-              value ?
-                this.setState({
-                  secretKey: value,
-                  referralCode: '',
-                  referralCodeEditable: false,
-                }) :
-                this.setState({
-                  secretKey: value,
-                  referralCode: '',
-                  referralCodeEditable: true,
-                })
-            }}
-            placeholder={lang.signUp.sceretKey}
-            value={secretKey}
-            style={secretKey ? styles.referralCodeInputTypeStyle : [styles.referralCodeInputTypeStyle, { fontWeight: '100' }]}
-            placeholderTextColor={Constant.App.colors.blackColor}
-          />
-        </View> */}
       </View>
-    )
+    );
   }
 
   render() {
@@ -348,18 +304,15 @@ class SignUp extends React.PureComponent {
         </ScrollView>
         {Platform.OS === 'ios' && <KeyboardSpacer />}
       </View>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  signUp: value => dispatch(createUser(value, dispatch))
-})
+  signUp: value => dispatch(createUser(value, dispatch)),
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
