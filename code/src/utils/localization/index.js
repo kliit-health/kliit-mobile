@@ -1,23 +1,23 @@
 const Language = {
   en: {
     apiLoader: {
-      loadingText: 'Loading..',
+      loadingText: 'Loading..'
     },
     errorMessage: {
       serverError: 'Something went wrong please try after some time',
       noDataAvailable: 'No data available',
       userNotExist: 'User does not exist',
       invalidSecretKey: 'Invalid secret key.',
-      invalidReferralCode: 'Invalid referral code.',
+      invalidReferralCode: 'Invalid referral code.'
     },
     tabs: {
       account: 'Account',
       ask: 'Ask',
-      learn: 'Learn',
+      learn: 'Learn'
     },
     tutorial: {
       signUp: 'Sign up',
-      login: 'Log In',
+      login: 'Log In'
     },
     login: {
       ForgotPassword: 'Forgot your password?',
@@ -30,7 +30,7 @@ const Language = {
       EmptyEmailMsg: 'Email is a required field.',
       InvalidEmailMsg:
         'Enter a valid email address. For example abc@domain.com.',
-      EmptyPasswordMsg: 'Password is a required field.',
+      EmptyPasswordMsg: 'Password is a required field.'
     },
     forgotPassword: {
       Submit: 'Submit',
@@ -38,7 +38,7 @@ const Language = {
       Title: 'Forgot Password',
       Subtitle: 'Please enter your registered email to reset your password',
       resetEmailSentMessage:
-        'A password reset message sent to your email address. Please click the link in that message to reset your password.',
+        'A password reset message sent to your email address. Please click the link in that message to reset your password.'
     },
     signUp: {
       titleText1: 'Hello!',
@@ -62,7 +62,7 @@ const Language = {
       secretReferralCodeErrorMsg: 'Please enter Referral code or Secret key.',
       referralCode: 'Referral code',
       sceretKey: 'Secret Key',
-      or: 'OR',
+      or: 'OR'
     },
     addProfileData: {
       title: 'Tell us more about you in your profile.',
@@ -80,13 +80,13 @@ const Language = {
       emptyLastNameMsg: 'Last name is a required field',
       emptyDobMsg: 'Your birthday is a required field',
       emptyStateSelectionMsg: 'State of residence is a required field',
-      emptyPronounsMsg: 'Your pronouns is a required field',
+      emptyPronounsMsg: 'Your pronouns is a required field'
     },
     getStarted: {
       title: 'Welcome to the Kliit app, ',
       content:
         "Now it's as easy as a text message to get your sexual and reproductive health questions answered by our experts. Got a question? Ask away\n\nThank you for joining kliit",
-      btnText: 'Get Started',
+      btnText: 'Get Started'
     },
     account: {
       logout: 'Logout',
@@ -95,14 +95,14 @@ const Language = {
       privacyPolicies: 'Privacy Policies',
       help: 'Help',
       rate: 'Rate us',
-      refer: 'Refer a Friend, Get 20 Credits',
+      refer: 'Refer a Friend, Get 20 Credits'
     },
     askUser: {
       headingText1: 'Hi',
       headingText2: 'what do you want to ask an expert?',
       headingTextAfterAskQuestion: 'you’re asking: ',
       textAfterEmptyCredit:
-        "Thank you for using our trial version! Look out for our new announcement as we'll be rolling out more features soon!With love, Kliit Health team.",
+        'To ask a question to one of our experts, add Kliit credits to your account in the account tab.',
       placehorderText:
         'Ask your question to choose from our network of experts!',
       btnText: 'Ask An Expert',
@@ -112,12 +112,12 @@ const Language = {
       credits: 'Credits',
       homeCreditsText: 'credits (per question)',
       asking: 'Asking',
-      buyMoreCredits: 'Buy More Credits',
+      buyMoreCredits: 'Buy More Credits'
     },
     askExpert: {
       recent: 'Recent',
       resolved: 'Resolved',
-      title: 'My Asks',
+      title: 'My Asks'
     },
     chooseExpert: {
       questionTitle: 'Choose an expert to answer…',
@@ -128,7 +128,7 @@ const Language = {
       done: 'Done',
       languageFilterTitle: 'Show me experts who speak…',
       professionFilterTitle: 'Show me:',
-      genderFilterTitle: 'Show me experts who are…',
+      genderFilterTitle: 'Show me experts who are…'
     },
     expertProfile: {
       title: 'Expert Profile',
@@ -138,7 +138,7 @@ const Language = {
       languages: 'Languages',
       clinicInfo: 'Clinic Info',
       hours: 'Hours',
-      closed: 'Closed',
+      closed: 'Closed'
     },
     changePassword: {
       title: 'Change Password',
@@ -151,14 +151,14 @@ const Language = {
       passwordLimitErrorMsg: 'New Password should be at least 7 characters',
       passwordSpecialCharErrorMsg:
         'New Password should have at least 1 special character',
-      passwordUpdateSuccessfullyMsg: 'Password has been updated successfully',
+      passwordUpdateSuccessfullyMsg: 'Password has been updated successfully'
     },
     setting: {
       title: 'Settings',
       cancel: 'Cancel',
       done: 'Done',
       changePhoto: 'Change Profile Photo',
-      changePassword: 'Change Password',
+      changePassword: 'Change Password'
     },
     chat: {
       action: 'Actions',
@@ -169,7 +169,7 @@ const Language = {
       rate: 'Rate',
       enterMsg: 'Enter your Message',
       resolvedConversationMsg:
-        'This conversation has been resolved. To start a new question, return to the ask tab.',
+        'This conversation has been resolved. To start a new question, return to the ask tab.'
     },
     referFriend: {
       title: 'Refer a Friend',
@@ -179,7 +179,7 @@ const Language = {
       yourReferralCode: 'Your Referral Code',
       btnText: 'Copy My Referral Code',
       moreWays: 'More ways to share',
-      smsFb: 'SMS, Facebook, Twitter & More',
+      smsFb: 'SMS, Facebook, Twitter & More'
     },
     buyingCredits: {
       title: 'Add credits to your Kliit account',
@@ -191,18 +191,18 @@ const Language = {
       buyCredits: 'Buy Credits',
       applePayTitle: 'Apple Pay',
       payPalTitle: 'PayPal',
-      googlePayTitle: 'G Pay',
+      googlePayTitle: 'G Pay'
     },
     addCreditOrDebitCard: {
       title: 'Add Credit/Debit Card',
-      footer: 'Your information is enrypted and processed by Stripe.',
+      footer: 'Your information is enrypted and processed by Stripe.'
     },
     paymentMethods: {
       title: 'Payment Methods',
       myPayment: 'My Payment Methods',
       addPayment: 'Add New Payment Method',
       addCard: 'Add Credit/Debit Card',
-      addPaypal: 'Add PayPal',
+      addPaypal: 'Add PayPal'
     },
     addCreditCardData: {
       cardNumber: 'Card number',
@@ -210,8 +210,8 @@ const Language = {
       expireDate: 'mm/yy',
       firstName: 'First Name',
       lastName: 'Last Name',
-      saveCard: 'Save Card',
-    },
-  },
-};
-export default Language;
+      saveCard: 'Save Card'
+    }
+  }
+}
+export default Language

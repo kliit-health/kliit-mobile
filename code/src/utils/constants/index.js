@@ -11,14 +11,14 @@ const Constant = {
     learnTabUrl: 'https://www.kliit.com/topics',
     appLiveLink: {
       googlePlay: 'https://play.google.com/store/apps/details?id=com.klit',
-      appleStore: 'https://apps.apple.com/us/app/id1487436865',
+      appleStore: 'https://apps.apple.com/us/app/id1487436865'
     },
     logoutInterval: 1000 * 10,
     Toast: {
       SHORT: 200,
-      LONG: 2000,
+      LONG: 2000
     },
-    credits: 20,
+    credits: 0,
     questionCreditValue: 10,
     firebaseTableNames: {
       users: 'users',
@@ -26,7 +26,7 @@ const Constant = {
       questionList: 'questionList',
       professions: 'professions',
       languages: 'languages',
-      messages: 'messagesNew',
+      messages: 'messagesNew'
     },
     firebaseTableKeyValuesNames: {
       expertsConditionKey: 'role',
@@ -35,7 +35,7 @@ const Constant = {
       questionUserConditionKey: 'userInfo.uid',
       questionExpertConditionKey: 'expertInfo.uid',
       filterConditionGenderKey: 'profileInfo.gender',
-      filterConditionProfessionKey: 'profileInfo.profession.fullName',
+      filterConditionProfessionKey: 'profileInfo.profession.fullName'
     },
     colors: {
       offWhiteColor: '#F9F9F9',
@@ -72,11 +72,11 @@ const Constant = {
       azureColor: 'rgb(0, 138, 252)',
       blackTwoColor: 'rgb(51,51,51)',
       blueColor: '#008AFC',
-      pinkishGreyColor: 'rgb(206 ,206 ,206)',
+      pinkishGreyColor: 'rgb(206 ,206 ,206)'
     },
     dimensions: {
       btnPaddingGlobal: 12,
-      btnBorderRadiusGlobal: 20,
+      btnBorderRadiusGlobal: 20
     },
     textSize: {
       xSmall: 10,
@@ -88,13 +88,13 @@ const Constant = {
       xxLarge: 24,
       xxxLarge: 28,
       xxxxLarge: 32,
-      xxxxxLarge: 35,
+      xxxxxLarge: 35
     },
     stack: {
       AuthStack: 'Auth',
       AppStack: 'App',
       AppStackExpert: 'AppExpert',
-      AuthLoading: 'AuthLoading',
+      AuthLoading: 'AuthLoading'
     },
     screenNames: {
       Login: 'Login',
@@ -120,7 +120,7 @@ const Constant = {
       BuyingCredit: 'BuyingCredit',
       AddCreditOrDebitCard: 'AddCreditOrDebitCard',
       PaymentMethods: 'PaymentMethods',
-      PayPalApproval: 'PayPalApproval',
+      PayPalApproval: 'PayPalApproval'
     },
     fontFamily: {
       headerRegular: 'Poppins-Regular',
@@ -132,7 +132,7 @@ const Constant = {
       avenirMedium: 'Avenir-Medium',
       avenirBook: 'Avenir-Book',
       proximaNovaSemiBold: 'ProximaNova-SemiBold',
-      avenirLight: 'Avenir-Light',
+      avenirLight: 'Avenir-Light'
     },
     staticImages: {
       loginLogoImage: require('../../../assets/logo.png'),
@@ -171,13 +171,13 @@ const Constant = {
       applePayIcon: require('../../../assets/apple_pay.png'),
       lockIcon: require('../../../assets/npLock.png'),
       cardIcon: require('../../../assets/card.png'),
-      plusIcon: require('../../../assets/plus.png'),
+      plusIcon: require('../../../assets/plus.png')
     },
     Api: {
       BaseUrl: '',
-      endPoints: {},
-    },
-  },
-};
+      endPoints: {}
+    }
+  }
+}
 
-export default Constant;
+export default Constant
