@@ -8,7 +8,7 @@ class PayPalCheckout extends React.PureComponent {
     console.log('_onNavigationStateChange ', webViewState.url);
     if (webViewState.url.includes('https://example.com/success')) {
       const { captureURL, credits, navigation } = this.props;
-      this.props.capturePayment(captureURL, credits);
+      this.props.capturePayment(captureURL, credits, navigation);
       navigation.goBack();
     } else if (webViewState.url.includes('https://example.com/fail')) {
       this.props.navigation.goBack();
@@ -19,13 +19,12 @@ class PayPalCheckout extends React.PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <WebView
-          style={{ height: 400, width: 300 }}
+          style={{ marginTop: 50 }}
           source={{ uri: this.props.approvalUrl }}
           onNavigationStateChange={this._onNavigationStateChange}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={false}
-          style={{ marginTop: 50 }}
         />
       </View>
     );
@@ -40,7 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  capturePayment: (captureURL, credits) => dispatch(capturePayment(captureURL, credits)),
+  capturePayment: (captureURL, credits, navigation) => dispatch(capturePayment(captureURL, credits, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PayPalCheckout);

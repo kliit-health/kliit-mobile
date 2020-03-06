@@ -18,15 +18,16 @@ import {
   addUserCredits,
   payAmountWithToken,
   getPayPalAccessToken,
+  getDataFromTable,
 } from '../../utils/firebase';
 
 import { createPayPalOrder, capturePayPalPaymentAPI } from '../../utils/webServices';
 import {
-  createPaymentCard,
   setCreditAmountsOptions,
   setPaymentMethods,
   setNativePaySupport,
   setOrderData,
+  setData,
 } from './action';
 
 import { showOrHideModal } from '../../components/customModal/action';
@@ -34,6 +35,7 @@ import { parseCardInfo } from '../../utils/helper/payment';
 import { NavigationService } from '../../navigator';
 import { deviceSupportsNativePay } from '../../utils/payment';
 import Constant from '../../utils/constants';
+import firebase from 'react-native-firebase';
 
 let Lang = Language.en;
 
@@ -83,13 +85,26 @@ function* getPaymentMethods() {
   }
 }
 
-function* handlePayResponse(response, credits) {
+function* handlePayResponse(response, credits, navigation) {
+  console.log('Handling payment response',  response);
   if (response.ok) {
     response = yield call(addUserCredits, credits);
-
+    console.log('Add user credits-----', credits);
     if (response.ok) {
       yield put(showOrHideModal(Lang.successMessages.creditAddedSuccessfully));
-      NavigationService.goBack();
+      const user = firebase.auth().currentUser;
+      const obj = {
+        tableName: Constant.App.firebaseTableNames.users,
+        uid: user.uid,
+      };
+      const userData = yield getDataFromTable(obj);
+      console.log('userData', userData);
+      yield put(setData(userData));
+      if (navigation === undefined) {
+        NavigationService.goBack();
+      } else {
+        navigation.goBack();
+      }
     }
   }
 
@@ -130,7 +145,7 @@ function* buyCreditsWithPayPal({ payload: { credits, amount, navigation } }) {
   }
 }
 
-function* capturePayPalPayment({ payload: { capturePaymentURL, credits } }) {
+function* capturePayPalPayment({ payload: { capturePaymentURL, credits, navigation } }) {
   yield put(showApiLoader(Lang.apiLoader.loadingText));
   let tokenResponse = yield call(getPayPalAccessToken);
   yield put(hideApiLoader());
@@ -140,7 +155,7 @@ function* capturePayPalPayment({ payload: { capturePaymentURL, credits } }) {
     let response = yield call(capturePayPalPaymentAPI, accessToken, capturePaymentURL);
     yield put(hideApiLoader());
     // TODO: Remove after testing
-    yield handlePayResponse({ ok: true }, credits);
+    yield handlePayResponse({ ok: true }, credits, navigation);
     if (response.ok) {
       // yield handlePayResponse({ ok: true }, credits);
     } else {

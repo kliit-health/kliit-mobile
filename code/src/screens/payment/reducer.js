@@ -3,6 +3,7 @@ import {
   SET_PAYMENT_METHODS,
   SET_NATIVE_PAY_SUPPORT,
   SET_ORDER_DATA,
+  SET_USER_DATA,
 } from '../../redux/types';
 
 const initialState = {
@@ -33,6 +34,11 @@ const paymentReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_USER_DATA:
+      return {
+        ...state,
+        userData: action.data,
       };
     default:
       return state;

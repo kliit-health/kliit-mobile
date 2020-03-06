@@ -210,40 +210,6 @@ export function addUserData(obj) {
   }
 }
 
-// export function addUserData(obj) {
-//     try {
-//         displayConsole('\n\n--------------**** addUserData Start ********-----------');
-//         displayConsole('obj', obj);
-//         firebase.firestore().doc(`${obj.tableName}/${obj.uid}`).get();
-//         return firebase.firestore().collection('users').doc(obj.uid).set(obj)
-//             .then(function () {
-//                 displayConsole("success", true);
-//                 displayConsole('--------------***** addUserData End *********-----------\n\n');
-//                 const data = {
-//                     success: true
-//                 };
-//                 return data;
-//             }, error => {
-//                 const { message, code } = error;
-//                 displayConsole("error message", message);
-//                 displayConsole("error code", code);
-//                 const data = {
-//                     success: false,
-//                     message: message,
-//                 };
-//                 displayConsole('--------------***** addUserData End *********-----------\n\n');
-//                 return data;
-//             })
-//     } catch (error) {
-//         const data = {
-//             success: false,
-//         };
-//         displayConsole("Crash error", error);
-//         displayConsole('--------------**** addUserData End ********-----------\n\n');
-//         return data;
-//     }
-// }
-
 export function getUserData(obj, success, error) {
   try {
     displayConsole('\n\n--------------**** getUserData Start ********-----------');
