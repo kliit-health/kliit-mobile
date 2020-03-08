@@ -131,8 +131,8 @@ android {
         applicationId "com.klit"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.4"
+        versionCode 7
+        versionName '1.6'
         multiDexEnabled true
     }
     splits {
@@ -189,9 +189,7 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-image-picker')
-    implementation project(':react-native-firebase')
-    implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-webview')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.android.support:multidex:1.0.3'
@@ -204,6 +202,9 @@ dependencies {
     implementation "com.google.firebase:firebase-firestore:19.0.2"
     implementation "com.google.firebase:firebase-database:17.0.0"
     implementation "com.google.firebase:firebase-messaging:18.0.0"
+    implementation "com.google.firebase:firebase-config:17.0.0"
+    implementation "com.google.firebase:firebase-functions:17.0.0"
+    implementation project(path: ':react-native-background-timer')
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")

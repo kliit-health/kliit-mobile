@@ -37,8 +37,8 @@ class Login extends React.PureComponent {
       this.setState({
         password: '',
       })
+      clearState();
     }
-    clearState();
   }
 
   renderInputTextView() {
@@ -158,19 +158,19 @@ class Login extends React.PureComponent {
   }
 
 
-  renderForgotPasswordView() {
-    const { navigation } = this.props;
-    return (
-      <CustomButton
-        buttonStyle={styles.loginButtonContainerStyle}
-        textStyle={styles.loginButtonTextStyle}
-        onPress={() => {
-          navigation.navigate(Constant.App.stack.AppStack);
-        }}
-        text={lang.login.Login}
-      />
-    )
-  }
+  // renderForgotPasswordView() {
+  //   const { navigation } = this.props;
+  //   return (
+  //     <CustomButton
+  //       buttonStyle={styles.loginButtonContainerStyle}
+  //       textStyle={styles.loginButtonTextStyle}
+  //       onPress={() => {
+  //         navigation.navigate(Constant.App.stack.AppStack);
+  //       }}
+  //       text={lang.login.Login}
+  //     />
+  //   )
+  // }
 
   renderForgotPasswordView() {
     const { navigation } = this.props;
@@ -187,18 +187,18 @@ class Login extends React.PureComponent {
     )
   }
 
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate(Constant.App.screenNames.ForgotPassword);
-        }}>
-        <CustomText style={styles.forgotPasswordTextStyle}>
-          {lang.login.ForgotPassword}
-        </CustomText>
-      </TouchableOpacity>
-    )
-  }
+  // render() {
+  //   return (
+  //     <TouchableOpacity
+  //       onPress={() => {
+  //         navigation.navigate(Constant.App.screenNames.ForgotPassword);
+  //       }}>
+  //       <CustomText style={styles.forgotPasswordTextStyle}>
+  //         {lang.login.ForgotPassword}
+  //       </CustomText>
+  //     </TouchableOpacity>
+  //   )
+  // }
 
   render() {
     return (

@@ -30,6 +30,7 @@ class Setting extends React.PureComponent {
       firstName: userData.profileInfo.firstName,
       lastName: userData.profileInfo.lastName,
       imageSrc: userData.profileInfo.profileImageUrl,
+      credits: userData.credits,
       imageUri: '',
       filepath: '',
       file: '',
@@ -76,7 +77,7 @@ class Setting extends React.PureComponent {
 
   renderHeaderView() {
     const { navigation, showHideErrorModal, updateUserData, userData } = this.props;
-    const { firstName, lastName, dob, pronounsArr, imageUri, file, filepath, selectedState } = this.state;
+    const { firstName, lastName, credits, dob, pronounsArr, imageUri, file, filepath, selectedState } = this.state;
     return (
       <View style={styles.headerStyle}>
         <TouchableOpacity onPress={() => { navigation.goBack() }}>
@@ -109,6 +110,7 @@ class Setting extends React.PureComponent {
                 dob: dob ? dob : '',
                 pronouns: this.getSelectedPronoun(pronounsArr),
                 state: selectedState,
+                credits,
               },
               navigation,
             }

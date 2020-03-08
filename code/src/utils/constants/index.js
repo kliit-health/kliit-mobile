@@ -1,6 +1,7 @@
 const Constant = {
   App: {
-    disclaimerTextForChat: 'By opening and reading this, you agree to be bound to the following terms and conditions: Kliit is not a healthcare provider and does not substitute for a primary care physician, medical advice or professional services. The information provided through <a target="_blank" href="https://www.kliit.com/">kliit.com</a> is made for educational and informational purposes only and should not be used as a professional diagnosis or a treatment plan. No physician-patient relationship is created by this site or its use. If you have or suspect you may have, a health condition, you should consult your healthcare provider for specific medical advice.',
+    disclaimerTextForChat:
+      'By opening and reading this, you agree to be bound to the following terms and conditions: Kliit is not a healthcare provider and does not substitute for a primary care physician, medical advice or professional services. The information provided through <a target="_blank" href="https://www.kliit.com/">kliit.com</a> is made for educational and informational purposes only and should not be used as a professional diagnosis or a treatment plan. No physician-patient relationship is created by this site or its use. If you have or suspect you may have, a health condition, you should consult your healthcare provider for specific medical advice.',
     asynckeys: 'KlitLocalStorageKey',
     dateFormat: 'MM/DD/YYYY',
     privacyPolicyurl: 'https://www.kliit.com/privacy-policy',
@@ -10,14 +11,14 @@ const Constant = {
     learnTabUrl: 'https://www.kliit.com/topics',
     appLiveLink: {
       googlePlay: 'https://play.google.com/store/apps/details?id=com.klit',
-      appleStore: 'https://apps.apple.com/us/app/id1487436865',
+      appleStore: 'https://apps.apple.com/us/app/id1487436865'
     },
     logoutInterval: 1000 * 10,
     Toast: {
       SHORT: 200,
-      LONG: 2000,
+      LONG: 2000
     },
-    credits: 20,
+    credits: 0,
     questionCreditValue: 10,
     firebaseTableNames: {
       users: 'users',
@@ -25,7 +26,7 @@ const Constant = {
       questionList: 'questionList',
       professions: 'professions',
       languages: 'languages',
-      messages: 'messagesNew',
+      messages: 'messagesNew'
     },
     firebaseTableKeyValuesNames: {
       expertsConditionKey: 'role',
@@ -34,11 +35,12 @@ const Constant = {
       questionUserConditionKey: 'userInfo.uid',
       questionExpertConditionKey: 'expertInfo.uid',
       filterConditionGenderKey: 'profileInfo.gender',
-      filterConditionProfessionKey: 'profileInfo.profession.fullName',
+      filterConditionProfessionKey: 'profileInfo.profession.fullName'
     },
     colors: {
       offWhiteColor: '#F9F9F9',
       redColorLogout: '#D41F08',
+      redColorExpired: '#d92405',
       blueColor: '#008AFC',
       chatHighLightedBgColor: '#C3CBDE',
       blueColorCreditText: '#002272',
@@ -60,10 +62,21 @@ const Constant = {
       bgSemiTransparentParentColor: 'rgba(0,0,0,0.70)',
       vendorDetailMenuTabItemsBorderColor: '#F0F0F0',
       pinkColor: '#FE9FD8',
+      dark40: 'rgba(33, 43, 54, 0.4)',
+      blueGrey: '#8e8e93',
+      brownGrey: '#999999',
+      brownGreyTwo: '#979797',
+      paleLilac: '#e5e5ea',
+      darkishBlue21: '#00267d',
+      black4: 'rgba(0, 0, 0, 0.04)',
+      azureColor: 'rgb(0, 138, 252)',
+      blackTwoColor: 'rgb(51,51,51)',
+      blueColor: '#008AFC',
+      pinkishGreyColor: 'rgb(206 ,206 ,206)'
     },
     dimensions: {
       btnPaddingGlobal: 12,
-      btnBorderRadiusGlobal: 20,
+      btnBorderRadiusGlobal: 20
     },
     textSize: {
       xSmall: 10,
@@ -75,13 +88,13 @@ const Constant = {
       xxLarge: 24,
       xxxLarge: 28,
       xxxxLarge: 32,
-      xxxxxLarge: 35,
+      xxxxxLarge: 35
     },
     stack: {
       AuthStack: 'Auth',
       AppStack: 'App',
       AppStackExpert: 'AppExpert',
-      AuthLoading: 'AuthLoading',
+      AuthLoading: 'AuthLoading'
     },
     screenNames: {
       Login: 'Login',
@@ -104,11 +117,22 @@ const Constant = {
       Learn: 'Learn',
       LearnExpert: 'LearnExpert',
       ReferFriend: 'ReferFriend',
+      BuyingCredit: 'BuyingCredit',
+      AddCreditOrDebitCard: 'AddCreditOrDebitCard',
+      PaymentMethods: 'PaymentMethods',
+      PayPalApproval: 'PayPalApproval'
     },
     fontFamily: {
       headerRegular: 'Poppins-Regular',
       headerBold: 'Poppins-Bold',
       bodyRegular: 'AvenirLTStd-Roman',
+      headerSemiBold: 'Poppins-SemiBold',
+      headerLight: 'Poppins-Light',
+      headerMedium: 'Poppins-Medium',
+      avenirMedium: 'Avenir-Medium',
+      avenirBook: 'Avenir-Book',
+      proximaNovaSemiBold: 'ProximaNova-SemiBold',
+      avenirLight: 'Avenir-Light'
     },
     staticImages: {
       loginLogoImage: require('../../../assets/logo.png'),
@@ -136,14 +160,24 @@ const Constant = {
       cameraGreyIcon: require('../../../assets/camera_grey.png'),
       readMsgIcon: require('../../../assets/read_msg_icon.png'),
       unreadMsgIcon: require('../../../assets/unread_msg_icon.png'),
-      shareIcon: require('../../../assets/share.png')
+      shareIcon: require('../../../assets/share.png'),
+      xCloseIcon: require('../../../assets/xclose.png'),
+      kliitCredit: require('../../../assets/kliit_credits.png'),
+      basket: require('../../../assets/basket.png'),
+      creditCard: require('../../../assets/credit_card.png'),
+      greyDownArrow: require('../../../assets/grey_down_arrow.png'),
+      addIcon: require('../../../assets/add_icon.png'),
+      payPalIcon: require('../../../assets/paypal.png'),
+      applePayIcon: require('../../../assets/apple_pay.png'),
+      lockIcon: require('../../../assets/npLock.png'),
+      cardIcon: require('../../../assets/card.png'),
+      plusIcon: require('../../../assets/plus.png')
     },
     Api: {
       BaseUrl: '',
-      endPoints: {
-      },
-    },
-  },
-};
+      endPoints: {}
+    }
+  }
+}
 
-export default Constant;
+export default Constant

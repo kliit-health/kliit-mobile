@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
-import { getStatusBarHeight } from '../../components/iPhoneXHelper';
+import { getStatusBarHeight, getBottomSpace } from '../../components/iPhoneXHelper';
 
 const IS_ANDROID = Platform.OS === 'android';
 
@@ -10,4 +10,5 @@ const {
 export default {
   DEVICE_HEIGHT: IS_ANDROID ? height - StatusBar.currentHeight : height - getStatusBarHeight(),
   DEVICE_WIDTH: width,
+  BOTTOM_SAVE_AREA: getBottomSpace(),
 };

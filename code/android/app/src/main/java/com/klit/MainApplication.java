@@ -8,19 +8,19 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.imagepicker.ImagePickerPackage;
-import io.invertase.firebase.RNFirebasePackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
+import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
 
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -48,8 +48,9 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new RNFirebaseDatabasePackage());
       packages.add(new RNFirebaseNotificationsPackage());
       packages.add(new RNFirebaseMessagingPackage());
-
-
+      packages.add(new RNFirebaseRemoteConfigPackage());
+      packages.add(new RNFirebaseFunctionsPackage());
+      
       return packages;
     }
 

@@ -17,7 +17,7 @@ import { showOrHideModal } from '../../components/customModal/action';
 import Constant from '../../utils/constants';
 import CustomButton from '../../components/customButton';
 
-let lang = Language['en'];
+let lang = Language.en;
 class ReferFriend extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ class ReferFriend extends React.PureComponent {
     try {
       const result = await Share.share({
         message:
-          `Refer a friend and get 20 credits for free! Enter referal code ${userData.referalCode} while registrating in application. You can also download the application from given link ${Platform.OS == 'android' ? Constant.App.appLiveLink.googlePlay : Constant.App.appLiveLink.appleStore}`
+          `Refer a friend and get 20 credits for free! Enter referal code ${userData.referralCode} while registrating in application. You can also download the application from given link ${Platform.OS == 'android' ? Constant.App.appLiveLink.googlePlay : Constant.App.appLiveLink.appleStore}`,
       });
 
       if (result.action === Share.sharedAction) {
@@ -68,7 +68,7 @@ class ReferFriend extends React.PureComponent {
           {lang.referFriend.title}
         </CustomText>
       </View>
-    )
+    );
   }
 
   renderSubHeaderView() {
@@ -81,12 +81,12 @@ class ReferFriend extends React.PureComponent {
           {lang.referFriend.subTitleText2}
         </CustomText>
       </View>
-    )
+    );
   }
 
   writeToClipboard = async () => {
     const { userData } = this.props;
-    await Clipboard.setString(userData.referalCode);
+    await Clipboard.setString(userData.referralCode);
     alert('Code copied to clipboard');
   };
 
@@ -98,7 +98,7 @@ class ReferFriend extends React.PureComponent {
           {lang.referFriend.yourReferralCode}
         </CustomText>
         <CustomText style={styles.referralCodeTextStyle}>
-          {userData.referalCode}
+          {userData.referralCode}
         </CustomText>
         <CustomButton
           buttonStyle={styles.btnContainerStyle}
@@ -109,7 +109,7 @@ class ReferFriend extends React.PureComponent {
           }}
         />
       </View>
-    )
+    );
   }
 
   render() {
@@ -128,7 +128,7 @@ class ReferFriend extends React.PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                this.onShare()
+                this.onShare();
               }}>
               <Image
                 style={{

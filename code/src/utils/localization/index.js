@@ -10,10 +10,14 @@ const Language = {
       invalidSecretKey: 'Invalid secret key.',
       invalidReferralCode: 'Invalid referral code.',
     },
+    successMessages: {
+      creditAddedSuccessfully: 'Your credit has increased successfully',
+      cardAddedSuccessfully: 'Your card has been added successfully',
+    },
     tabs: {
       account: 'Account',
       ask: 'Ask',
-      learn: 'Learn'
+      learn: 'Learn',
     },
     tutorial: {
       signUp: 'Sign up',
@@ -28,7 +32,8 @@ const Language = {
       Email: 'Your email',
       Password: 'Password',
       EmptyEmailMsg: 'Email is a required field.',
-      InvalidEmailMsg: 'Enter a valid email address. For example abc@domain.com.',
+      InvalidEmailMsg:
+        'Enter a valid email address. For example abc@domain.com.',
       EmptyPasswordMsg: 'Password is a required field.',
     },
     forgotPassword: {
@@ -36,7 +41,8 @@ const Language = {
       Email: 'Your email',
       Title: 'Forgot Password',
       Subtitle: 'Please enter your registered email to reset your password',
-      resetEmailSentMessage: 'A password reset message sent to your email address. Please click the link in that message to reset your password.'
+      resetEmailSentMessage:
+        'A password reset message sent to your email address. Please click the link in that message to reset your password.',
     },
     signUp: {
       titleText1: 'Hello!',
@@ -46,14 +52,17 @@ const Language = {
       termsConditionsText2: 'Terms and Conditions',
       termsConditionsText3: ' and ',
       termsConditionsText4: 'Privacy Policy',
-      description: 'IF YOU HAVE A MEDICAL EMERGENCY, IMMEDIATELY CALL YOUR DOCTOR OR DIAL 911.THIS SERVICE PROVIDES GENERAL HEALTH AND WELLNESS INFORMATION AND A MEANS TO INTERACT WITH PRACTITIONERS.IT DOES NOT REPLACE YOUR RELATIONSHIP WITH ANY PRACTITIONER OR SERVICE, AND KLIIT, ITSELF, DOES NOT PROVIDE MEDICAL OR HEALTH ADVICE, CARE, DIAGNOSIS, OR TREATMENT.NONE OF THE CONTENT SHOULD BE CONSIDERED MEDICAL ADVICE OR AN ENDORSEMENT, REPRESENTATION OR WARRANTY THAT ANY PARTICULAR MEDICATION OR TREATMENT IS SAFE, APPROPRIATE, OR EFFECTIVE FOR YOU.',
+      description:
+        'IF YOU HAVE A MEDICAL EMERGENCY, IMMEDIATELY CALL YOUR DOCTOR OR DIAL 911.THIS SERVICE PROVIDES GENERAL HEALTH AND WELLNESS INFORMATION AND A MEANS TO INTERACT WITH PRACTITIONERS.IT DOES NOT REPLACE YOUR RELATIONSHIP WITH ANY PRACTITIONER OR SERVICE, AND KLIIT, ITSELF, DOES NOT PROVIDE MEDICAL OR HEALTH ADVICE, CARE, DIAGNOSIS, OR TREATMENT.NONE OF THE CONTENT SHOULD BE CONSIDERED MEDICAL ADVICE OR AN ENDORSEMENT, REPRESENTATION OR WARRANTY THAT ANY PARTICULAR MEDICATION OR TREATMENT IS SAFE, APPROPRIATE, OR EFFECTIVE FOR YOU.',
       passwordCharLimitValidMsg: 'At least 7 characters',
       passwordSpecialCharValidMsg: 'At least 1 special character',
       EmptyEmailMsg: 'Email is a required field.',
-      InvalidEmailMsg: 'Enter a valid email address. For example abc@domain.com.',
+      InvalidEmailMsg:
+        'Enter a valid email address. For example abc@domain.com.',
       EmptyPasswordMsg: 'Password is a required field.',
       passwordLimitErrorMsg: 'Password should be at least 7 characters.',
-      passwordSpecialCharErrorMsg: 'Password should have at least 1 special character.',
+      passwordSpecialCharErrorMsg:
+        'Password should have at least 1 special character.',
       secretReferralCodeErrorMsg: 'Please enter Referral code or Secret key.',
       referralCode: 'Referral code',
       sceretKey: 'Secret Key',
@@ -79,7 +88,8 @@ const Language = {
     },
     getStarted: {
       title: 'Welcome to the Kliit app, ',
-      content: "Now it's as easy as a text message to get your sexual and reproductive health questions answered by our experts. Got a question? Ask away\n\nThank you for joining kliit",
+      content:
+        "Now it's as easy as a text message to get your sexual and reproductive health questions answered by our experts. Got a question? Ask away\n\nThank you for joining kliit",
       btnText: 'Get Started',
     },
     account: {
@@ -95,15 +105,18 @@ const Language = {
       headingText1: 'Hi',
       headingText2: 'what do you want to ask an expert?',
       headingTextAfterAskQuestion: 'you’re asking: ',
-      textAfterEmptyCredit: "Thank you for using our trial version! Look out for our new announcement as we'll be rolling out more features soon!With love, Kliit Health team.",
-      placehorderText: 'Ask your question to choose from our network of experts!',
+      textAfterEmptyCredit:
+        'To ask a question to one of our experts, add Kliit credits to your account in the account tab.',
+      placehorderText:
+        'Ask your question to choose from our network of experts!',
       btnText: 'Ask An Expert',
       myPreviousQuestions: 'My previous questions',
       myRecentExperts: 'Our experts',
       answerBy: 'Answered by',
-      credits: 'credits',
+      credits: 'Credits',
       homeCreditsText: 'credits (per question)',
       asking: 'Asking',
+      buyMoreCredits: 'Buy More Credits',
     },
     askExpert: {
       recent: 'Recent',
@@ -140,7 +153,8 @@ const Language = {
       EmptyCurrentPasswordMsg: 'Current Password is a required field.',
       EmptyNewPasswordMsg: 'New Password is a required field.',
       passwordLimitErrorMsg: 'New Password should be at least 7 characters',
-      passwordSpecialCharErrorMsg: 'New Password should have at least 1 special character',
+      passwordSpecialCharErrorMsg:
+        'New Password should have at least 1 special character',
       passwordUpdateSuccessfullyMsg: 'Password has been updated successfully',
     },
     setting: {
@@ -158,16 +172,50 @@ const Language = {
       subTitleRateExpert: 'Rate your conversation with ',
       rate: 'Rate',
       enterMsg: 'Enter your Message',
-      resolvedConversationMsg: 'This conversation has been resolved. To start a new question, return to the ask tab.',
+      resolvedConversationMsg:
+        'This conversation has been resolved. To start a new question, return to the ask tab.',
     },
     referFriend: {
       title: 'Refer a Friend',
       subTitleText: 'Invite friends, get 20 credits',
-      subTitleText2: 'Get 20 credits for each friend who signs up with your referral code',
+      subTitleText2:
+        'Get 20 credits for each friend who signs up with your referral code',
       yourReferralCode: 'Your Referral Code',
       btnText: 'Copy My Referral Code',
       moreWays: 'More ways to share',
-      smsFb: 'SMS, Facebook, Twitter & More'
+      smsFb: 'SMS, Facebook, Twitter & More',
+    },
+    buyingCredits: {
+      title: 'Add credits to your Kliit account',
+      kliitBalance: 'Kliit Balance',
+      amountTitle: 'Amount',
+      paymentTitle: 'Payment',
+      addPaymentMethod: 'Add Payment Method',
+      totalTitle: 'Total',
+      buyCredits: 'Buy Credits',
+      applePayTitle: 'Apple Pay',
+      payPalTitle: 'PayPal',
+      googlePayTitle: 'G Pay',
+      selectPaymentMethod: 'Please select a payment method first',
+    },
+    addCreditOrDebitCard: {
+      title: 'Add Credit/Debit Card',
+      footer: 'Your information is enrypted and processed by Stripe.',
+    },
+    paymentMethods: {
+      title: 'Payment Methods',
+      myPayment: 'My Payment Methods',
+      addPayment: 'Add New Payment Method',
+      addCard: 'Add Credit/Debit Card',
+      addPaypal: 'Add PayPal',
+    },
+    addCreditCardData: {
+      cardNumber: 'Card number',
+      securityCode: 'Security Code',
+      expireDate: 'mm/yy',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      saveCard: 'Save Card',
     },
   },
 };

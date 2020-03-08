@@ -24,7 +24,7 @@ function* updateUserData({ data }) {
                 displayConsole('datadownloadURL', downloadURL);
                 displayConsole('responseImage.data', responseImage.data);
                 const userRegistrationParams = {
-                    credits: Constant.App.credits,
+                    credits: userParams.credits,
                     uid: user.uid,
                     role: "User",
                     isActive: false,
@@ -67,7 +67,7 @@ function* updateUserData({ data }) {
         } else {
             const user = firebase.auth().currentUser;
             const userRegistrationParams = {
-                credits: Constant.App.credits,
+                credits: userParams.credits,
                 uid: user.uid,
                 role: "User",
                 isActive: false,

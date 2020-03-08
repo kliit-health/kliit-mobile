@@ -15,6 +15,7 @@ import BackgroundTimer from 'react-native-background-timer';
 import {
   updateStatus,
 } from './src/utils/firebase';
+import { NavigationService } from './src/navigator';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -37,7 +38,7 @@ class App extends React.PureComponent {
   async componentDidMount() {
     console.disableYellowBox = true;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    AppState.addEventListener('change', this._handleAppStateChange);
+    //AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   componentDidUpdate() {
@@ -64,7 +65,7 @@ class App extends React.PureComponent {
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-    AppState.removeEventListener('change', this._handleAppStateChange);
+    //AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   _handleAppStateChange = (nextAppState) => {
@@ -153,7 +154,10 @@ class App extends React.PureComponent {
         marginBottom: getBottomSpace(),
       }}>
         <AppNavigator
-          ref={nav => { this.navigator = nav; }}
+          ref={nav => {
+            this.navigator = nav;
+            NavigationService.navigator = nav;
+          }}
           onNavigationStateChange={(prevState, currentState) => {
             const currentScreen = this.getCurrentRouteName(currentState);
             const prevScreen = this.getCurrentRouteName(prevState);

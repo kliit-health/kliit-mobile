@@ -46,7 +46,7 @@ class AuthLoadingScreen extends React.Component {
 
   async getToken() {
     const { setData, userData, setToken, navigation } = this.props;
-    console.log("userData ", userData);
+    console.log('userData ', userData);
     if (!userData) {
       let token = await AsyncStorage.getItem('fcmToken');
       console.log('token', token);
@@ -63,7 +63,7 @@ class AuthLoadingScreen extends React.Component {
       this.initNavigation(token);
 
     } else {
-      console.log("setData userData", userData);
+      console.log('setData userData', userData);
       if (userData && userData.profileInfo) {
         setData(userData);
         if (userData.role == 'Expert') {
@@ -91,26 +91,28 @@ class AuthLoadingScreen extends React.Component {
       try {
         const obj = {
           tableName: Constant.App.firebaseTableNames.users,
-          uid: user.uid
-        }
+          uid: user.uid,
+        };
         const updateStatusParams = {
           uid: user.uid,
           updatedData: {
             fcmToken: token ? token : '',
-          }
-        }
+          },
+        };
         updateStatus(updateStatusParams);
         getUserData(obj, querySnapshot => {
           displayConsole('inside getUserData', querySnapshot.data());
           const data = querySnapshot.data();
-          if (!data.referalCode) {
-            const updateStatusParams = {
-              uid: data.uid,
-              updatedData: {
-                referalCode: makeid(),
-              }
+          if (data) {
+            if (!data.referralCode) {
+              const updateStatusParams = {
+                uid: data.uid,
+                updatedData: {
+                  referalCode: makeid(),
+                },
+              };
+              updateStatus(updateStatusParams);
             }
-            updateStatus(updateStatusParams);
           }
           if (!userData && isFirstTime) {
             isFirstTime = false;
@@ -135,8 +137,8 @@ class AuthLoadingScreen extends React.Component {
           displayConsole('--------------**** getUserData end ********-----------\n\n');
         }, error => {
           const { message, code } = error;
-          displayConsole("message", message);
-          displayConsole("code", code);
+          displayConsole('message', message);
+          displayConsole('code', code);
           displayConsole('--------------**** getUserData end ********-----------\n\n');
         });
       } catch (error) {
@@ -162,7 +164,7 @@ class AuthLoadingScreen extends React.Component {
         notification.setNotificationId(notification.notificationId)
           .setTitle(notification.title)
           .setBody(notification.body)
-          .setSound("bell.mp3")
+          .setSound('bell.mp3');
       }
       firebase.notifications().displayNotification(notification);
     });
@@ -171,7 +173,7 @@ class AuthLoadingScreen extends React.Component {
     * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
     * */
     this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-      console.log("inside onNotificationOpened");
+      console.log('inside onNotificationOpened');
       const { title, body } = notificationOpen.notification;
     });
 
@@ -180,17 +182,17 @@ class AuthLoadingScreen extends React.Component {
     * */
     const notificationOpen = await firebase.notifications().getInitialNotification();
     if (notificationOpen) {
-      console.log("inside notificationOpen");
+      console.log('inside notificationOpen');
       const { title, body } = notificationOpen.notification;
-      console.log("title", title);
-      console.log("body", body);
+      console.log('title', title);
+      console.log('body', body);
       // this.showAlert(title, body);
     }
     /*
     * Triggered for data only payload in foreground
     * */
     this.messageListener = firebase.messaging().onMessage((message) => {
-      console.log("inside onMessage");
+      console.log('inside onMessage');
       //process data message
       console.log(JSON.stringify(message));
     });
