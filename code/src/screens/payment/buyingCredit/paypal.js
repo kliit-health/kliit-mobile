@@ -4,15 +4,12 @@ import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import { capturePayment } from '../action';
 class PayPalCheckout extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   _onNavigationStateChange = webViewState => {
     console.log('_onNavigationStateChange ', webViewState.url);
     if (webViewState.url.includes('https://example.com/success')) {
-      this.props.capturePayment(this.props.captureURL);
-      this.props.navigation.goBack();
+      const { captureURL, credits, navigation } = this.props;
+      this.props.capturePayment(captureURL, credits, navigation);
+      navigation.goBack();
     } else if (webViewState.url.includes('https://example.com/fail')) {
       this.props.navigation.goBack();
     }
@@ -20,15 +17,14 @@ class PayPalCheckout extends React.PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'black' }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <WebView
-          style={{ height: 400, width: 300 }}
+          style={{ marginTop: 50 }}
           source={{ uri: this.props.approvalUrl }}
           onNavigationStateChange={this._onNavigationStateChange}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={false}
-          style={{ marginTop: 50 }}
         />
       </View>
     );
@@ -38,10 +34,12 @@ class PayPalCheckout extends React.PureComponent {
 const mapStateToProps = state => ({
   approvalUrl: state.paymentReducer.orderData.approvalUrl,
   captureURL: state.paymentReducer.orderData.capturePaymentURL,
+  credits: state.paymentReducer.orderData.credits,
+  userData: state.authLoadingReducer.userData,
 });
 
 const mapDispatchToProps = dispatch => ({
-  capturePayment: captureURL => dispatch(capturePayment(captureURL)),
+  capturePayment: (captureURL, credits, navigation) => dispatch(capturePayment(captureURL, credits, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PayPalCheckout);

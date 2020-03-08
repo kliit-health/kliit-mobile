@@ -210,40 +210,6 @@ export function addUserData(obj) {
   }
 }
 
-// export function addUserData(obj) {
-//     try {
-//         displayConsole('\n\n--------------**** addUserData Start ********-----------');
-//         displayConsole('obj', obj);
-//         firebase.firestore().doc(`${obj.tableName}/${obj.uid}`).get();
-//         return firebase.firestore().collection('users').doc(obj.uid).set(obj)
-//             .then(function () {
-//                 displayConsole("success", true);
-//                 displayConsole('--------------***** addUserData End *********-----------\n\n');
-//                 const data = {
-//                     success: true
-//                 };
-//                 return data;
-//             }, error => {
-//                 const { message, code } = error;
-//                 displayConsole("error message", message);
-//                 displayConsole("error code", code);
-//                 const data = {
-//                     success: false,
-//                     message: message,
-//                 };
-//                 displayConsole('--------------***** addUserData End *********-----------\n\n');
-//                 return data;
-//             })
-//     } catch (error) {
-//         const data = {
-//             success: false,
-//         };
-//         displayConsole("Crash error", error);
-//         displayConsole('--------------**** addUserData End ********-----------\n\n');
-//         return data;
-//     }
-// }
-
 export function getUserData(obj, success, error) {
   try {
     displayConsole('\n\n--------------**** getUserData Start ********-----------');
@@ -1278,8 +1244,6 @@ export function getRecentExpertsData(obj, success, error) {
       .where(obj.key, '==', obj.value);
     return ref.onSnapshot(success, error);
   } catch (error) {
-    displayConsole('Crash error', error);
-    displayConsole('--------------**** getRecentExpertsData End ********-----------\n\n');
     return false;
   }
 }
@@ -1297,8 +1261,6 @@ export function getExpertsData(obj, success, error) {
     }
     return collection.onSnapshot(success, error);
   } catch (error) {
-    displayConsole('Crash error', error);
-    displayConsole('--------------**** getExpertsData End ********-----------\n\n');
     return false;
   }
 }
@@ -1427,11 +1389,19 @@ export async function addNewPaymentCard(obj) {
 export async function getPaymentMethods() {
   try {
     const response = await firebase.functions().httpsCallable('apiPaymentsListCards')();
-    return {
-      ok: true,
-      data: response.data.data.map(data => ({ ...data.card, id: data.id })),
-    };
+    if (response.data.data) {
+      return {
+        ok: true,
+        data: response.data.data.map(data => ({ ...data.card, id: data.id })),
+      };
+    } else {
+      return {
+        ok: true,
+        data: [],
+      };
+    }
   } catch (err) {
+    console.log('ERRROROROROROROROROROR', err);
     let status = err.status ? err.status : 'internal';
     return { ok: false, status };
   }
@@ -1483,7 +1453,7 @@ export async function addUserCredits(credits) {
       .update({
         credits: userData.credits + credits,
       });
-    return { ok: true };
+    return { ok: true, newCredits:  userData.credits + credits };
   } catch (err) {
     return { ok: false, status: 'internal' };
   }

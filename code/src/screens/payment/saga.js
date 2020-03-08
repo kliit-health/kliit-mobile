@@ -18,21 +18,24 @@ import {
   addUserCredits,
   payAmountWithToken,
   getPayPalAccessToken,
+  getDataFromTable,
 } from '../../utils/firebase';
 
 import { createPayPalOrder, capturePayPalPaymentAPI } from '../../utils/webServices';
 import {
-  createPaymentCard,
   setCreditAmountsOptions,
   setPaymentMethods,
   setNativePaySupport,
   setOrderData,
+  setData,
 } from './action';
 
 import { showOrHideModal } from '../../components/customModal/action';
 import { parseCardInfo } from '../../utils/helper/payment';
 import { NavigationService } from '../../navigator';
 import { deviceSupportsNativePay } from '../../utils/payment';
+import Constant from '../../utils/constants';
+import firebase from 'react-native-firebase';
 
 let Lang = Language.en;
 
@@ -54,6 +57,7 @@ function* createPayment({ data }) {
     yield getPaymentMethods();
     yield put(hideApiLoader());
     if (response.ok) {
+      yield put(showOrHideModal(Lang.successMessages.cardAddedSuccessfully));
       navigation.goBack();
     } else {
       yield put(showOrHideModal(Lang.errorMessage.serverError));
@@ -81,12 +85,26 @@ function* getPaymentMethods() {
   }
 }
 
-function* handlePayResponse(response, credits) {
+function* handlePayResponse(response, credits, navigation) {
+  console.log('Handling payment response',  response);
   if (response.ok) {
     response = yield call(addUserCredits, credits);
-
+    console.log('Add user credits-----', credits);
     if (response.ok) {
-      NavigationService.goBack();
+      yield put(showOrHideModal(Lang.successMessages.creditAddedSuccessfully));
+      const user = firebase.auth().currentUser;
+      const obj = {
+        tableName: Constant.App.firebaseTableNames.users,
+        uid: user.uid,
+      };
+      const userData = yield getDataFromTable(obj);
+      console.log('userData', userData);
+      yield put(setData(userData));
+      if (navigation === undefined) {
+        NavigationService.goBack();
+      } else {
+        navigation.goBack();
+      }
     }
   }
 
@@ -111,32 +129,38 @@ function* buyCreditsWithToken({ payload: { tokenID, credits, amount } }) {
   yield handlePayResponse(response, credits);
 }
 
-function* buytCreditsWithPayPal({ payload: { credits, amount } }) {
+function* buyCreditsWithPayPal({ payload: { credits, amount, navigation } }) {
   yield put(showApiLoader(Lang.apiLoader.loadingText));
   let response = yield call(getPayPalAccessToken);
   yield put(hideApiLoader());
   if (response.ok) {
     let accessToken = response.data.data;
     yield put(showApiLoader(Lang.apiLoader.loadingText));
-    let paypalResponse = yield call(createPayPalOrder, accessToken, amount);
+    let paypalResponse = yield call(createPayPalOrder, accessToken, amount, credits);
     yield put(hideApiLoader());
-    console.log(paypalResponse);
     yield put(setOrderData(paypalResponse));
+    navigation.navigate(Constant.App.screenNames.PayPalApproval);
   } else {
     yield put(showOrHideModal(Lang.errorMessage.serverError));
   }
 }
 
-function* capturePayPalPayment({ payload: { capturePaymentURL } }) {
+function* capturePayPalPayment({ payload: { capturePaymentURL, credits, navigation } }) {
   yield put(showApiLoader(Lang.apiLoader.loadingText));
-  let response = yield call(getPayPalAccessToken);
+  let tokenResponse = yield call(getPayPalAccessToken);
   yield put(hideApiLoader());
-  if (response.ok) {
-    let accessToken = response.data.data;
+  if (tokenResponse.ok) {
+    let accessToken = tokenResponse.data.data;
     yield put(showApiLoader(Lang.apiLoader.loadingText));
-    yield call(capturePayPalPaymentAPI, accessToken, capturePaymentURL);
+    let response = yield call(capturePayPalPaymentAPI, accessToken, capturePaymentURL);
     yield put(hideApiLoader());
-    yield handlePayResponse({ ok: true }, credits);
+    // TODO: Remove after testing
+    yield handlePayResponse({ ok: true }, credits, navigation);
+    if (response.ok) {
+      // yield handlePayResponse({ ok: true }, credits);
+    } else {
+      // yield put(showOrHideModal(Lang.errorMessage.serverError));
+    }
   } else {
     yield put(showOrHideModal(Lang.errorMessage.serverError));
   }
@@ -148,6 +172,6 @@ export default function* paymentSaga() {
   yield takeLatest(GET_PAYMENT_METHODS, getPaymentMethods);
   yield takeLatest(BUY_CREDITS_WITH_CARD, buyCredits);
   yield takeLatest(BUY_CREDITS_WITH_TOKEN, buyCreditsWithToken);
-  yield takeLatest(BUY_CREDITS_WITH_PAYPAL, buytCreditsWithPayPal);
+  yield takeLatest(BUY_CREDITS_WITH_PAYPAL, buyCreditsWithPayPal);
   yield takeLatest(CAPTURE_PAYMENT, capturePayPalPayment);
 }

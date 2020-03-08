@@ -10,6 +10,7 @@ import {
   BUY_CREDITS_WITH_PAYPAL,
   SET_ORDER_DATA,
   CAPTURE_PAYMENT,
+  SET_USER_DATA,
 } from '../../redux/types';
 
 export const createPaymentCard = data => ({
@@ -57,17 +58,18 @@ export const buyCreditsWithToken = (tokenID, credits, amount) => ({
   },
 });
 
-export const buyCreditsUsingPayPal = (credits, amount) => ({
+export const buyCreditsUsingPayPal = (credits, amount, navigation) => ({
   type: BUY_CREDITS_WITH_PAYPAL,
   payload: {
     credits,
     amount,
+    navigation,
   },
 });
 
-export const capturePayment = capturePaymentURL => ({
+export const capturePayment = (capturePaymentURL, credits, navigation) => ({
   type: CAPTURE_PAYMENT,
-  payload: { capturePaymentURL },
+  payload: { capturePaymentURL, credits, navigation },
 });
 
 export const setOrderData = orderData => ({
@@ -80,4 +82,9 @@ export const setNativePaySupport = isSupported => ({
   payload: {
     isNativePaySupported: isSupported,
   },
+});
+
+export const setData = (data) => ({
+  type: SET_USER_DATA,
+  data,
 });

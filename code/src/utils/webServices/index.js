@@ -117,9 +117,10 @@ export function capturePayPalPaymentAPI(accessToken, capturePaymentURL) {
     })
     .catch(err => {
       console.log({ ...err });
+      return { ok: false };
     });
 }
-export function createPayPalOrder(accessToken, amount) {
+export function createPayPalOrder(accessToken, amount, credits) {
   const dataDetail = {
     intent: 'CAPTURE',
     purchase_units: [
@@ -143,7 +144,7 @@ export function createPayPalOrder(accessToken, amount) {
     },
   };
 
-  return Axios.post('https://api.sandbox.paypal.com/v2/checkout/orders', dataDetail, {
+  return Axios.post('https://api.paypal.com/v2/checkout/orders', dataDetail, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
@@ -151,11 +152,12 @@ export function createPayPalOrder(accessToken, amount) {
   })
     .then(response => {
       const { id, links } = response.data;
-      const approvalUrl = links.find(data => data.rel == 'approve');
-      const captureUrl = links.find(data => data.rel == 'capture');
+      const approvalUrl = links.find(data => data.rel === 'approve');
+      const captureUrl = links.find(data => data.rel === 'capture');
       return {
         approvalUrl: approvalUrl.href,
         capturePaymentURL: captureUrl.href,
+        credits: credits,
       };
     })
     .catch(err => {

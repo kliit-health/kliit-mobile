@@ -21,13 +21,13 @@ import moment from 'moment';
 import { makeid } from '../../utils/firebase';
 import metrices from '../../utils/metrices';
 
-const lang = language['en'];
+const lang = language.en;
 class Ask extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       questionText: '',
-    }
+    };
   }
 
   componentDidMount() {
@@ -35,11 +35,11 @@ class Ask extends React.PureComponent {
     if (question) {
       this.setState({
         questionText: question,
-      })
+      });
     } else if (!question) {
       this.setState({
-        questionText: "",
-      })
+        questionText: '',
+      });
     }
     this.fetchData();
   }
@@ -49,11 +49,11 @@ class Ask extends React.PureComponent {
     if (question) {
       this.setState({
         questionText: question,
-      })
+      });
     } else if (!question) {
       this.setState({
-        questionText: "",
-      })
+        questionText: '',
+      });
     }
   }
 
@@ -61,7 +61,7 @@ class Ask extends React.PureComponent {
     const { getQuestion, userData, setNewKeyToUserTable } = this.props;
     // let referalid = makeid();
     // console.log('referalid ********************************', referalid);
-    // if (!userData.referalCode) {
+    // if (!userData.referralCode) {
     //   let updatedUserData = {
     //     ...userData,
     //     ["referalCode"]: referalid
@@ -90,8 +90,8 @@ class Ask extends React.PureComponent {
         key: Constant.App.firebaseTableKeyValuesNames.questionConditionKey,
         value: true,
         userConditionKey: Constant.App.firebaseTableKeyValuesNames.questionUserConditionKey,
-      }
-    }
+      },
+    };
     getQuestion(params);
   }
 
@@ -133,7 +133,7 @@ class Ask extends React.PureComponent {
           </TouchableOpacity>
         </View>
       </View>
-    )
+    );
   }
 
   renderCreditView() {
@@ -141,7 +141,7 @@ class Ask extends React.PureComponent {
       <CustomText style={styles.creditTextStyle}>
         {`${Constant.App.questionCreditValue} ${lang.askUser.homeCreditsText}`}
       </CustomText>
-    )
+    );
   }
 
   renderInputTextView() {
@@ -156,7 +156,7 @@ class Ask extends React.PureComponent {
           onChangeText={value => {
             this.setState({
               questionText: value,
-            })
+            });
             setQuestionText(value);
           }}
           placeholder={lang.askUser.placehorderText}
@@ -164,7 +164,7 @@ class Ask extends React.PureComponent {
           style={question ? styles.inputTypeStyle : [styles.inputTypeStyle, { lineHeight: 25 }]}
           placeholderTextColor={Constant.App.colors.lightGrey} />
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -174,9 +174,9 @@ class Ask extends React.PureComponent {
         disabled={question ? false : true}
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
-        onPress={() => { navigation.navigate(Constant.App.screenNames.ChooseExpert) }}
+        onPress={() => { navigation.navigate(Constant.App.screenNames.ChooseExpert); }}
         text={lang.askUser.btnText} />
-    )
+    );
   }
 
   renderRecentExpertView() {
@@ -211,7 +211,7 @@ class Ask extends React.PureComponent {
                   navigation.navigate(Constant.App.screenNames.ExpertProfile, {
                     isFrom: Constant.App.screenNames.AskUser,
                     uid: item.uid,
-                  })
+                  });
                 }}>
                   <View
                     style={{
@@ -244,7 +244,7 @@ class Ask extends React.PureComponent {
                         backgroundColor: Constant.App.colors.greenColor,
                         position: 'absolute',
                       }}
-                    ></View> : <View
+                     /> : <View
                       style={{
                         width: 16,
                         height: 16,
@@ -254,18 +254,18 @@ class Ask extends React.PureComponent {
                         backgroundColor: Constant.App.colors.grayColor,
                         position: 'absolute',
                       }}
-                    ></View>}
+                     />}
                   </View>
                   <CustomText style={styles.expertNameTextStyle}>{`${item.profileInfo.firstName} ${item.profileInfo.lastName}`}</CustomText>
                   <CustomText style={styles.expertProfTextStyle}>{item.profileInfo.profession.fullName}</CustomText>
                 </TouchableOpacity>
               </View>
-            )
+            );
           }}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    )
+    );
   }
 
   renderPreviousQuestionView() {
@@ -299,8 +299,8 @@ class Ask extends React.PureComponent {
                     <TouchableOpacity onPress={() => {
                       navigation.navigate(Constant.App.screenNames.ExpertProfile, {
                         isFrom: Constant.App.screenNames.AskUser,
-                        uid: item.expertInfo.uid
-                      })
+                        uid: item.expertInfo.uid,
+                      });
                     }}>
                       <Avatar
                         containerStyle={{ alignSelf: 'center' }}
@@ -322,13 +322,13 @@ class Ask extends React.PureComponent {
                     </CustomText>
                   </View>
                 </View>
-              </TouchableOpacity>)
+              </TouchableOpacity>);
           }
           }
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    )
+    );
   }
 
   renderAskedQuestionView() {
@@ -338,7 +338,7 @@ class Ask extends React.PureComponent {
       <TouchableOpacity onPress={() => {
         navigation.navigate(Constant.App.screenNames.Chat, {
           questionData,
-        })
+        });
       }}>
         <View
           style={
@@ -382,7 +382,7 @@ class Ask extends React.PureComponent {
           </View>
         </View>
       </TouchableOpacity>
-    )
+    );
   }
 
   renderEmptyCreditView() {
@@ -394,7 +394,7 @@ class Ask extends React.PureComponent {
           {lang.askUser.textAfterEmptyCredit}
         </CustomText>
       </View>
-    )
+    );
   }
 
   render() {
