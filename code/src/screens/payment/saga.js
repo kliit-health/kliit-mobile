@@ -60,7 +60,25 @@ function* createPayment({ data }) {
       yield put(showOrHideModal(Lang.successMessages.cardAddedSuccessfully));
       navigation.goBack();
     } else {
-      yield put(showOrHideModal(Lang.errorMessage.serverError));
+      var errorMessage = '';
+      switch (response.status) {
+        case 'internal':
+          errorMessage = 'Please check back your input';
+          break;
+        case 'already-exists':
+          errorMessage = 'Card already exists';
+          break;
+        case 'invalid-argument':
+          errorMessage = 'One of the inputs is invalid';
+          break;
+        case 'unauthenticated':
+          errorMessage = 'Invalid action';
+          break;
+        default:
+          errorMessage = Lang.errorMessage.serverError;
+          break;
+      }
+      yield put(showOrHideModal(errorMessage));
     }
   } catch (error) {
     yield put(hideApiLoader());
@@ -86,20 +104,17 @@ function* getPaymentMethods() {
 }
 
 function* handlePayResponse(response, credits, navigation) {
-  console.log('Handling payment response',  response);
   if (response.ok) {
     response = yield call(addUserCredits, credits);
-    console.log('Add user credits-----', credits);
     if (response.ok) {
-      yield put(showOrHideModal(Lang.successMessages.creditAddedSuccessfully));
       const user = firebase.auth().currentUser;
       const obj = {
         tableName: Constant.App.firebaseTableNames.users,
         uid: user.uid,
       };
       const userData = yield getDataFromTable(obj);
-      console.log('userData', userData);
       yield put(setData(userData));
+      yield put(showOrHideModal(Lang.successMessages.creditAddedSuccessfully));
       if (navigation === undefined) {
         NavigationService.goBack();
       } else {

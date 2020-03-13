@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.Medium,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
-  referralCodeTitleContainerStyle: {
+  referalCodeTitleContainerStyle: {
     paddingLeft: parentPaddingValue,
     paddingRight: parentPaddingValue,
     paddingTop: metrics.DEVICE_WIDTH * 0.05,
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: metrics.DEVICE_WIDTH,
   },
-  referralCodeTitleTextBoldStyle: {
+  referalCodeTitleTextBoldStyle: {
     width: metrics.DEVICE_WIDTH - parentPadding,
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.xLarge,
     fontFamily: Constant.App.fontFamily.headerBold,
     fontWeight: '500',
   },
-  referralCodeTextStyle: {
+  referalCodeTextStyle: {
     marginTop: metrics.DEVICE_HEIGHT * 0.02,
     backgroundColor: Constant.App.colors.whiteColor,
     padding: parentPaddingValue,

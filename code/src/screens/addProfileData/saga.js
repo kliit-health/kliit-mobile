@@ -10,8 +10,10 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { setUserData } from '../authLoading/action';
 
-let Lang = Language['en'];
+let Lang = Language.en;
 
+
+// TODO: Refactor this function in order to clean code and remove redundant code
 function* uploadUserData({ data, dispatch }) {
     try {
         const { userParams, navigation, imageParams } = data;
@@ -19,17 +21,25 @@ function* uploadUserData({ data, dispatch }) {
         const fcmToken = state.authLoadingReducer.fcmToken;
         yield put(showApiLoader(Lang.apiLoader.loadingText));
         if (imageParams) {
-            const responseImage = yield uploadImage(imageParams)
+            const responseImage = yield uploadImage(imageParams);
             displayConsole('responseImage', responseImage);
             if (responseImage.success) {
-                const user = firebase.auth().currentUser;
                 const { downloadURL } = responseImage.data;
-                displayConsole('datadownloadURL', downloadURL);
-                displayConsole('responseImage.data', responseImage.data);
-                const userRegistrationParams = {
-                    credits: Constant.App.credits,
+
+                const user = firebase.auth().currentUser;
+                var initialCredits = Constant.App.credits;
+                const obj = {
+                    tableName: Constant.App.firebaseTableNames.users,
                     uid: user.uid,
-                    role: "User",
+                };
+                const userData = yield getDataFromTable(obj);
+                if (userData && userData.referedCode) {
+                    initialCredits = 20;
+                }
+                const userRegistrationParams = {
+                    credits: initialCredits,
+                    uid: user.uid,
+                    role: 'User',
                     isActive: false,
                     referalCode: yield makeid(),
                     profileInfo: {
@@ -43,18 +53,13 @@ function* uploadUserData({ data, dispatch }) {
                         email: user.email,
                     },
                     fcmToken,
-                }
+                };
                 const response = yield addUserData(userRegistrationParams);
                 displayConsole('response', response);
                 yield put(hideApiLoader());
                 if (response.success) {
-                    const obj = {
-                        tableName: Constant.App.firebaseTableNames.users,
-                        uid: user.uid,
-                    }
-                    const userData = yield getDataFromTable(obj);
-                    displayConsole('userData', userData);
-                    yield put(setUserData(userData));
+                    const updatedUserData = yield getDataFromTable(obj);
+                    yield put(setUserData(updatedUserData));
                     const resetAction = StackActions.reset({
                         index: 0,
                         actions: [
@@ -77,14 +82,23 @@ function* uploadUserData({ data, dispatch }) {
             }
         } else {
             const user = firebase.auth().currentUser;
-            const userRegistrationParams = {
-                credits: Constant.App.credits,
+            var initialCredits = Constant.App.credits;
+            const obj = {
+                tableName: Constant.App.firebaseTableNames.users,
                 uid: user.uid,
-                role: "User",
+            };
+            const userData = yield getDataFromTable(obj);
+            if (userData && userData.referedCode) {
+                initialCredits = Constant.App.referalCredits;
+            }
+            const userRegistrationParams = {
+                credits: initialCredits,
+                uid: user.uid,
+                role: 'User',
                 isActive: false,
                 referalCode: yield makeid(),
                 profileInfo: {
-                    profileImageUrl: "",
+                    profileImageUrl: '',
                     firstName: userParams.firstName,
                     lastName: userParams.lastName,
                     dob: userParams.dob,
@@ -94,18 +108,12 @@ function* uploadUserData({ data, dispatch }) {
                     email: user.email,
                 },
                 fcmToken,
-            }
+            };
             const response = yield addUserData(userRegistrationParams);
-            displayConsole('response', response);
             yield put(hideApiLoader());
             if (response.success) {
-                const obj = {
-                    tableName: Constant.App.firebaseTableNames.users,
-                    uid: user.uid,
-                }
-                const userData = yield getDataFromTable(obj);
-                displayConsole('userData', userData);
-                yield put(setUserData(userData));
+                const updatedUserData = yield getDataFromTable(obj);
+                yield put(setUserData(updatedUserData));
                 const resetAction = StackActions.reset({
                     index: 0,
                     actions: [

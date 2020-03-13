@@ -1,4 +1,4 @@
-import { put, takeEvery, select } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import { CREATE_USER } from '../../redux/types';
 import Language from '../../utils/localization';
 import {
@@ -8,37 +8,34 @@ import {
 import {
   createUser,
   checkReferedUserData,
-  checkSecretKey,
   addUserData,
   deleteUser,
+  updateCredits,
 } from '../../utils/firebase';
 import { showOrHideModal } from '../../components/customModal/action';
 import Constant from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
-import firebase from 'react-native-firebase';
-import { displayConsole } from '../../utils/helper';
 
 let Lang = Language.en;
 function* signUp({ data }) {
   try {
-    const { params, navigation, referralCode, secretKey } = data;
+    const { params, navigation, referalCode } = data;
     yield put(showApiLoader(Lang.apiLoader.loadingText));
-    const response = yield createUser(params);
-    // yield put(hideApiLoader());
-    const { uid } = response;
+    const newUser = yield createUser(params);
+    const { uid } = newUser;
     if (uid) {
-      if (referralCode) {
-        const response = yield checkReferedUserData({ referralCode });
-        if (response.success) {
-          if (response.data) {
+      if (referalCode) {
+        const referrerData = yield checkReferedUserData({ referalCode });
+        if (referrerData.success) {
+          if (referrerData.data) {
             const userRegistrationParams = {
-              referedCode: referralCode,
+              referedCode: referalCode,
               uid,
             };
             const response = yield addUserData(userRegistrationParams);
-            displayConsole('response-------', response);
             yield put(hideApiLoader());
             if (response.success) {
+              yield updateCredits(referrerData.data.credits + Constant.App.referalCredits, referrerData.data.uid);
               const resetAction = StackActions.reset({
                 index: 0,
                 actions: [
@@ -60,51 +57,20 @@ function* signUp({ data }) {
           } else {
             yield deleteUser();
             yield put(hideApiLoader());
-            yield put(showOrHideModal(Lang.errorMessage.invalidReferralCode));
+            yield put(showOrHideModal(Lang.errorMessage.invalidreferalCode));
           }
         } else {
           yield deleteUser();
           yield put(hideApiLoader());
           yield put(
             showOrHideModal(
-              response.message
-                ? response.message
+              referrerData.message
+                ? referrerData.message
                 : Lang.errorMessage.serverError
             )
           );
         }
-      }
-      // else if (secretKey) {
-      //     const response = yield checkSecretKey({ secretKey });
-      //     if (response.success) {
-      //         if (response.data) {
-      //             yield put(hideApiLoader());
-      //             const resetAction = StackActions.reset({
-      //                 index: 0,
-      //                 actions: [
-      //                     NavigationActions.navigate({ routeName: Constant.App.screenNames.AddProfileData }),
-      //                 ],
-      //             });
-      //             navigation.dispatch(resetAction);
-      //         } else {
-      //             yield deleteUser();
-      //             yield put(hideApiLoader());
-      //             yield put(
-      //                 showOrHideModal(Lang.errorMessage.invalidSecretKey),
-      //             );
-      //         }
-
-      //     } else {
-      //         yield deleteUser();
-      //         yield put(
-      //             showOrHideModal(
-      //                 response.message ? response.message
-      //                     : Lang.errorMessage.serverError,
-      //             ),
-      //         );
-      //     }
-      // }
-      else {
+      } else {
         yield put(hideApiLoader());
         const resetAction = StackActions.reset({
           index: 0,
@@ -120,7 +86,7 @@ function* signUp({ data }) {
       yield put(hideApiLoader());
       yield put(
         showOrHideModal(
-          response.message ? response.message : Lang.errorMessage.serverError
+          newUser.message ? newUser.message : Lang.errorMessage.serverError
         )
       );
     }

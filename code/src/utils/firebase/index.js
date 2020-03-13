@@ -1106,7 +1106,7 @@ export function checkReferedUserData(obj) {
     let userRef = firebase
       .firestore()
       .collection('users')
-      .where('referalCode', '==', obj.referralCode)
+      .where('referalCode', '==', obj.referalCode)
       .get();
     return userRef
       .then(querySnapshot => {
@@ -1454,6 +1454,22 @@ export async function addUserCredits(credits) {
         credits: userData.credits + credits,
       });
     return { ok: true, newCredits:  userData.credits + credits };
+  } catch (err) {
+    return { ok: false, status: 'internal' };
+  }
+}
+
+// TODO: Remove this function during refactor phase
+export async function updateCredits(credits, forUser) {
+  try {
+    await firebase
+      .firestore()
+      .collection('users')
+      .doc(forUser)
+      .update({
+        credits,
+      });
+    return { ok: true, newCredits:  credits };
   } catch (err) {
     return { ok: false, status: 'internal' };
   }

@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.xSmall,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
-  referralCodeInputTextContainerStyle: {
+  referalCodeInputTextContainerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Constant.App.colors.blackColor,
     borderBottomWidth: 0.5,
   },
-  referralCodeInputTypeStyle: {
+  referalCodeInputTypeStyle: {
     color: Constant.App.colors.blackColor,
     width: metrics.DEVICE_WIDTH - childPadding,
     fontSize: Constant.App.textSize.Normal,

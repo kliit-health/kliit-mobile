@@ -104,7 +104,7 @@ class AuthLoadingScreen extends React.Component {
           displayConsole('inside getUserData', querySnapshot.data());
           const data = querySnapshot.data();
           if (data) {
-            if (!data.referralCode) {
+            if (!data.referalCode) {
               const updateStatusParams = {
                 uid: data.uid,
                 updatedData: {

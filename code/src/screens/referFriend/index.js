@@ -34,7 +34,7 @@ class ReferFriend extends React.PureComponent {
     try {
       const result = await Share.share({
         message:
-          `Refer a friend and get 20 credits for free! Enter referal code ${userData.referralCode} while registrating in application. You can also download the application from given link ${Platform.OS == 'android' ? Constant.App.appLiveLink.googlePlay : Constant.App.appLiveLink.appleStore}`,
+          `Refer a friend and get 20 credits for free! Enter referal code ${userData.referalCode} while registrating in application. You can also download the application from given link ${Platform.OS == 'android' ? Constant.App.appLiveLink.googlePlay : Constant.App.appLiveLink.appleStore}`,
       });
 
       if (result.action === Share.sharedAction) {
@@ -86,19 +86,19 @@ class ReferFriend extends React.PureComponent {
 
   writeToClipboard = async () => {
     const { userData } = this.props;
-    await Clipboard.setString(userData.referralCode);
+    await Clipboard.setString(userData.referalCode);
     alert('Code copied to clipboard');
   };
 
   renderYourReferralTitleView() {
     const { userData } = this.props;
     return (
-      <View style={styles.referralCodeTitleContainerStyle}>
-        <CustomText style={styles.referralCodeTitleTextBoldStyle}>
-          {lang.referFriend.yourReferralCode}
+      <View style={styles.referalCodeTitleContainerStyle}>
+        <CustomText style={styles.referalCodeTitleTextBoldStyle}>
+          {lang.referFriend.yourreferalCode}
         </CustomText>
-        <CustomText style={styles.referralCodeTextStyle}>
-          {userData.referralCode}
+        <CustomText style={styles.referalCodeTextStyle}>
+          {userData.referalCode}
         </CustomText>
         <CustomButton
           buttonStyle={styles.btnContainerStyle}

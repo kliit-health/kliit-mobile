@@ -8,7 +8,7 @@ const Language = {
       noDataAvailable: 'No data available',
       userNotExist: 'User does not exist',
       invalidSecretKey: 'Invalid secret key.',
-      invalidReferralCode: 'Invalid referral code.',
+      invalidreferalCode: 'Invalid referral code.',
     },
     successMessages: {
       creditAddedSuccessfully: 'Your credit has increased successfully',
@@ -63,8 +63,8 @@ const Language = {
       passwordLimitErrorMsg: 'Password should be at least 7 characters.',
       passwordSpecialCharErrorMsg:
         'Password should have at least 1 special character.',
-      secretReferralCodeErrorMsg: 'Please enter Referral code or Secret key.',
-      referralCode: 'Referral code',
+      secretreferalCodeErrorMsg: 'Please enter Referral code or Secret key.',
+      referalCode: 'Referral code',
       sceretKey: 'Secret Key',
       or: 'OR',
     },
@@ -180,7 +180,7 @@ const Language = {
       subTitleText: 'Invite friends, get 20 credits',
       subTitleText2:
         'Get 20 credits for each friend who signs up with your referral code',
-      yourReferralCode: 'Your Referral Code',
+      yourreferalCode: 'Your Referral Code',
       btnText: 'Copy My Referral Code',
       moreWays: 'More ways to share',
       smsFb: 'SMS, Facebook, Twitter & More',

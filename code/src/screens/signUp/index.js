@@ -30,7 +30,7 @@ class SignUp extends React.PureComponent {
       isUser: true,
       isPasswordHasSpecialChar: false,
       isPasswordContainsSevenChar: false,
-      referralCode: '',
+      referalCode: '',
     };
   }
 
@@ -209,7 +209,7 @@ class SignUp extends React.PureComponent {
 
   renderButtonView() {
     const { navigation, showHideErrorModal, signUp } = this.props;
-    const { email, password, referralCode } = this.state;
+    const { email, password, referalCode } = this.state;
     return (
       <CustomButton
         buttonStyle={styles.buttonContainerStyle}
@@ -226,9 +226,6 @@ class SignUp extends React.PureComponent {
           } else if (!hasSpecialCharactors(password)) {
             showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg);
           }
-          // else if (!secretKey && !referralCode) {
-          //   showHideErrorModal(lang.signUp.secretReferralCodeErrorMsg);
-          // }
           else {
             const data = {
               params: {
@@ -236,8 +233,7 @@ class SignUp extends React.PureComponent {
                 password: password.trim(),
               },
               navigation,
-              // secretKey,
-              referralCode,
+              referalCode,
             };
             signUp(data);
           }
@@ -257,24 +253,24 @@ class SignUp extends React.PureComponent {
 
   renderReferralSceretCodeView() {
     const {
-      referralCode,
+      referalCode,
     } = this.state;
     return (
       <View style={styles.inputTextParentContainerStyle}>
-        <View style={styles.referralCodeInputTextContainerStyle}>
+        <View style={styles.referalCodeInputTextContainerStyle}>
           <CustomInputText
             autoCapitalize="none"
             onChangeText={value => {
               this.setState({
-                referralCode: value,
+                referalCode: value,
               });
             }}
-            placeholder={lang.signUp.referralCode}
-            value={referralCode}
+            placeholder={lang.signUp.referalCode}
+            value={referalCode}
             style={
-              referralCode
-                ? styles.referralCodeInputTypeStyle
-                : [styles.referralCodeInputTypeStyle, { fontWeight: '100' }]
+              referalCode
+                ? styles.referalCodeInputTypeStyle
+                : [styles.referalCodeInputTypeStyle, { fontWeight: '100' }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />

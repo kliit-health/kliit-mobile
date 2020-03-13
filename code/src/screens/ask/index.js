@@ -16,10 +16,8 @@ import { Avatar } from 'react-native-elements';
 import InputText from '../../components/customInputText/simpleInputText';
 import CustomButton from '../../components/customButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { getQuestionData, updateQuestion, updateUserDataWithNewKey } from './action';
+import { getQuestionData, updateQuestion } from './action';
 import moment from 'moment';
-import { makeid } from '../../utils/firebase';
-import metrices from '../../utils/metrices';
 
 const lang = language.en;
 class Ask extends React.PureComponent {
@@ -58,17 +56,7 @@ class Ask extends React.PureComponent {
   }
 
   fetchData() {
-    const { getQuestion, userData, setNewKeyToUserTable } = this.props;
-    // let referalid = makeid();
-    // console.log('referalid ********************************', referalid);
-    // if (!userData.referralCode) {
-    //   let updatedUserData = {
-    //     ...userData,
-    //     ["referalCode"]: referalid
-    //   }
-    //   console.log('UPDATED updatedUserData********************************', updatedUserData.uid);
-    //   setNewKeyToUserTable(updatedUserData.uid, updatedUserData);
-    // }
+    const { getQuestion, userData } = this.props;
     const params = {
       questionParams: {
         tableName: Constant.App.firebaseTableNames.questions,
