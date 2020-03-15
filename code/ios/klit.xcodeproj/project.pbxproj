@@ -597,7 +597,7 @@
 				CODE_SIGN_ENTITLEMENTS = klit/klit.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = P8NZSAW4X8;
 				HEADER_SEARCH_PATHS = (
@@ -650,7 +650,7 @@
 				CODE_SIGN_ENTITLEMENTS = klit/klit.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = P8NZSAW4X8;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

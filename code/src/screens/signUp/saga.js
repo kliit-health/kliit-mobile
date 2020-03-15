@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import { CREATE_USER } from '../../redux/types';
 import Language from '../../utils/localization';
 import {
@@ -28,31 +28,40 @@ function* signUp({ data }) {
         const referrerData = yield checkReferedUserData({ referalCode });
         if (referrerData.success) {
           if (referrerData.data) {
+            const referrerCredits = referrerData.data.credits;
+            console.log('referrer  creidts: ', referrerCredits);
             const userRegistrationParams = {
               referedCode: referalCode,
               uid,
             };
-            const response = yield addUserData(userRegistrationParams);
-            yield put(hideApiLoader());
-            if (response.success) {
-              yield updateCredits(referrerData.data.credits + Constant.App.referalCredits, referrerData.data.uid);
-              const resetAction = StackActions.reset({
-                index: 0,
-                actions: [
-                  NavigationActions.navigate({
-                    routeName: Constant.App.screenNames.AddProfileData,
-                  }),
-                ],
-              });
-              navigation.dispatch(resetAction);
+            const updateCreditsResponse = yield updateCredits(referrerCredits + Constant.App.referalCredits, referrerData.data.uid);
+            if (updateCreditsResponse.ok) {
+              const response = yield addUserData(userRegistrationParams);
+              if (response.success) {
+                const resetAction = StackActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({
+                      routeName: Constant.App.screenNames.AddProfileData,
+                    }),
+                  ],
+                });
+                navigation.dispatch(resetAction);
+                yield put(hideApiLoader());
+              } else {
+                yield put(hideApiLoader());
+                yield put(
+                  showOrHideModal(
+                    response.message
+                      ? response.message
+                      : Lang.errorMessage.serverError
+                  )
+                );
+              }
             } else {
-              put(
-                showOrHideModal(
-                  response.message
-                    ? response.message
-                    : Lang.errorMessage.serverError
-                )
-              );
+              yield deleteUser();
+              yield put(hideApiLoader());
+              yield put(showOrHideModal(Lang.errorMessage.invalidreferalCode));
             }
           } else {
             yield deleteUser();
@@ -71,7 +80,6 @@ function* signUp({ data }) {
           );
         }
       } else {
-        yield put(hideApiLoader());
         const resetAction = StackActions.reset({
           index: 0,
           actions: [
@@ -81,6 +89,7 @@ function* signUp({ data }) {
           ],
         });
         navigation.dispatch(resetAction);
+        yield put(hideApiLoader());
       }
     } else {
       yield put(hideApiLoader());
@@ -97,5 +106,5 @@ function* signUp({ data }) {
 }
 
 export default function* signupSaga() {
-  yield takeEvery(CREATE_USER, signUp);
+  yield takeLatest(CREATE_USER, signUp);
 }

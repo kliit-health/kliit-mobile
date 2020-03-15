@@ -18,11 +18,13 @@ import { isEmail, hasSpecialCharactors } from '../../utils/helper';
 import { showOrHideModal } from '../../components/customModal/action';
 import { createUser } from './action';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import _ from 'lodash';
 
 let lang = Language.en;
 class SignUp extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.onSignUpClicked = _.debounce(this.onSignUp, 500);
     this.state = {
       email: '',
       password: '',
@@ -207,37 +209,39 @@ class SignUp extends React.PureComponent {
     );
   }
 
-  renderButtonView() {
+  onSignUp = () => {
     const { navigation, showHideErrorModal, signUp } = this.props;
     const { email, password, referalCode } = this.state;
+    if (!email.trim()) {
+      showHideErrorModal(lang.signUp.EmptyEmailMsg);
+    } else if (!isEmail(email.trim())) {
+      showHideErrorModal(lang.signUp.InvalidEmailMsg);
+    } else if (!password.trim()) {
+      showHideErrorModal(lang.signUp.EmptyPasswordMsg);
+    } else if (password.trim().length < 7) {
+      showHideErrorModal(lang.signUp.passwordLimitErrorMsg);
+    } else if (!hasSpecialCharactors(password)) {
+      showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg);
+    }
+    else {
+      const data = {
+        params: {
+          email: email.trim(),
+          password: password.trim(),
+        },
+        navigation,
+        referalCode,
+      };
+      signUp(data);
+    }
+  }
+
+  renderButtonView() {
     return (
       <CustomButton
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
-        onPress={() => {
-          if (!email.trim()) {
-            showHideErrorModal(lang.signUp.EmptyEmailMsg);
-          } else if (!isEmail(email.trim())) {
-            showHideErrorModal(lang.signUp.InvalidEmailMsg);
-          } else if (!password.trim()) {
-            showHideErrorModal(lang.signUp.EmptyPasswordMsg);
-          } else if (password.trim().length < 7) {
-            showHideErrorModal(lang.signUp.passwordLimitErrorMsg);
-          } else if (!hasSpecialCharactors(password)) {
-            showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg);
-          }
-          else {
-            const data = {
-              params: {
-                email: email.trim(),
-                password: password.trim(),
-              },
-              navigation,
-              referalCode,
-            };
-            signUp(data);
-          }
-        }}
+        onPress={this.onSignUpClicked}
         text={lang.signUp.signup}
       />
     );
@@ -304,7 +308,7 @@ class SignUp extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   showHideErrorModal: value => dispatch(showOrHideModal(value)),

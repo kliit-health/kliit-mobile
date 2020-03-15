@@ -1,7 +1,6 @@
 import firebase from 'react-native-firebase';
 import { displayConsole } from '../helper';
 import moment from 'moment';
-import Language from '../localization';
 import Constant from '../constants';
 var voucher_codes = require('voucher-code-generator');
 var RSAKey = require('react-native-rsa');
@@ -9,7 +8,6 @@ var rsa = new RSAKey();
 const bits = 1024;
 const exponent = '10001';
 const mySecretSalt = 'klit280391';
-let lang = Language.en;
 export function createUser(obj) {
   try {
     displayConsole('\n\n--------------***** createUser Start *********-----------');

@@ -86,7 +86,7 @@ class ReferFriend extends React.PureComponent {
 
   writeToClipboard = async () => {
     const { userData } = this.props;
-    await Clipboard.setString(userData.referalCode);
+    await Clipboard.setString(userData.referralCode);
     alert('Code copied to clipboard');
   };
 

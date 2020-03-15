@@ -34,7 +34,7 @@ function* uploadUserData({ data, dispatch }) {
                 };
                 const userData = yield getDataFromTable(obj);
                 if (userData && userData.referedCode) {
-                    initialCredits = 20;
+                    initialCredits = Constant.App.referalCredits;
                 }
                 const userRegistrationParams = {
                     credits: initialCredits,
@@ -55,7 +55,6 @@ function* uploadUserData({ data, dispatch }) {
                     fcmToken,
                 };
                 const response = yield addUserData(userRegistrationParams);
-                displayConsole('response', response);
                 yield put(hideApiLoader());
                 if (response.success) {
                     const updatedUserData = yield getDataFromTable(obj);
