@@ -4,7 +4,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import styles from './style';
 
-const CustomText = ({ style, ellipsizeMode, numberOfLines }) => (
+const CustomText = ({ style, ellipsizeMode, numberOfLines, ...props }) => (
   <Text
     ellipsizeMode={ellipsizeMode}
     numberOfLines={numberOfLines}
