@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   ScrollView,
@@ -20,7 +20,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 let lang = Language['en'];
 let rootRef;
-class Login extends React.PureComponent {
+class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,7 @@ class Login extends React.PureComponent {
     if (loginFailure) {
       this.setState({
         password: '',
-      })
+      });
       clearState();
     }
   }
@@ -45,38 +45,46 @@ class Login extends React.PureComponent {
     const { email, password, showPassword } = this.state;
     const { staticImages } = Constant.App;
     return (
-      <View
-        style={styles.inputTextParentContainerStyle}
-      >
+      <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => this.setState({ email: value })}
+            autoCapitalize='none'
+            onChangeText={(value) => this.setState({ email: value })}
             placeholder={lang.login.Email}
             value={email}
-            style={email ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
+            style={
+              email
+                ? styles.inputTypeStyle
+                : [styles.inputTypeStyle, { fontWeight: '100' }]
+            }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
         </View>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => {
-              this.setState({ password: value })
+            autoCapitalize='none'
+            onChangeText={(value) => {
+              this.setState({ password: value });
             }}
             placeholder={lang.login.Password}
             value={password}
             secureTextEntry={!showPassword}
-            style={password ? styles.inputTypePasswordStyle : [styles.inputTypePasswordStyle, { fontWeight: '100' }]}
+            style={
+              password
+                ? styles.inputTypePasswordStyle
+                : [styles.inputTypePasswordStyle, { fontWeight: '100' }]
+            }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
           <TouchableOpacity
             onPress={() => this.setState({ showPassword: !showPassword })}
           >
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               source={
-                showPassword ? staticImages.passwordVisibleIcon : staticImages.passwordInvisibleIcon
+                showPassword
+                  ? staticImages.passwordVisibleIcon
+                  : staticImages.passwordInvisibleIcon
               }
               style={styles.passwordHideShowIconStyle}
             />
@@ -93,17 +101,26 @@ class Login extends React.PureComponent {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}>
-        <Image resizeMode="contain" source={staticImages.crossIcon} style={styles.backIconStyle} />
+        }}
+      >
+        <Image
+          resizeMode='contain'
+          source={staticImages.crossIcon}
+          style={styles.backIconStyle}
+        />
       </TouchableOpacity>
-    )
+    );
   }
 
   renderLogoView() {
     const { staticImages } = Constant.App;
     return (
-      <Image resizeMode="contain" source={staticImages.loginLogoImage} style={styles.logoStyle} />
-    )
+      <Image
+        resizeMode='contain'
+        source={staticImages.loginLogoImage}
+        style={styles.logoStyle}
+      />
+    );
   }
 
   renderToggleButtonView() {
@@ -111,19 +128,33 @@ class Login extends React.PureComponent {
     return (
       <View style={styles.toggleButtonContainer}>
         <CustomButton
-          buttonStyle={isUser ? [styles.userButtonContainerStyle, { backgroundColor: Constant.App.colors.whiteColor }] : styles.userButtonContainerStyle}
+          buttonStyle={
+            isUser
+              ? [
+                  styles.userButtonContainerStyle,
+                  { backgroundColor: Constant.App.colors.whiteColor },
+                ]
+              : styles.userButtonContainerStyle
+          }
           textStyle={styles.userButtonTextStyle}
           onPress={() => this.setState({ isUser: true })}
           text={lang.login.User}
         />
         <CustomButton
-          buttonStyle={!isUser ? [styles.expertButtonContainerStyle, { backgroundColor: Constant.App.colors.whiteColor }] : styles.expertButtonContainerStyle}
+          buttonStyle={
+            !isUser
+              ? [
+                  styles.expertButtonContainerStyle,
+                  { backgroundColor: Constant.App.colors.whiteColor },
+                ]
+              : styles.expertButtonContainerStyle
+          }
           textStyle={styles.expertButtonTextStyle}
           onPress={() => this.setState({ isUser: false })}
           text={lang.login.Expert}
         />
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -148,29 +179,14 @@ class Login extends React.PureComponent {
               },
               isUser,
               navigation,
-            }
+            };
             login(data);
           }
         }}
         text={lang.login.Login}
       />
-    )
+    );
   }
-
-
-  // renderForgotPasswordView() {
-  //   const { navigation } = this.props;
-  //   return (
-  //     <CustomButton
-  //       buttonStyle={styles.loginButtonContainerStyle}
-  //       textStyle={styles.loginButtonTextStyle}
-  //       onPress={() => {
-  //         navigation.navigate(Constant.App.stack.AppStack);
-  //       }}
-  //       text={lang.login.Login}
-  //     />
-  //   )
-  // }
 
   renderForgotPasswordView() {
     const { navigation } = this.props;
@@ -184,28 +200,16 @@ class Login extends React.PureComponent {
           {lang.login.ForgotPassword}
         </CustomText>
       </TouchableOpacity>
-    )
+    );
   }
-
-  // render() {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => {
-  //         navigation.navigate(Constant.App.screenNames.ForgotPassword);
-  //       }}>
-  //       <CustomText style={styles.forgotPasswordTextStyle}>
-  //         {lang.login.ForgotPassword}
-  //       </CustomText>
-  //     </TouchableOpacity>
-  //   )
-  // }
 
   render() {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderCrossIconView()}
           <View style={styles.contentContainerStyle}>
             {this.renderLogoView()}
@@ -221,17 +225,14 @@ class Login extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loginFailure: state.loginReducer.loginFailure,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  login: value => dispatch(loginApi(value, dispatch)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  login: (value) => dispatch(loginApi(value, dispatch)),
   clearState: () => dispatch(resetLoginState()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

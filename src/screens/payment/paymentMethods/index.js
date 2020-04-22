@@ -1,15 +1,24 @@
-import React from 'react';
-import { View, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
+import React, { PureComponent } from 'react';
+import {
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Language from '../../../utils/localization';
 import CustomText from '../../../components/customText';
 import { connect } from 'react-redux';
 import styles from './style';
 import Constant from '../../../utils/constants';
-import { defaultPaymentMethods, PaymentMethodsTypes } from '../../../utils/helper/payment';
+import {
+  defaultPaymentMethods,
+  PaymentMethodsTypes,
+} from '../../../utils/helper/payment';
 
 let lang = Language.en;
-class PaymentMethods extends React.PureComponent {
+class PaymentMethods extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +46,9 @@ class PaymentMethods extends React.PureComponent {
             source={staticImages.crossIcon}
           />
         </TouchableOpacity>
-        <CustomText style={styles.titleTextStyle}>{lang.paymentMethods.title}</CustomText>
+        <CustomText style={styles.titleTextStyle}>
+          {lang.paymentMethods.title}
+        </CustomText>
       </View>
     );
   }
@@ -64,7 +75,7 @@ class PaymentMethods extends React.PureComponent {
             ? '···· ' + method.last4Digits
             : method.title}
         </CustomText>
-        <View style={styles.expiredContainer} >
+        <View style={styles.expiredContainer}>
           <CustomText style={styles.expiredLabel}>
             {method.isExpired && index === 2 ? 'EXPIRED' : ''}
           </CustomText>
@@ -73,7 +84,7 @@ class PaymentMethods extends React.PureComponent {
     );
   }
 
-  getPaymentMethodIcon = methodType => {
+  getPaymentMethodIcon = (methodType) => {
     const { cardIcon, applePayIcon, payPalIcon } = Constant.App.staticImages;
     switch (methodType) {
       case PaymentMethodsTypes.applePay:
@@ -88,7 +99,10 @@ class PaymentMethods extends React.PureComponent {
   renderMyPaymentMethodsView() {
     const paymentMethods = [
       ...defaultPaymentMethods(this.props.isNativePaySupported),
-      ...this.props.paymentMethods.map(method => ({ ...method, type: PaymentMethodsTypes.card })),
+      ...this.props.paymentMethods.map((method) => ({
+        ...method,
+        type: PaymentMethodsTypes.card,
+      })),
     ];
 
     return (
@@ -96,7 +110,9 @@ class PaymentMethods extends React.PureComponent {
         <CustomText style={styles.sectionTitle}>
           {lang.paymentMethods.myPayment}
         </CustomText>
-        {paymentMethods.map((item, index) => this.renderPaymentMethod(item, index))}
+        {paymentMethods.map((item, index) =>
+          this.renderPaymentMethod(item, index)
+        )}
       </View>
     );
   }
@@ -147,10 +163,9 @@ class PaymentMethods extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   paymentMethods: state.paymentReducer.paymentMethods,
   isNativePaySupported: state.paymentReducer.isNativePaySupported,
 });
 
-const mapDispatchToProps = dispatch => ({});
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethods);
+export default connect(mapStateToProps)(PaymentMethods);

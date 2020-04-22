@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  Linking,
-} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, TouchableOpacity, Image, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './style';
 import CustomText from '../../../components/customText';
@@ -15,7 +10,7 @@ import Constant from '../../../utils/constants';
 import { Avatar } from 'react-native-elements';
 
 let lang = Language['en'];
-class AccountExpert extends React.PureComponent {
+class AccountExpert extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -39,18 +34,25 @@ class AccountExpert extends React.PureComponent {
           </View>
           <View style={styles.profileImageParentContainerStyle}>
             <Avatar
-              renderPlaceholderContent={<Image
-                style={{
-                  width: 120,
-                  height: 120,
-                }}
-                resizeMode="stretch"
-                source={staticImages.profilePlaceholderImg}
-              />}
+              renderPlaceholderContent={
+                <Image
+                  style={{
+                    width: 120,
+                    height: 120,
+                  }}
+                  resizeMode='stretch'
+                  source={staticImages.profilePlaceholderImg}
+                />
+              }
               size={120}
               rounded
-              source={{ uri: userData.profileInfo.profileImageUrl ? userData.profileInfo.profileImageUrl : null }}
-              activeOpacity={0.7} />
+              source={{
+                uri: userData.profileInfo.profileImageUrl
+                  ? userData.profileInfo.profileImageUrl
+                  : null,
+              }}
+              activeOpacity={0.7}
+            />
           </View>
         </View>
         <TouchableOpacity
@@ -67,7 +69,7 @@ class AccountExpert extends React.PureComponent {
               width: 20,
               height: 40,
             }}
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
@@ -75,7 +77,7 @@ class AccountExpert extends React.PureComponent {
         <TouchableOpacity
           style={styles.itemsParentContainerStyle}
           onPress={() => {
-            Linking.openURL(Constant.App.termsAndConditionsUrl)
+            Linking.openURL(Constant.App.termsAndConditionsUrl);
           }}
         >
           <CustomText style={styles.itemTextStyle}>
@@ -86,7 +88,7 @@ class AccountExpert extends React.PureComponent {
               width: 20,
               height: 40,
             }}
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
@@ -94,7 +96,7 @@ class AccountExpert extends React.PureComponent {
         <TouchableOpacity
           style={styles.itemsParentContainerStyle}
           onPress={() => {
-            Linking.openURL(Constant.App.helpUrl)
+            Linking.openURL(Constant.App.helpUrl);
           }}
         >
           <CustomText style={styles.itemTextStyle}>
@@ -105,7 +107,7 @@ class AccountExpert extends React.PureComponent {
               width: 20,
               height: 40,
             }}
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
@@ -113,7 +115,7 @@ class AccountExpert extends React.PureComponent {
         <TouchableOpacity
           style={styles.itemsParentContainerStyle}
           onPress={() => {
-            Linking.openURL(Constant.App.rateUsUrl)
+            Linking.openURL(Constant.App.rateUsUrl);
           }}
         >
           <CustomText style={styles.itemTextStyle}>
@@ -124,7 +126,7 @@ class AccountExpert extends React.PureComponent {
               width: 20,
               height: 40,
             }}
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
@@ -134,10 +136,11 @@ class AccountExpert extends React.PureComponent {
           onPress={() => {
             const payload = {
               navigation,
-              isLoaderShow: true
-            }
+              isLoaderShow: true,
+            };
             signOut(payload);
-          }}>
+          }}
+        >
           <CustomText style={styles.logoutTextStyle}>
             {lang.account.logout}
           </CustomText>
@@ -147,16 +150,13 @@ class AccountExpert extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  signOut: value => dispatch(signoutApihit(value)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  signOut: (value) => dispatch(signoutApihit(value)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AccountExpert);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountExpert);

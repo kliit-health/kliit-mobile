@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -20,7 +20,7 @@ import { getQuestionData, updateQuestion } from './action';
 import moment from 'moment';
 
 const lang = language.en;
-class Ask extends React.PureComponent {
+class Ask extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,7 +64,8 @@ class Ask extends React.PureComponent {
         collection: Constant.App.firebaseTableNames.questionList,
         key: Constant.App.firebaseTableKeyValuesNames.questionConditionKey,
         value: false,
-        userConditionKey: Constant.App.firebaseTableKeyValuesNames.questionUserConditionKey,
+        userConditionKey:
+          Constant.App.firebaseTableKeyValuesNames.questionUserConditionKey,
       },
       expertsParams: {
         tableName: Constant.App.firebaseTableNames.users,
@@ -77,7 +78,8 @@ class Ask extends React.PureComponent {
         collection: Constant.App.firebaseTableNames.questionList,
         key: Constant.App.firebaseTableKeyValuesNames.questionConditionKey,
         value: true,
-        userConditionKey: Constant.App.firebaseTableKeyValuesNames.questionUserConditionKey,
+        userConditionKey:
+          Constant.App.firebaseTableKeyValuesNames.questionUserConditionKey,
       },
     };
     getQuestion(params);
@@ -90,31 +92,39 @@ class Ask extends React.PureComponent {
     return (
       <View style={styles.headingProfileImageParentContainer}>
         <View style={styles.headingTextContainerStyle}>
-          <CustomText style={styles.headingTextStyle}>{lang.askUser.headingText1}
+          <CustomText style={styles.headingTextStyle}>
+            {lang.askUser.headingText1}
             <CustomText style={styles.headingTextHighlightedStyle}>
               {` ${firstName} ${lastName}`}
             </CustomText>
-            {questionData ? `, ${lang.askUser.headingTextAfterAskQuestion}` : userData.credits > 0 ? `, ${lang.askUser.headingText2}` : null}
+            {questionData
+              ? `, ${lang.askUser.headingTextAfterAskQuestion}`
+              : userData.credits > 0
+              ? `, ${lang.askUser.headingText2}`
+              : null}
           </CustomText>
         </View>
         <View style={styles.profileImgViewStyle}>
           <Avatar
-            renderPlaceholderContent={<Image
-              style={{
-                width: 70,
-                height: 70,
-              }}
-              resizeMode="stretch"
-              source={staticImages.profilePlaceholderImg}
-            />}
+            renderPlaceholderContent={
+              <Image
+                style={{
+                  width: 70,
+                  height: 70,
+                }}
+                resizeMode='stretch'
+                source={staticImages.profilePlaceholderImg}
+              />
+            }
             size={70}
             rounded
             source={{ uri: profileImageUrl ? profileImageUrl : null }}
-            activeOpacity={0.7} />
+            activeOpacity={0.7}
+          />
           <TouchableOpacity
             style={styles.badgeContainerStyle}
-            onPress={() => {
-            }}>
+            onPress={() => {}}
+          >
             <CustomText style={styles.badgeTextStyle}>
               {userData.credits}
             </CustomText>
@@ -140,8 +150,8 @@ class Ask extends React.PureComponent {
         <InputText
           maxHeight={100}
           multiline={true}
-          autoCapitalize="sentences"
-          onChangeText={value => {
+          autoCapitalize='sentences'
+          onChangeText={(value) => {
             this.setState({
               questionText: value,
             });
@@ -149,8 +159,13 @@ class Ask extends React.PureComponent {
           }}
           placeholder={lang.askUser.placehorderText}
           value={questionText}
-          style={question ? styles.inputTypeStyle : [styles.inputTypeStyle, { lineHeight: 25 }]}
-          placeholderTextColor={Constant.App.colors.lightGrey} />
+          style={
+            question
+              ? styles.inputTypeStyle
+              : [styles.inputTypeStyle, { lineHeight: 25 }]
+          }
+          placeholderTextColor={Constant.App.colors.lightGrey}
+        />
       </View>
     );
   }
@@ -162,8 +177,11 @@ class Ask extends React.PureComponent {
         disabled={question ? false : true}
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
-        onPress={() => { navigation.navigate(Constant.App.screenNames.ChooseExpert); }}
-        text={lang.askUser.btnText} />
+        onPress={() => {
+          navigation.navigate(Constant.App.screenNames.ChooseExpert);
+        }}
+        text={lang.askUser.btnText}
+      />
     );
   }
 
@@ -188,19 +206,24 @@ class Ask extends React.PureComponent {
               <View
                 // style={styles.myRecentExpertContainerStyleRef}
                 style={
-                  index === 0 ?
-                    styles.myRecentExpertContainerStyle :
-                    index === recentExpertData.length - 1 ?
-                      styles.myRecentExpertContainer2Style :
-                      styles.myRecentExpertContainer1Style
+                  index === 0
+                    ? styles.myRecentExpertContainerStyle
+                    : index === recentExpertData.length - 1
+                    ? styles.myRecentExpertContainer2Style
+                    : styles.myRecentExpertContainer1Style
                 }
               >
-                <TouchableOpacity onPress={() => {
-                  navigation.navigate(Constant.App.screenNames.ExpertProfile, {
-                    isFrom: Constant.App.screenNames.AskUser,
-                    uid: item.uid,
-                  });
-                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(
+                      Constant.App.screenNames.ExpertProfile,
+                      {
+                        isFrom: Constant.App.screenNames.AskUser,
+                        uid: item.uid,
+                      }
+                    );
+                  }}
+                >
                   <View
                     style={{
                       width: 100,
@@ -210,42 +233,57 @@ class Ask extends React.PureComponent {
                   >
                     <Avatar
                       containerStyle={{ alignSelf: 'center' }}
-                      renderPlaceholderContent={<Image
-                        style={{
-                          width: 100,
-                          height: 100,
-                        }}
-                        resizeMode="stretch"
-                        source={staticImages.profilePlaceholderImg}
-                      />}
+                      renderPlaceholderContent={
+                        <Image
+                          style={{
+                            width: 100,
+                            height: 100,
+                          }}
+                          resizeMode='stretch'
+                          source={staticImages.profilePlaceholderImg}
+                        />
+                      }
                       size={100}
                       rounded
-                      source={{ uri: item.profileInfo.profileImageUrl ? item.profileInfo.profileImageUrl : null }}
-                      activeOpacity={0.7} />
-                    {item.isOnline ? <View
-                      style={{
-                        width: 16,
-                        height: 16,
-                        bottom: 3,
-                        right: 15,
-                        borderRadius: 8,
-                        backgroundColor: Constant.App.colors.greenColor,
-                        position: 'absolute',
+                      source={{
+                        uri: item.profileInfo.profileImageUrl
+                          ? item.profileInfo.profileImageUrl
+                          : null,
                       }}
-                     /> : <View
-                      style={{
-                        width: 16,
-                        height: 16,
-                        bottom: 3,
-                        right: 15,
-                        borderRadius: 8,
-                        backgroundColor: Constant.App.colors.grayColor,
-                        position: 'absolute',
-                      }}
-                     />}
+                      activeOpacity={0.7}
+                    />
+                    {item.isOnline ? (
+                      <View
+                        style={{
+                          width: 16,
+                          height: 16,
+                          bottom: 3,
+                          right: 15,
+                          borderRadius: 8,
+                          backgroundColor: Constant.App.colors.greenColor,
+                          position: 'absolute',
+                        }}
+                      />
+                    ) : (
+                      <View
+                        style={{
+                          width: 16,
+                          height: 16,
+                          bottom: 3,
+                          right: 15,
+                          borderRadius: 8,
+                          backgroundColor: Constant.App.colors.grayColor,
+                          position: 'absolute',
+                        }}
+                      />
+                    )}
                   </View>
-                  <CustomText style={styles.expertNameTextStyle}>{`${item.profileInfo.firstName} ${item.profileInfo.lastName}`}</CustomText>
-                  <CustomText style={styles.expertProfTextStyle}>{item.profileInfo.profession.fullName}</CustomText>
+                  <CustomText
+                    style={styles.expertNameTextStyle}
+                  >{`${item.profileInfo.firstName} ${item.profileInfo.lastName}`}</CustomText>
+                  <CustomText style={styles.expertProfTextStyle}>
+                    {item.profileInfo.profession.fullName}
+                  </CustomText>
                 </TouchableOpacity>
               </View>
             );
@@ -272,47 +310,65 @@ class Ask extends React.PureComponent {
           renderItem={({ item }) => {
             item = item.data();
             return (
-              <TouchableOpacity onPress={() => {
-                navigation.navigate(Constant.App.screenNames.Chat, {
-                  questionData: item,
-                });
-              }}>
-                <View
-                  style={styles.myPrevQuestionContainerStyle}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate(Constant.App.screenNames.Chat, {
+                    questionData: item,
+                  });
+                }}
+              >
+                <View style={styles.myPrevQuestionContainerStyle}>
                   <CustomText style={styles.myPrevQuestionTextStyle}>
                     {item.question}
                   </CustomText>
-                  <View
-                    style={styles.expertInfoContainerStyle}>
-                    <TouchableOpacity onPress={() => {
-                      navigation.navigate(Constant.App.screenNames.ExpertProfile, {
-                        isFrom: Constant.App.screenNames.AskUser,
-                        uid: item.expertInfo.uid,
-                      });
-                    }}>
+                  <View style={styles.expertInfoContainerStyle}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate(
+                          Constant.App.screenNames.ExpertProfile,
+                          {
+                            isFrom: Constant.App.screenNames.AskUser,
+                            uid: item.expertInfo.uid,
+                          }
+                        );
+                      }}
+                    >
                       <Avatar
                         containerStyle={{ alignSelf: 'center' }}
-                        renderPlaceholderContent={<Image
-                          style={{
-                            width: 50,
-                            height: 50,
-                          }}
-                          resizeMode="stretch"
-                          source={staticImages.profilePlaceholderImg}
-                        />}
+                        renderPlaceholderContent={
+                          <Image
+                            style={{
+                              width: 50,
+                              height: 50,
+                            }}
+                            resizeMode='stretch'
+                            source={staticImages.profilePlaceholderImg}
+                          />
+                        }
                         size={50}
                         rounded
-                        source={{ uri: item.expertInfo.profileInfo.profileImageUrl ? item.expertInfo.profileInfo.profileImageUrl : null }}
-                        activeOpacity={0.7} />
+                        source={{
+                          uri: item.expertInfo.profileInfo.profileImageUrl
+                            ? item.expertInfo.profileInfo.profileImageUrl
+                            : null,
+                        }}
+                        activeOpacity={0.7}
+                      />
                     </TouchableOpacity>
                     <CustomText style={styles.expertInfoTextStyle}>
-                      {`${lang.askUser.answerBy} ${item.expertInfo.profileInfo.firstName}, ${item.expertInfo.profileInfo.profession.shortName}\n${moment.unix(item.resolvedDate).format(Constant.App.dateFormat)}`}
+                      {`${lang.askUser.answerBy} ${
+                        item.expertInfo.profileInfo.firstName
+                      }, ${
+                        item.expertInfo.profileInfo.profession.shortName
+                      }\n${moment
+                        .unix(item.resolvedDate)
+                        .format(Constant.App.dateFormat)}`}
                     </CustomText>
                   </View>
                 </View>
-              </TouchableOpacity>);
-          }
-          }
+              </TouchableOpacity>
+            );
+          }}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
@@ -323,48 +379,67 @@ class Ask extends React.PureComponent {
     const { questionData, navigation } = this.props;
     const { staticImages } = Constant.App;
     return (
-      <TouchableOpacity onPress={() => {
-        navigation.navigate(Constant.App.screenNames.Chat, {
-          questionData,
-        });
-      }}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate(Constant.App.screenNames.Chat, {
+            questionData,
+          });
+        }}
+      >
         <View
           style={
-            questionData.userUnreadCount ?
-              styles.askedQuestionContainerStyle :
-              [styles.askedQuestionContainerStyle, { backgroundColor: Constant.App.colors.greyBgAsk }]
-          }>
+            questionData.userUnreadCount
+              ? styles.askedQuestionContainerStyle
+              : [
+                  styles.askedQuestionContainerStyle,
+                  { backgroundColor: Constant.App.colors.greyBgAsk },
+                ]
+          }
+        >
           <CustomText
             style={
-              questionData.userUnreadCount ?
-                styles.askedQuestionTextStyle :
-                [styles.askedQuestionTextStyle, { color: Constant.App.colors.blackColor }]
+              questionData.userUnreadCount
+                ? styles.askedQuestionTextStyle
+                : [
+                    styles.askedQuestionTextStyle,
+                    { color: Constant.App.colors.blackColor },
+                  ]
             }
           >
             {questionData.question}
           </CustomText>
-          <View
-            style={styles.expertInfoContainerStyle}>
+          <View style={styles.expertInfoContainerStyle}>
             <Avatar
               containerStyle={{ alignSelf: 'center' }}
-              renderPlaceholderContent={<Image
-                style={{
-                  width: 50,
-                  height: 50,
-                }}
-                resizeMode="stretch"
-                source={staticImages.profilePlaceholderImg}
-              />}
+              renderPlaceholderContent={
+                <Image
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }}
+                  resizeMode='stretch'
+                  source={staticImages.profilePlaceholderImg}
+                />
+              }
               size={50}
               rounded
-              source={{ uri: questionData.expertInfo.profileInfo.profileImageUrl ? questionData.expertInfo.profileInfo.profileImageUrl : null }}
-              activeOpacity={0.7} />
+              source={{
+                uri: questionData.expertInfo.profileInfo.profileImageUrl
+                  ? questionData.expertInfo.profileInfo.profileImageUrl
+                  : null,
+              }}
+              activeOpacity={0.7}
+            />
             <CustomText
               style={
-                questionData.userUnreadCount ?
-                  styles.askedQuestionExpertInfoTextStyle :
-                  [styles.askedQuestionExpertInfoTextStyle, { color: Constant.App.colors.blackColor }]
-              }>
+                questionData.userUnreadCount
+                  ? styles.askedQuestionExpertInfoTextStyle
+                  : [
+                      styles.askedQuestionExpertInfoTextStyle,
+                      { color: Constant.App.colors.blackColor },
+                    ]
+              }
+            >
               {`${lang.askUser.asking} ${questionData.expertInfo.profileInfo.firstName} ${questionData.expertInfo.profileInfo.lastName}, ${questionData.expertInfo.profileInfo.profession.shortName}`}
             </CustomText>
           </View>
@@ -375,10 +450,8 @@ class Ask extends React.PureComponent {
 
   renderEmptyCreditView() {
     return (
-      <View
-        style={styles.emptyCreditsContainerStyle}>
-        <CustomText
-          style={styles.emptyCreditsTextStyle}>
+      <View style={styles.emptyCreditsContainerStyle}>
+        <CustomText style={styles.emptyCreditsTextStyle}>
           {lang.askUser.textAfterEmptyCredit}
         </CustomText>
       </View>
@@ -395,17 +468,26 @@ class Ask extends React.PureComponent {
     return (
       <View style={styles.container}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderHeadingProfileView()}
           {this.renderCreditView()}
-          {questionData ? this.renderAskedQuestionView() :
-            userData && userData.credits > 0 ? this.renderInputTextView() :
-              null}
+          {questionData
+            ? this.renderAskedQuestionView()
+            : userData && userData.credits > 0
+            ? this.renderInputTextView()
+            : null}
           {!questionData && userData.credits > 0 && this.renderButtonView()}
-          {!questionData && userData.credits === 0 && this.renderEmptyCreditView()}
-          {recentExpertData && recentExpertData.length > 0 && this.renderRecentExpertView()}
-          {previousQuestionData && previousQuestionData.length > 0 && this.renderPreviousQuestionView()}
+          {!questionData &&
+            userData.credits === 0 &&
+            this.renderEmptyCreditView()}
+          {recentExpertData &&
+            recentExpertData.length > 0 &&
+            this.renderRecentExpertView()}
+          {previousQuestionData &&
+            previousQuestionData.length > 0 &&
+            this.renderPreviousQuestionView()}
           {Platform.OS === 'ios' && <KeyboardSpacer />}
         </ScrollView>
       </View>
@@ -413,7 +495,7 @@ class Ask extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
   recentExpertData: state.askReducer.recentExpertData,
   previousQuestionData: state.askReducer.previousQuestionData,
@@ -421,13 +503,10 @@ const mapStateToProps = state => ({
   question: state.askReducer.question,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getQuestion: (value) => dispatch(getQuestionData(value, dispatch)),
   setQuestionText: (value) => dispatch(updateQuestion(value)),
   // setNewKeyToUserTable: (id, data) => dispatch(updateUserDataWithNewKey(id, data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Ask);
+export default connect(mapStateToProps, mapDispatchToProps)(Ask);

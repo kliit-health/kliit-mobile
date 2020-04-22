@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  View,
-  Image,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, Image, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './style';
 import Constant from '../../utils/constants';
@@ -26,7 +21,7 @@ let banner = [
   },
 ];
 let lang = Language['en'];
-class Tutorial extends React.PureComponent {
+class Tutorial extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -40,12 +35,12 @@ class Tutorial extends React.PureComponent {
           loop
           index={0}
           pageSize={Dimensions.get('window').width}
-          activePageIndicatorStyle={{ backgroundColor: Constant.App.colors.blueColor }}
+          activePageIndicatorStyle={{
+            backgroundColor: Constant.App.colors.blueColor,
+          }}
         >
           {banner.map((item, key) => (
-            <View
-              key={key}
-            >
+            <View key={key}>
               <Image
                 resizeMode={'stretch'}
                 source={item.image}
@@ -60,7 +55,7 @@ class Tutorial extends React.PureComponent {
           ))}
         </Carousel>
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -80,15 +75,16 @@ class Tutorial extends React.PureComponent {
           onPress={() => navigation.navigate(Constant.App.screenNames.Login)}
         />
       </View>
-    )
+    );
   }
 
   render() {
     return (
       <View style={styles.containerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderSliderView()}
           {this.renderButtonView()}
         </ScrollView>
@@ -97,13 +93,8 @@ class Tutorial extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Tutorial);
+export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);

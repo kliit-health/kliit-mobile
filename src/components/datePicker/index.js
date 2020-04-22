@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Modal,
@@ -15,7 +15,7 @@ import Moment from 'moment';
 
 let iosSelectedDate = null;
 const dateFormat = 'MM-DD-YYYY';
-class DatePicker extends React.PureComponent {
+class DatePicker extends PureComponent {
   constructor(props) {
     super(props);
     const { selectedDate } = this.props;
@@ -29,7 +29,7 @@ class DatePicker extends React.PureComponent {
     if (Platform.OS === 'ios') {
       iosSelectedDate = Moment(new Date()).format(dateFormat);
       const { showIosDateModal } = this.state;
-      this.showHideModal(showIosDateModal)
+      this.showHideModal(showIosDateModal);
     } else {
       this.openAndroidDatePicker();
     }
@@ -48,10 +48,10 @@ class DatePicker extends React.PureComponent {
       iosSelectedDate = '';
     }
     this.showHideModal(showIosDateModal);
-  }
+  };
 
   showHideModal(showIosDateModal) {
-    this.setState({ showIosDateModal: !showIosDateModal })
+    this.setState({ showIosDateModal: !showIosDateModal });
   }
 
   async openAndroidDatePicker() {
@@ -62,28 +62,49 @@ class DatePicker extends React.PureComponent {
         maxDate: new Date(),
       });
       if (action !== DatePickerAndroid.dismissedAction) {
-        const formatedDate = `${(month + 1) === 1 ? '01' :
-          (month + 1) === 2 ? '02' :
-            (month + 1) === 3 ? '03' :
-              (month + 1) === 4 ? '04' :
-                (month + 1) === 5 ? '05' :
-                  (month + 1) === 6 ? '06' :
-                    (month + 1) === 7 ? '07' :
-                      (month + 1) === 8 ? '08' :
-                        (month + 1) === 9 ? '09' :
-                          month + 1}-${
-          day === 1 ? '01' :
-            day === 2 ? '02' :
-              day === 3 ? '03' :
-                day === 4 ? '04' :
-                  day === 5 ? '05' :
-                    day === 6 ? '06' :
-                      day === 7 ? '07' :
-                        day === 8 ? '08' :
-                          day === 9 ? '09' :
-                            day}-${year}`;
+        const formatedDate = `${
+          month + 1 === 1
+            ? '01'
+            : month + 1 === 2
+            ? '02'
+            : month + 1 === 3
+            ? '03'
+            : month + 1 === 4
+            ? '04'
+            : month + 1 === 5
+            ? '05'
+            : month + 1 === 6
+            ? '06'
+            : month + 1 === 7
+            ? '07'
+            : month + 1 === 8
+            ? '08'
+            : month + 1 === 9
+            ? '09'
+            : month + 1
+        }-${
+          day === 1
+            ? '01'
+            : day === 2
+            ? '02'
+            : day === 3
+            ? '03'
+            : day === 4
+            ? '04'
+            : day === 5
+            ? '05'
+            : day === 6
+            ? '06'
+            : day === 7
+            ? '07'
+            : day === 8
+            ? '08'
+            : day === 9
+            ? '09'
+            : day
+        }-${year}`;
         this.setState({
-          selectedDate: formatedDate
+          selectedDate: formatedDate,
         });
         onSelection(formatedDate);
       }
@@ -96,28 +117,37 @@ class DatePicker extends React.PureComponent {
     const { showIosDateModal } = this.state;
     return (
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
-        onRequestClose={() => { }}
-        visible={true}>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' }}>
+        onRequestClose={() => {}}
+        visible={true}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'flex-end',
+          }}
+        >
           <View style={styles.modalDatePickerContainer}>
             <CustomButton
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
-              text={"Close"}
-              onPress={() => this.showHideModal(showIosDateModal)} />
+              text={'Close'}
+              onPress={() => this.showHideModal(showIosDateModal)}
+            />
             <CustomButton
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
-              text={"Done"}
-              onPress={() => this.doneButtonModalDatePickerClick()} />
+              text={'Done'}
+              onPress={() => this.doneButtonModalDatePickerClick()}
+            />
           </View>
           <View style={{ backgroundColor: 'white' }}>
             <DatePickerIOS
               date={new Date()}
               maximumDate={new Date()}
-              mode="date"
+              mode='date'
               onDateChange={(date) => this.onDateChange(date)}
             />
           </View>
@@ -131,18 +161,23 @@ class DatePicker extends React.PureComponent {
     const { placeHolder, textStyle } = this.props;
     return (
       <View>
-        <TouchableOpacity onPress={() => {
-          this.openDatePicker();
-        }}>
-          <CustomText
-            style={textStyle ? textStyle : styles.dateTextStyle}>
-            {selectedDate ? selectedDate : placeHolder ? placeHolder : 'Select date'}
+        <TouchableOpacity
+          onPress={() => {
+            this.openDatePicker();
+          }}
+        >
+          <CustomText style={textStyle ? textStyle : styles.dateTextStyle}>
+            {selectedDate
+              ? selectedDate
+              : placeHolder
+              ? placeHolder
+              : 'Select date'}
           </CustomText>
         </TouchableOpacity>
         {showIosDateModal ? this.renderIosDatePickerModalView() : null}
       </View>
     );
   }
-};
+}
 
 export default DatePicker;

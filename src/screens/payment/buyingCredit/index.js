@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import styles, { PaymentDropdownDimensions } from './style';
@@ -30,7 +30,7 @@ const AddPaymentMethod = {
   title: lang.buyingCredits.addPaymentMethod,
 };
 
-class BuyingCredit extends React.PureComponent {
+class BuyingCredit extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +55,9 @@ class BuyingCredit extends React.PureComponent {
               source={Constant.App.staticImages.xCloseIcon}
               onPress={() => navigation.dismiss()}
             />
-            <CustomText style={styles.title}>{lang.buyingCredits.title}</CustomText>
+            <CustomText style={styles.title}>
+              {lang.buyingCredits.title}
+            </CustomText>
           </View>
           <View style={styles.optionsContainer}>
             <FlyingLabelIcon
@@ -80,12 +82,15 @@ class BuyingCredit extends React.PureComponent {
               title={lang.buyingCredits.paymentTitle}
               label={this.currentPaymentMethodTitle}
               onPress={() => {
-                this.paymentMethodsDropdown && this.paymentMethodsDropdown.show();
+                this.paymentMethodsDropdown &&
+                  this.paymentMethodsDropdown.show();
               }}
             />
           </View>
           <View style={styles.footerContainer}>
-            <CustomText style={styles.totalText}>{this.currentTotalTitle}</CustomText>
+            <CustomText style={styles.totalText}>
+              {this.currentTotalTitle}
+            </CustomText>
             <CustomButton
               onPress={() => this.buyCredits()}
               text={lang.buyingCredits.buyCredits}
@@ -103,14 +108,14 @@ class BuyingCredit extends React.PureComponent {
     return (
       <View style={styles.amountDropdownContainer}>
         <ModalDropdown
-          ref={ref => {
+          ref={(ref) => {
             this.amountDropdown = ref;
           }}
           style={styles.amountDropdownButton}
           dropdownStyle={styles.amountDropdown}
           options={this.props.amountOptions}
           defaultIndex={0}
-          defaultValue=""
+          defaultValue=''
           showsVerticalScrollIndicator={false}
           renderRow={this.renderAmountDropdownCell}
           renderSeparator={() => null}
@@ -161,7 +166,7 @@ class BuyingCredit extends React.PureComponent {
     const { navigation } = this.props;
     const paymentMethods = [
       ...defaultPaymentMethods(this.props.isNativePaySupported),
-      ...this.props.paymentMethods.map(method => ({
+      ...this.props.paymentMethods.map((method) => ({
         ...method,
         type: PaymentMethodsTypes.card,
       })),
@@ -180,13 +185,13 @@ class BuyingCredit extends React.PureComponent {
     return (
       <View style={styles.paymentMethodsDropdownContainer}>
         <ModalDropdown
-          ref={ref => {
+          ref={(ref) => {
             this.paymentMethodsDropdown = ref;
           }}
           dropdownStyle={styles.paymentMethodsDropdown}
           options={paymentMethods}
           defaultIndex={paymentMethods.length > 0 ? 0 : -1}
-          defaultValue=""
+          defaultValue=''
           showsVerticalScrollIndicator={false}
           renderRow={this.renderPaymentDropdownCell}
           renderSeparator={() => null}
@@ -197,7 +202,7 @@ class BuyingCredit extends React.PureComponent {
               navigation.navigate(Constant.App.screenNames.PaymentMethods);
             }
           }}
-          adjustFrame={_ => {
+          adjustFrame={(_) => {
             return {
               height: dropDownViewHeight,
               right: marginRight,
@@ -244,7 +249,10 @@ class BuyingCredit extends React.PureComponent {
   renderAddPaymentMethodCell = () => {
     return (
       <View style={styles.addPaymentMethodCell}>
-        <Image source={Constant.App.staticImages.addIcon} style={styles.addPaymentIcon} />
+        <Image
+          source={Constant.App.staticImages.addIcon}
+          style={styles.addPaymentIcon}
+        />
         <CustomText style={styles.addPaymentTitle}>
           {lang.buyingCredits.addPaymentMethod}
         </CustomText>
@@ -252,20 +260,20 @@ class BuyingCredit extends React.PureComponent {
     );
   };
 
-  renderPayPalCell = title => {
+  renderPayPalCell = (title) => {
     return (
       <View style={styles.payPalCell}>
         <Image
           source={Constant.App.staticImages.payPalIcon}
           style={styles.payPalIcon}
-          resizeMode="contain"
+          resizeMode='contain'
         />
         <CustomText style={styles.paymentMethodNumber}>{title}</CustomText>
       </View>
     );
   };
 
-  renderApplePayCell = title => {
+  renderApplePayCell = (title) => {
     return (
       <View style={styles.payPalCell}>
         <Image
@@ -283,7 +291,9 @@ class BuyingCredit extends React.PureComponent {
       : Constant.App.colors.whiteColor;
 
     return (
-      <View style={{ ...styles.amountDropdownCell, backgroundColor: cellColor }}>
+      <View
+        style={{ ...styles.amountDropdownCell, backgroundColor: cellColor }}
+      >
         <CustomText style={styles.amountDropdownOption}>
           {this.amountDropdownDisplayOption(option.credits)}
         </CustomText>
@@ -291,7 +301,7 @@ class BuyingCredit extends React.PureComponent {
     );
   };
 
-  amountDropdownDisplayOption = credits => credits + ' ' + this.creditsUnit;
+  amountDropdownDisplayOption = (credits) => credits + ' ' + this.creditsUnit;
 
   get currentCredits() {
     const { amountOptions } = this.props;
@@ -325,15 +335,17 @@ class BuyingCredit extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
   amountOptions: state.paymentReducer.creditAmountOptions,
-  paymentMethods: state.paymentReducer.paymentMethods.filter(method => !method.isExpired),
+  paymentMethods: state.paymentReducer.paymentMethods.filter(
+    (method) => !method.isExpired
+  ),
   isNativePaySupported: state.paymentReducer.isNativePaySupported,
   orderData: state.paymentReducer.orderData,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getCreditAmountOptions: () => dispatch(getCreditAmountsOptions()),
   getPaymentMethods: () => dispatch(getPaymentMethods()),
   buyCredits: (cardID, credits, amount) =>
@@ -342,7 +354,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(buyCreditsWithToken(tokenID, credits, amount)),
   buyCreditsUsingPayPal: (credits, amount, navigation) =>
     dispatch(buyCreditsUsingPayPal(credits, amount, navigation)),
-  showAlert: message => dispatch(showOrHideModal(message)),
+  showAlert: (message) => dispatch(showOrHideModal(message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuyingCredit);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -17,7 +17,7 @@ import { getExpertQuestionData } from './action';
 import moment from 'moment';
 
 const lang = Language['en'];
-class AskExpert extends React.PureComponent {
+class AskExpert extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -35,7 +35,8 @@ class AskExpert extends React.PureComponent {
         collection: Constant.App.firebaseTableNames.questionList,
         key: Constant.App.firebaseTableKeyValuesNames.questionConditionKey,
         value: false,
-        userConditionKey: Constant.App.firebaseTableKeyValuesNames.questionExpertConditionKey,
+        userConditionKey:
+          Constant.App.firebaseTableKeyValuesNames.questionExpertConditionKey,
       },
       previousQuestionParams: {
         tableName: Constant.App.firebaseTableNames.questions,
@@ -43,12 +44,12 @@ class AskExpert extends React.PureComponent {
         collection: Constant.App.firebaseTableNames.questionList,
         key: Constant.App.firebaseTableKeyValuesNames.questionConditionKey,
         value: true,
-        userConditionKey: Constant.App.firebaseTableKeyValuesNames.questionExpertConditionKey,
-      }
-    }
+        userConditionKey:
+          Constant.App.firebaseTableKeyValuesNames.questionExpertConditionKey,
+      },
+    };
     getQuestion(params);
   }
-
 
   renderRecentChatView() {
     const { staticImages } = Constant.App;
@@ -67,46 +68,60 @@ class AskExpert extends React.PureComponent {
           keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
           data={questionData}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {
-              navigation.navigate(Constant.App.screenNames.ChatExpert, { questionData: item })
-            }}>
-              <View
-                style={styles.recentChatContainerStyle}>
-                <TouchableOpacity onPress={() => {
-                }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.ChatExpert, {
+                  questionData: item,
+                });
+              }}
+            >
+              <View style={styles.recentChatContainerStyle}>
+                <TouchableOpacity onPress={() => {}}>
                   <Avatar
                     containerStyle={{ alignSelf: 'center' }}
-                    renderPlaceholderContent={<Image
-                      style={{
-                        width: 80,
-                        height: 80,
-                      }}
-                      resizeMode="stretch"
-                      source={staticImages.profilePlaceholderImg}
-                    />}
+                    renderPlaceholderContent={
+                      <Image
+                        style={{
+                          width: 80,
+                          height: 80,
+                        }}
+                        resizeMode='stretch'
+                        source={staticImages.profilePlaceholderImg}
+                      />
+                    }
                     size={80}
                     rounded
-                    source={{ uri: item.userInfo.profileInfo.profileImageUrl ? item.userInfo.profileInfo.profileImageUrl : null }}
-                    activeOpacity={0.7} />
+                    source={{
+                      uri: item.userInfo.profileInfo.profileImageUrl
+                        ? item.userInfo.profileInfo.profileImageUrl
+                        : null,
+                    }}
+                    activeOpacity={0.7}
+                  />
                 </TouchableOpacity>
                 <View style={styles.userInfoContainerStyle}>
                   <CustomText style={styles.userInfoTextBoldStyle}>
                     {`${item.userInfo.profileInfo.firstName} ${item.userInfo.profileInfo.lastName} (${item.userInfo.profileInfo.pronouns})`}
                   </CustomText>
-                  <CustomText style={styles.userInfoTextStyle}
+                  <CustomText
+                    style={styles.userInfoTextStyle}
                     numberOfLines={1}
                   >
                     {item.lastMessage ? item.lastMessage : item.question}
                   </CustomText>
                   <CustomText style={styles.userInfoTextStyle}>
-                    {item.modifiedDate ? moment.unix(item.modifiedDate).fromNow(true) : moment.unix(item.createdAt).fromNow(true)}
+                    {item.modifiedDate
+                      ? moment.unix(item.modifiedDate).fromNow(true)
+                      : moment.unix(item.createdAt).fromNow(true)}
                   </CustomText>
                 </View>
-                {item.expertUnreadCount ? <View style={styles.unreadCountContainerStyle}>
-                  <CustomText style={styles.unreadCountTextStyle}>
-                    {item.expertUnreadCount}
-                  </CustomText>
-                </View> : null}
+                {item.expertUnreadCount ? (
+                  <View style={styles.unreadCountContainerStyle}>
+                    <CustomText style={styles.unreadCountTextStyle}>
+                      {item.expertUnreadCount}
+                    </CustomText>
+                  </View>
+                ) : null}
               </View>
             </TouchableOpacity>
           )}
@@ -116,7 +131,7 @@ class AskExpert extends React.PureComponent {
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    )
+    );
   }
 
   renderResolvedChatView() {
@@ -135,25 +150,36 @@ class AskExpert extends React.PureComponent {
           keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
           data={resolvedQuestionsData}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => { navigation.navigate(Constant.App.screenNames.ChatExpert, { questionData: item }) }}>
-              <View
-                style={styles.recentChatContainerStyle}>
-                <TouchableOpacity onPress={() => {
-                }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.ChatExpert, {
+                  questionData: item,
+                });
+              }}
+            >
+              <View style={styles.recentChatContainerStyle}>
+                <TouchableOpacity onPress={() => {}}>
                   <Avatar
                     containerStyle={{ alignSelf: 'center' }}
-                    renderPlaceholderContent={<Image
-                      style={{
-                        width: 80,
-                        height: 80,
-                      }}
-                      resizeMode="stretch"
-                      source={staticImages.profilePlaceholderImg}
-                    />}
+                    renderPlaceholderContent={
+                      <Image
+                        style={{
+                          width: 80,
+                          height: 80,
+                        }}
+                        resizeMode='stretch'
+                        source={staticImages.profilePlaceholderImg}
+                      />
+                    }
                     size={80}
                     rounded
-                    source={{ uri: item.userInfo.profileInfo.profileImageUrl ? item.userInfo.profileInfo.profileImageUrl : null }}
-                    activeOpacity={0.7} />
+                    source={{
+                      uri: item.userInfo.profileInfo.profileImageUrl
+                        ? item.userInfo.profileInfo.profileImageUrl
+                        : null,
+                    }}
+                    activeOpacity={0.7}
+                  />
                 </TouchableOpacity>
                 <View style={styles.userInfoContainerResolvedChatStyle}>
                   <CustomText style={styles.userInfoTextBoldStyle}>
@@ -161,11 +187,14 @@ class AskExpert extends React.PureComponent {
                   </CustomText>
                   <CustomText
                     numberOfLines={1}
-                    style={styles.userInfoTextStyle}>
+                    style={styles.userInfoTextStyle}
+                  >
                     {item.lastMessage ? item.lastMessage : item.question}
                   </CustomText>
                   <CustomText style={styles.userInfoTextStyle}>
-                    {moment.unix(item.createdAt).format(Constant.App.dateFormat)}
+                    {moment
+                      .unix(item.createdAt)
+                      .format(Constant.App.dateFormat)}
                   </CustomText>
                 </View>
               </View>
@@ -177,7 +206,7 @@ class AskExpert extends React.PureComponent {
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
-    )
+    );
   }
 
   renderEmptyView() {
@@ -187,7 +216,7 @@ class AskExpert extends React.PureComponent {
           {lang.errorMessage.noDataAvailable}
         </CustomText>
       </View>
-    )
+    );
   }
 
   render() {
@@ -195,34 +224,42 @@ class AskExpert extends React.PureComponent {
     return (
       <View style={styles.container}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.titleContainerStyle}>
             <CustomText style={styles.titleTextStyle}>
               {lang.askExpert.title}
             </CustomText>
           </View>
-          {questionData && questionData.length > 0 ? this.renderRecentChatView() : null}
-          {resolvedQuestionsData && resolvedQuestionsData.length > 0 ? this.renderResolvedChatView() : null}
-          {isDataFetch && questionData && questionData.length === 0 && resolvedQuestionsData && resolvedQuestionsData.length === 0 ? this.renderEmptyView() : null}
+          {questionData && questionData.length > 0
+            ? this.renderRecentChatView()
+            : null}
+          {resolvedQuestionsData && resolvedQuestionsData.length > 0
+            ? this.renderResolvedChatView()
+            : null}
+          {isDataFetch &&
+          questionData &&
+          questionData.length === 0 &&
+          resolvedQuestionsData &&
+          resolvedQuestionsData.length === 0
+            ? this.renderEmptyView()
+            : null}
         </ScrollView>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
   resolvedQuestionsData: state.askExpertReducer.resolvedQuestionsData,
   questionData: state.askExpertReducer.questionData,
   isDataFetch: state.askExpertReducer.isDataFetch,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getQuestion: (value) => dispatch(getExpertQuestionData(value, dispatch)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AskExpert);
+export default connect(mapStateToProps, mapDispatchToProps)(AskExpert);

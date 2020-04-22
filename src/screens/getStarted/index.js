@@ -1,9 +1,5 @@
-import React from 'react';
-import {
-  View,
-  ScrollView,
-  Image,
-} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import CustomText from '../../components/customText';
 import styles from './style';
@@ -12,7 +8,7 @@ import Language from '../../utils/localization';
 import CustomButton from '../../components/customButton';
 
 let lang = Language['en'];
-class GetStarted extends React.PureComponent {
+class GetStarted extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +20,12 @@ class GetStarted extends React.PureComponent {
   renderLogoView() {
     const { staticImages } = Constant.App;
     return (
-      <Image resizeMode="contain" source={staticImages.loginLogoImage} style={styles.logoStyle} />
-    )
+      <Image
+        resizeMode='contain'
+        source={staticImages.loginLogoImage}
+        style={styles.logoStyle}
+      />
+    );
   }
 
   renderTitleView() {
@@ -39,7 +39,7 @@ class GetStarted extends React.PureComponent {
           {lang.getStarted.content}
         </CustomText>
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -53,15 +53,16 @@ class GetStarted extends React.PureComponent {
         }}
         text={lang.getStarted.btnText}
       />
-    )
+    );
   }
 
   render() {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.contentContainerStyle}>
             {this.renderLogoView()}
             {this.renderTitleView()}
@@ -73,14 +74,8 @@ class GetStarted extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(GetStarted);
+export default connect(mapStateToProps)(GetStarted);

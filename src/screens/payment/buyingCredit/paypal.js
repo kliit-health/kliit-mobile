@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { PureComponent } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import { capturePayment } from '../action';
-class PayPalCheckout extends React.PureComponent {
-  _onNavigationStateChange = webViewState => {
+class PayPalCheckout extends PureComponent {
+  _onNavigationStateChange = (webViewState) => {
     console.log('_onNavigationStateChange ', webViewState.url);
     if (webViewState.url.includes('https://example.com/success')) {
       const { captureURL, credits, navigation } = this.props;
@@ -31,15 +31,16 @@ class PayPalCheckout extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   approvalUrl: state.paymentReducer.orderData.approvalUrl,
   captureURL: state.paymentReducer.orderData.capturePaymentURL,
   credits: state.paymentReducer.orderData.credits,
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  capturePayment: (captureURL, credits, navigation) => dispatch(capturePayment(captureURL, credits, navigation)),
+const mapDispatchToProps = (dispatch) => ({
+  capturePayment: (captureURL, credits, navigation) =>
+    dispatch(capturePayment(captureURL, credits, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PayPalCheckout);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   ScrollView,
@@ -21,7 +21,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import _ from 'lodash';
 
 let lang = Language.en;
-class SignUp extends React.PureComponent {
+class SignUp extends PureComponent {
   constructor(props) {
     super(props);
     this.onSignUpClicked = _.debounce(this.onSignUp, 500);
@@ -43,8 +43,8 @@ class SignUp extends React.PureComponent {
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => this.setState({ email: value })}
+            autoCapitalize='none'
+            onChangeText={(value) => this.setState({ email: value })}
             placeholder={lang.login.Email}
             value={email}
             style={
@@ -57,8 +57,8 @@ class SignUp extends React.PureComponent {
         </View>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => {
+            autoCapitalize='none'
+            onChangeText={(value) => {
               this.setState({ password: value });
               if (value.trim().length < 7) {
                 this.setState({ isPasswordContainsSevenChar: false });
@@ -85,7 +85,7 @@ class SignUp extends React.PureComponent {
             onPress={() => this.setState({ showPassword: !showPassword })}
           >
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               source={
                 showPassword
                   ? staticImages.passwordVisibleIcon
@@ -140,7 +140,7 @@ class SignUp extends React.PureComponent {
         }}
       >
         <Image
-          resizeMode="contain"
+          resizeMode='contain'
           source={staticImages.crossIcon}
           style={styles.backIconStyle}
         />
@@ -152,7 +152,7 @@ class SignUp extends React.PureComponent {
     const { staticImages } = Constant.App;
     return (
       <Image
-        resizeMode="contain"
+        resizeMode='contain'
         source={staticImages.loginLogoImage}
         style={styles.logoStyle}
       />
@@ -174,12 +174,15 @@ class SignUp extends React.PureComponent {
 
   renderPasswordValidationView() {
     const { staticImages } = Constant.App;
-    const { isPasswordContainsSevenChar, isPasswordHasSpecialChar } = this.state;
+    const {
+      isPasswordContainsSevenChar,
+      isPasswordHasSpecialChar,
+    } = this.state;
     return (
       <View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             source={
               isPasswordContainsSevenChar
                 ? staticImages.checkGreenIcon
@@ -193,7 +196,7 @@ class SignUp extends React.PureComponent {
         </View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             source={
               isPasswordHasSpecialChar
                 ? staticImages.checkGreenIcon
@@ -222,8 +225,7 @@ class SignUp extends React.PureComponent {
       showHideErrorModal(lang.signUp.passwordLimitErrorMsg);
     } else if (!hasSpecialCharactors(password)) {
       showHideErrorModal(lang.signUp.passwordSpecialCharErrorMsg);
-    }
-    else {
+    } else {
       const data = {
         params: {
           email: email.trim(),
@@ -234,7 +236,7 @@ class SignUp extends React.PureComponent {
       };
       signUp(data);
     }
-  }
+  };
 
   renderButtonView() {
     return (
@@ -256,15 +258,13 @@ class SignUp extends React.PureComponent {
   }
 
   renderReferralSceretCodeView() {
-    const {
-      referalCode,
-    } = this.state;
+    const { referalCode } = this.state;
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.referalCodeInputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => {
+            autoCapitalize='none'
+            onChangeText={(value) => {
               this.setState({
                 referalCode: value,
               });
@@ -287,7 +287,7 @@ class SignUp extends React.PureComponent {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
           showsVerticalScrollIndicator={false}
         >
           {this.renderCrossIconView()}
@@ -308,11 +308,9 @@ class SignUp extends React.PureComponent {
   }
 }
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  signUp: value => dispatch(createUser(value, dispatch)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  signUp: (value) => dispatch(createUser(value, dispatch)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(SignUp);

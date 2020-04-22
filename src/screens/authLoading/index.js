@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StatusBar, View } from 'react-native';
 import SplashScreen from 'react-native-smart-splash-screen';
@@ -17,8 +17,7 @@ import { displayConsole } from '../../utils/helper';
 import { setUserData, setFcmToken } from './action';
 
 let isFirstTime = true;
-class AuthLoadingScreen extends React.Component {
-
+class AuthLoadingScreen extends Component {
   async componentDidMount() {
     this.checkPermission();
     this.createNotificationListeners();
@@ -61,7 +60,6 @@ class AuthLoadingScreen extends React.Component {
         await setToken(token);
       }
       this.initNavigation(token);
-
     } else {
       console.log('setData userData', userData);
       if (userData && userData.profileInfo) {
@@ -100,47 +98,55 @@ class AuthLoadingScreen extends React.Component {
           },
         };
         updateStatus(updateStatusParams);
-        getUserData(obj, querySnapshot => {
-          displayConsole('inside getUserData', querySnapshot.data());
-          const data = querySnapshot.data();
-          if (data) {
-            if (!data.referalCode) {
-              const updateStatusParams = {
-                uid: data.uid,
-                updatedData: {
-                  referalCode: makeid(),
-                },
-              };
-              updateStatus(updateStatusParams);
-            }
-          }
-          if (!userData && isFirstTime) {
-            isFirstTime = false;
-            if (data && data.profileInfo) {
-              setData(data);
-              if (data.role == 'Expert') {
-                navigation.navigate(Constant.App.stack.AppStackExpert);
-              } else {
-                navigation.navigate(Constant.App.stack.AppStack);
+        getUserData(
+          obj,
+          (querySnapshot) => {
+            displayConsole('inside getUserData', querySnapshot.data());
+            const data = querySnapshot.data();
+            if (data) {
+              if (!data.referalCode) {
+                const updateStatusParams = {
+                  uid: data.uid,
+                  updatedData: {
+                    referalCode: makeid(),
+                  },
+                };
+                updateStatus(updateStatusParams);
               }
-            } else {
-              navigation.navigate(Constant.App.screenNames.AddProfileData);
             }
-            SplashScreen.close({
-              animationType: SplashScreen.animationType.scale,
-              duration: 3000,
-              delay: 500,
-            });
-          } else {
-            setData(data);
+            if (!userData && isFirstTime) {
+              isFirstTime = false;
+              if (data && data.profileInfo) {
+                setData(data);
+                if (data.role == 'Expert') {
+                  navigation.navigate(Constant.App.stack.AppStackExpert);
+                } else {
+                  navigation.navigate(Constant.App.stack.AppStack);
+                }
+              } else {
+                navigation.navigate(Constant.App.screenNames.AddProfileData);
+              }
+              SplashScreen.close({
+                animationType: SplashScreen.animationType.scale,
+                duration: 3000,
+                delay: 500,
+              });
+            } else {
+              setData(data);
+            }
+            displayConsole(
+              '--------------**** getUserData end ********-----------\n\n'
+            );
+          },
+          (error) => {
+            const { message, code } = error;
+            displayConsole('message', message);
+            displayConsole('code', code);
+            displayConsole(
+              '--------------**** getUserData end ********-----------\n\n'
+            );
           }
-          displayConsole('--------------**** getUserData end ********-----------\n\n');
-        }, error => {
-          const { message, code } = error;
-          displayConsole('message', message);
-          displayConsole('code', code);
-          displayConsole('--------------**** getUserData end ********-----------\n\n');
-        });
+        );
       } catch (error) {
         displayConsole('getUserData  error ', error);
       }
@@ -156,31 +162,38 @@ class AuthLoadingScreen extends React.Component {
 
   async createNotificationListeners() {
     /*
-    * Triggered when a particular notification has been received in foreground
-    * */
-    this.notificationListener = firebase.notifications().onNotification((notification) => {
-      console.log('Notification IOS', notification);
-      if (Platform.OS === 'ios') {
-        notification.setNotificationId(notification.notificationId)
-          .setTitle(notification.title)
-          .setBody(notification.body)
-          .setSound('bell.mp3');
-      }
-      firebase.notifications().displayNotification(notification);
-    });
+     * Triggered when a particular notification has been received in foreground
+     * */
+    this.notificationListener = firebase
+      .notifications()
+      .onNotification((notification) => {
+        console.log('Notification IOS', notification);
+        if (Platform.OS === 'ios') {
+          notification
+            .setNotificationId(notification.notificationId)
+            .setTitle(notification.title)
+            .setBody(notification.body)
+            .setSound('bell.mp3');
+        }
+        firebase.notifications().displayNotification(notification);
+      });
 
     /*
-    * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
-    * */
-    this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-      console.log('inside onNotificationOpened');
-      const { title, body } = notificationOpen.notification;
-    });
+     * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+     * */
+    this.notificationOpenedListener = firebase
+      .notifications()
+      .onNotificationOpened((notificationOpen) => {
+        console.log('inside onNotificationOpened');
+        const { title, body } = notificationOpen.notification;
+      });
 
     /*
-    * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
-    * */
-    const notificationOpen = await firebase.notifications().getInitialNotification();
+     * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+     * */
+    const notificationOpen = await firebase
+      .notifications()
+      .getInitialNotification();
     if (notificationOpen) {
       console.log('inside notificationOpen');
       const { title, body } = notificationOpen.notification;
@@ -189,8 +202,8 @@ class AuthLoadingScreen extends React.Component {
       // this.showAlert(title, body);
     }
     /*
-    * Triggered for data only payload in foreground
-    * */
+     * Triggered for data only payload in foreground
+     * */
     this.messageListener = firebase.messaging().onMessage((message) => {
       console.log('inside onMessage');
       //process data message
@@ -206,23 +219,20 @@ class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View>
-        <StatusBar barStyle="default" />
+        <StatusBar barStyle='default' />
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
   fcmToken: state.authLoadingReducer.fcmToken,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   setData: (data) => dispatch(setUserData(data)),
   setToken: (value) => dispatch(setFcmToken(value)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AuthLoadingScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLoadingScreen);

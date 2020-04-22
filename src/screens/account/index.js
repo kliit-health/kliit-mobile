@@ -1,23 +1,23 @@
-import React from "react";
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
   Image,
   ScrollView,
-  Linking
-} from "react-native";
-import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
-import CustomText from "../../components/customText";
-import CustomButton from "../../components/customButton";
-import Language from "../../utils/localization";
-import { showOrHideModal } from "../../components/customModal/action";
-import { signoutApihit } from "./action";
-import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
+  Linking,
+} from 'react-native';
+import { connect } from 'react-redux';
+import styles, { AVATAR_SIZE } from './style';
+import CustomText from '../../components/customText';
+import CustomButton from '../../components/customButton';
+import Language from '../../utils/localization';
+import { showOrHideModal } from '../../components/customModal/action';
+import { signoutApihit } from './action';
+import Constant from '../../utils/constants';
+import { Avatar } from 'react-native-elements';
 
-let lang = Language["en"];
-class Account extends React.PureComponent {
+let lang = Language['en'];
+class Account extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -35,7 +35,7 @@ class Account extends React.PureComponent {
       userData && (
         <View style={styles.container}>
           <ScrollView
-            keyboardShouldPersistTaps="handled"
+            keyboardShouldPersistTaps='handled'
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.headerStyle}>
@@ -64,9 +64,9 @@ class Account extends React.PureComponent {
                     <Image
                       style={{
                         width: AVATAR_SIZE,
-                        height: AVATAR_SIZE
+                        height: AVATAR_SIZE,
                       }}
-                      resizeMode="stretch"
+                      resizeMode='stretch'
                       source={staticImages.profilePlaceholderImg}
                     />
                   }
@@ -75,7 +75,7 @@ class Account extends React.PureComponent {
                   source={{
                     uri: userData.profileInfo.profileImageUrl
                       ? userData.profileInfo.profileImageUrl
-                      : null
+                      : null,
                   }}
                   activeOpacity={0.7}
                 />
@@ -93,9 +93,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -112,9 +112,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -131,9 +131,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -150,9 +150,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -169,9 +169,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -188,9 +188,9 @@ class Account extends React.PureComponent {
               <Image
                 style={{
                   width: 20,
-                  height: 40
+                  height: 40,
                 }}
-                resizeMode="contain"
+                resizeMode='contain'
                 source={staticImages.rightChevronIcon}
               />
             </TouchableOpacity>
@@ -200,7 +200,7 @@ class Account extends React.PureComponent {
               onPress={() => {
                 const payload = {
                   navigation,
-                  isLoaderShow: true
+                  isLoaderShow: true,
                 };
                 signOut(payload);
               }}
@@ -216,16 +216,13 @@ class Account extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  userData: state.authLoadingReducer.userData
+const mapStateToProps = (state) => ({
+  userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  signOut: value => dispatch(signoutApihit(value))
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  signOut: (value) => dispatch(signoutApihit(value)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Account);
+export default connect(mapStateToProps, mapDispatchToProps)(Account);
