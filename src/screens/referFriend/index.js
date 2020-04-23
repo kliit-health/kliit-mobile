@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
   Image,
   ScrollView,
-  Linking,
   Share,
   Platform,
   Clipboard,
@@ -18,7 +17,7 @@ import Constant from '../../utils/constants';
 import CustomButton from '../../components/customButton';
 
 let lang = Language.en;
-class ReferFriend extends React.PureComponent {
+class ReferFriend extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -27,14 +26,18 @@ class ReferFriend extends React.PureComponent {
     this.fetchData();
   }
 
-  fetchData() {
-  }
+  fetchData() {}
   onShare = async () => {
     const { userData } = this.props;
     try {
       const result = await Share.share({
-        message:
-          `Refer a friend and get 20 credits for free! Enter referal code ${userData.referalCode} while registrating in application. You can also download the application from given link ${Platform.OS == 'android' ? Constant.App.appLiveLink.googlePlay : Constant.App.appLiveLink.appleStore}`,
+        message: `Refer a friend and get 20 credits for free! Enter referal code ${
+          userData.referalCode
+        } while registrating in application. You can also download the application from given link ${
+          Platform.OS == 'android'
+            ? Constant.App.appLiveLink.googlePlay
+            : Constant.App.appLiveLink.appleStore
+        }`,
       });
 
       if (result.action === Share.sharedAction) {
@@ -57,9 +60,12 @@ class ReferFriend extends React.PureComponent {
       <View style={styles.titleContainerStyle}>
         <TouchableOpacity
           style={styles.backContainerStyle}
-          onPress={() => { navigation.goBack(); }}>
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             source={staticImages.backIcon}
             style={styles.backIconStyle}
           />
@@ -116,62 +122,65 @@ class ReferFriend extends React.PureComponent {
     const { navigation, userData } = this.props;
     const { staticImages } = Constant.App;
     return (
-      userData &&
-      <View style={styles.parentContainerStyle}>
-        {this.renderHeaderView()}
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
-          <View>
-            {this.renderSubHeaderView()}
-            {this.renderYourReferralTitleView()}
-            <TouchableOpacity
-              style={styles.itemsParentContainerStyle}
-              onPress={() => {
-                this.onShare();
-              }}>
-              <Image
-                style={{
-                  width: 20,
-                  height: 40,
+      userData && (
+        <View style={styles.parentContainerStyle}>
+          {this.renderHeaderView()}
+          <ScrollView
+            keyboardShouldPersistTaps='handled'
+            showsVerticalScrollIndicator={false}
+          >
+            <View>
+              {this.renderSubHeaderView()}
+              {this.renderYourReferralTitleView()}
+              <TouchableOpacity
+                style={styles.itemsParentContainerStyle}
+                onPress={() => {
+                  this.onShare();
                 }}
-                resizeMode="contain"
-                source={staticImages.shareIcon} />
-              <View
-                style={{
-                  flexDirection: 'column',
-                }}>
-                <CustomText style={styles.itemTextStyle}>
-                  {lang.referFriend.moreWays}
-                </CustomText>
-                <CustomText style={styles.itemTextBlueStyle}>
-                  {lang.referFriend.smsFb}
-                </CustomText>
-              </View>
-              <Image
-                style={{
-                  width: 20,
-                  height: 40,
-                }}
-                resizeMode="contain"
-                source={staticImages.rightChevronIcon} />
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </View>
+              >
+                <Image
+                  style={{
+                    width: 20,
+                    height: 40,
+                  }}
+                  resizeMode='contain'
+                  source={staticImages.shareIcon}
+                />
+                <View
+                  style={{
+                    flexDirection: 'column',
+                  }}
+                >
+                  <CustomText style={styles.itemTextStyle}>
+                    {lang.referFriend.moreWays}
+                  </CustomText>
+                  <CustomText style={styles.itemTextBlueStyle}>
+                    {lang.referFriend.smsFb}
+                  </CustomText>
+                </View>
+                <Image
+                  style={{
+                    width: 20,
+                    height: 40,
+                  }}
+                  resizeMode='contain'
+                  source={staticImages.rightChevronIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+      )
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ReferFriend);
+export default connect(mapStateToProps, mapDispatchToProps)(ReferFriend);

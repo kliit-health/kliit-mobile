@@ -4,19 +4,15 @@ import React from 'react';
 import { Text } from 'react-native';
 import styles from './style';
 
-const CustomText = (props) => {
-  const { style, ellipsizeMode, numberOfLines } = props;
-
-  return (
-    <Text
-      ellipsizeMode={ellipsizeMode}
-      numberOfLines={numberOfLines}
-      allowFontScaling={false}
-      style={[style, styles.textStyle]}
-    >
-      {props.children}
-    </Text>
-  );
-};
+const CustomText = ({ style, ellipsizeMode, numberOfLines, ...props }) => (
+  <Text
+    ellipsizeMode={ellipsizeMode}
+    numberOfLines={numberOfLines}
+    allowFontScaling={false}
+    style={[style, styles.textStyle]}
+  >
+    {props.children}
+  </Text>
+);
 
 export default CustomText;

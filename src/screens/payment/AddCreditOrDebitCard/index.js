@@ -1,5 +1,11 @@
-import React from 'react';
-import { View, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
+import React, { PureComponent } from 'react';
+import {
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import Language from '../../../utils/localization';
 import CustomText from '../../../components/customText';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -11,7 +17,7 @@ import CustomButton from '../../../components/customButton';
 import { createPaymentCard } from '../action';
 
 let lang = Language.en;
-class AddCreditOrDebitCard extends React.PureComponent {
+class AddCreditOrDebitCard extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,14 +52,20 @@ class AddCreditOrDebitCard extends React.PureComponent {
     );
   }
   renderInputTextView() {
-    const { firstName, lastName, cardNumber, securityCode, expireDate } = this.state;
+    const {
+      firstName,
+      lastName,
+      cardNumber,
+      securityCode,
+      expireDate,
+    } = this.state;
 
     return (
       <View style={styles.parentContainerStyle}>
         <View style={styles.inputTextMargin}>
           <CustomInputText
             autoCapitalize='words'
-            onChangeText={value => this.setState({ cardNumber: value })}
+            onChangeText={(value) => this.setState({ cardNumber: value })}
             placeholder={lang.addCreditCardData.cardNumber}
             value={cardNumber}
             style={
@@ -70,7 +82,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
               maxLength={5}
               keyboardType={'number-pad'}
               autoCapitalize='words'
-              onChangeText={value => {
+              onChangeText={(value) => {
                 var formatted = value;
                 if (value.length == 2) {
                   if (this.state.expireDate.indexOf('/') == -1) {
@@ -96,7 +108,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
             <CustomInputText
               maxLength={3}
               autoCapitalize='words'
-              onChangeText={value => this.setState({ securityCode: value })}
+              onChangeText={(value) => this.setState({ securityCode: value })}
               placeholder={lang.addCreditCardData.securityCode}
               value={securityCode}
               style={
@@ -113,7 +125,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
         <View style={styles.inputTextMargin}>
           <CustomInputText
             autoCapitalize='words'
-            onChangeText={value => this.setState({ firstName: value })}
+            onChangeText={(value) => this.setState({ firstName: value })}
             placeholder={lang.addCreditCardData.firstName}
             value={firstName}
             style={
@@ -127,7 +139,7 @@ class AddCreditOrDebitCard extends React.PureComponent {
         <View style={styles.inputTextMargin}>
           <CustomInputText
             autoCapitalize='words'
-            onChangeText={value => this.setState({ lastName: value })}
+            onChangeText={(value) => this.setState({ lastName: value })}
             placeholder={lang.addCreditCardData.lastName}
             value={lastName}
             style={
@@ -143,7 +155,13 @@ class AddCreditOrDebitCard extends React.PureComponent {
   }
   renderButtonView() {
     const { paymentCard, navigation } = this.props;
-    const { firstName, lastName, cardNumber, securityCode, expireDate } = this.state;
+    const {
+      firstName,
+      lastName,
+      cardNumber,
+      securityCode,
+      expireDate,
+    } = this.state;
     return (
       <View style={styles.parentContainerStyle}>
         <CustomButton
@@ -202,9 +220,8 @@ class AddCreditOrDebitCard extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({
-  paymentCard: value => dispatch(createPaymentCard(value)),
+const mapDispatchToProps = (dispatch) => ({
+  paymentCard: (value) => dispatch(createPaymentCard(value)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(AddCreditOrDebitCard);
+
+export default connect(null, mapDispatchToProps)(AddCreditOrDebitCard);

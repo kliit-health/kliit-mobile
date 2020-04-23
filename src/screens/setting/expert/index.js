@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -18,12 +18,14 @@ import ImagePicker from 'react-native-image-picker';
 import { showOrHideModal } from '../../../components/customModal/action';
 
 let lang = Language['en'];
-class SettingExpert extends React.PureComponent {
+class SettingExpert extends PureComponent {
   constructor(props) {
     super(props);
     const { userData } = this.props;
     this.state = {
-      imageSrc: userData.profileInfo.profileImageUrl ? userData.profileInfo.profileImageUrl : null,
+      imageSrc: userData.profileInfo.profileImageUrl
+        ? userData.profileInfo.profileImageUrl
+        : null,
       imageUri: '',
       filepath: '',
       file: '',
@@ -35,7 +37,11 @@ class SettingExpert extends React.PureComponent {
     const { imageUri, file, filepath } = this.state;
     return (
       <View style={styles.headerStyle}>
-        <TouchableOpacity onPress={() => { navigation.goBack() }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <CustomText style={styles.cancelTextStyle}>
             {lang.setting.cancel}
           </CustomText>
@@ -43,36 +49,41 @@ class SettingExpert extends React.PureComponent {
         <CustomText style={styles.titleTextStyle}>
           {lang.setting.title}
         </CustomText>
-        <TouchableOpacity onPress={() => {
-          if (imageUri) {
-            let filename = null;
-            let name = imageUri.substring(
-              imageUri.lastIndexOf("/") + 1,
-              imageUri.length
-            );
-            const ext = file.type.split("/").pop(); // Extract image extension
-            filename = Platform.OS === 'ios' ? `${Math.floor(Date.now())}${name}` : `${Math.floor(Date.now())}${name}.${ext}`;
-            const payloadData = {
-              userParams: userData,
-              navigation,
-              imageParams: {
-                file: Platform.OS == 'ios' ? imageUri : filepath,
-                filename,
-              }
+        <TouchableOpacity
+          onPress={() => {
+            if (imageUri) {
+              let filename = null;
+              let name = imageUri.substring(
+                imageUri.lastIndexOf('/') + 1,
+                imageUri.length
+              );
+              const ext = file.type.split('/').pop(); // Extract image extension
+              filename =
+                Platform.OS === 'ios'
+                  ? `${Math.floor(Date.now())}${name}`
+                  : `${Math.floor(Date.now())}${name}.${ext}`;
+              const payloadData = {
+                userParams: userData,
+                navigation,
+                imageParams: {
+                  file: Platform.OS == 'ios' ? imageUri : filepath,
+                  filename,
+                },
+              };
+              updateUserData(payloadData);
             }
-            updateUserData(payloadData);
-          }
-        }}>
+          }}
+        >
           <CustomText style={styles.doneTextStyle}>
             {lang.setting.done}
           </CustomText>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   requestCameraPermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA
@@ -105,11 +116,11 @@ class SettingExpert extends React.PureComponent {
         path: 'images',
       },
     };
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        console.log("You cancelled image picker");
+        console.log('You cancelled image picker');
       } else if (response.error) {
-        alert("And error occured: " + JSON.stringify(response));
+        alert('And error occured: ' + JSON.stringify(response));
       } else {
         const source = { uri: response.uri };
         this.setState({
@@ -122,7 +133,6 @@ class SettingExpert extends React.PureComponent {
     });
   };
 
-
   renderProfileImageView() {
     const { staticImages } = Constant.App;
     const { userData } = this.props;
@@ -132,27 +142,32 @@ class SettingExpert extends React.PureComponent {
       <View style={styles.profileImgViewStyle}>
         <Avatar
           containerStyle={{ alignSelf: 'center' }}
-          renderPlaceholderContent={<Image
-            style={{
-              width: 120,
-              height: 120,
-            }}
-            resizeMode="stretch"
-            source={staticImages.profilePlaceholderImg}
-          />}
+          renderPlaceholderContent={
+            <Image
+              style={{
+                width: 120,
+                height: 120,
+              }}
+              resizeMode='stretch'
+              source={staticImages.profilePlaceholderImg}
+            />
+          }
           size={120}
           rounded
           source={{ uri: imageSrc }}
-          activeOpacity={0.7} />
-        <TouchableOpacity onPress={() => {
-          this.requestCameraPermission();
-        }}>
+          activeOpacity={0.7}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            this.requestCameraPermission();
+          }}
+        >
           <CustomText style={styles.changeProfileTextStyle}>
             {lang.setting.changePhoto}
           </CustomText>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -160,12 +175,15 @@ class SettingExpert extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.btnContainerStyle}
-        onPress={() => { navigation.navigate(Constant.App.screenNames.ChangePasswordExpert) }}>
+        onPress={() => {
+          navigation.navigate(Constant.App.screenNames.ChangePasswordExpert);
+        }}
+      >
         <CustomText style={styles.btnTextStyle}>
           {lang.setting.changePassword}
         </CustomText>
       </TouchableOpacity>
-    )
+    );
   }
 
   render() {
@@ -173,8 +191,9 @@ class SettingExpert extends React.PureComponent {
       <View style={styles.container}>
         {this.renderHeaderView()}
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderProfileImageView()}
           {this.renderButtonView()}
         </ScrollView>
@@ -183,15 +202,13 @@ class SettingExpert extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateUserData: value => dispatch(updateExpertDataToFirebase(value)),
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
+const mapDispatchToProps = (dispatch) => ({
+  updateUserData: (value) => dispatch(updateExpertDataToFirebase(value)),
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
 });
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SettingExpert);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingExpert);

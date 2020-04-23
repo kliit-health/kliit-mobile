@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -22,7 +22,7 @@ import { updateUserDataToFirebase } from './action';
 import { showOrHideModal } from '../../components/customModal/action';
 
 let lang = Language['en'];
-class Setting extends React.PureComponent {
+class Setting extends PureComponent {
   constructor(props) {
     super(props);
     const { userData } = this.props;
@@ -41,15 +41,27 @@ class Setting extends React.PureComponent {
       pronounsArr: [
         {
           title: lang.addProfileData.sheHer,
-          selected: userData.profileInfo.pronouns && userData.profileInfo.pronouns === lang.addProfileData.sheHer ? true : false,
+          selected:
+            userData.profileInfo.pronouns &&
+            userData.profileInfo.pronouns === lang.addProfileData.sheHer
+              ? true
+              : false,
         },
         {
           title: lang.addProfileData.heHim,
-          selected: userData.profileInfo.pronouns && userData.profileInfo.pronouns === lang.addProfileData.heHim ? true : false,
+          selected:
+            userData.profileInfo.pronouns &&
+            userData.profileInfo.pronouns === lang.addProfileData.heHim
+              ? true
+              : false,
         },
         {
           title: lang.addProfileData.theyThem,
-          selected: userData.profileInfo.pronouns && userData.profileInfo.pronouns === lang.addProfileData.theyThem ? true : false,
+          selected:
+            userData.profileInfo.pronouns &&
+            userData.profileInfo.pronouns === lang.addProfileData.theyThem
+              ? true
+              : false,
         },
       ],
     };
@@ -76,11 +88,30 @@ class Setting extends React.PureComponent {
   }
 
   renderHeaderView() {
-    const { navigation, showHideErrorModal, updateUserData, userData } = this.props;
-    const { firstName, lastName, credits, dob, pronounsArr, imageUri, file, filepath, selectedState } = this.state;
+    const {
+      navigation,
+      showHideErrorModal,
+      updateUserData,
+      userData,
+    } = this.props;
+    const {
+      firstName,
+      lastName,
+      credits,
+      dob,
+      pronounsArr,
+      imageUri,
+      file,
+      filepath,
+      selectedState,
+    } = this.state;
     return (
       <View style={styles.headerStyle}>
-        <TouchableOpacity onPress={() => { navigation.goBack() }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <CustomText style={styles.cancelTextStyle}>
             {lang.setting.cancel}
           </CustomText>
@@ -88,62 +119,71 @@ class Setting extends React.PureComponent {
         <CustomText style={styles.titleTextStyle}>
           {lang.setting.title}
         </CustomText>
-        <TouchableOpacity onPress={() => {
-          if (!firstName.trim()) {
-            showHideErrorModal(lang.addProfileData.emptyFirstNameMsg);
-          } else if (!lastName.trim()) {
-            showHideErrorModal(lang.addProfileData.emptyLastNameMsg);
-          }
-          // else if (!dob) {
-          //   showHideErrorModal(lang.addProfileData.emptyDobMsg);
-          // }
-          else if (!selectedState) {
-            showHideErrorModal(lang.addProfileData.emptyStateSelectionMsg);
-          } else if (pronounsArr.length > 0 && !this.isPronounSelected(pronounsArr)) {
-            showHideErrorModal(lang.addProfileData.emptyPronounsMsg);
-          } else {
-            let filename = null;
-            const payloadData = {
-              userParams: {
-                firstName: firstName.trim(),
-                lastName: lastName.trim(),
-                dob: dob ? dob : '',
-                pronouns: this.getSelectedPronoun(pronounsArr),
-                state: selectedState,
-                credits,
-              },
-              navigation,
+        <TouchableOpacity
+          onPress={() => {
+            if (!firstName.trim()) {
+              showHideErrorModal(lang.addProfileData.emptyFirstNameMsg);
+            } else if (!lastName.trim()) {
+              showHideErrorModal(lang.addProfileData.emptyLastNameMsg);
             }
-            if (imageUri) {
-              let name = imageUri.substring(
-                imageUri.lastIndexOf("/") + 1,
-                imageUri.length
-              );
-              const ext = file.type.split("/").pop(); // Extract image extension
-              filename = Platform.OS === 'ios' ? `${Math.floor(Date.now())}${name}` : `${Math.floor(Date.now())}${name}.${ext}`;
-            } else if (userData.profileInfo.profileImageUrl) {
-              payloadData.userParams.profileImageUrl = userData.profileInfo.profileImageUrl;
-            }
-
-            if (filename) {
-              payloadData.imageParams = {
-                file: Platform.OS == 'ios' ? imageUri : filepath,
-                filename,
+            // else if (!dob) {
+            //   showHideErrorModal(lang.addProfileData.emptyDobMsg);
+            // }
+            else if (!selectedState) {
+              showHideErrorModal(lang.addProfileData.emptyStateSelectionMsg);
+            } else if (
+              pronounsArr.length > 0 &&
+              !this.isPronounSelected(pronounsArr)
+            ) {
+              showHideErrorModal(lang.addProfileData.emptyPronounsMsg);
+            } else {
+              let filename = null;
+              const payloadData = {
+                userParams: {
+                  firstName: firstName.trim(),
+                  lastName: lastName.trim(),
+                  dob: dob ? dob : '',
+                  pronouns: this.getSelectedPronoun(pronounsArr),
+                  state: selectedState,
+                  credits,
+                },
+                navigation,
+              };
+              if (imageUri) {
+                let name = imageUri.substring(
+                  imageUri.lastIndexOf('/') + 1,
+                  imageUri.length
+                );
+                const ext = file.type.split('/').pop(); // Extract image extension
+                filename =
+                  Platform.OS === 'ios'
+                    ? `${Math.floor(Date.now())}${name}`
+                    : `${Math.floor(Date.now())}${name}.${ext}`;
+              } else if (userData.profileInfo.profileImageUrl) {
+                payloadData.userParams.profileImageUrl =
+                  userData.profileInfo.profileImageUrl;
               }
+
+              if (filename) {
+                payloadData.imageParams = {
+                  file: Platform.OS == 'ios' ? imageUri : filepath,
+                  filename,
+                };
+              }
+              updateUserData(payloadData);
             }
-            updateUserData(payloadData);
-          }
-        }}>
+          }}
+        >
           <CustomText style={styles.doneTextStyle}>
             {lang.setting.done}
           </CustomText>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   requestCameraPermission = async () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA
@@ -176,11 +216,11 @@ class Setting extends React.PureComponent {
         path: 'images',
       },
     };
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        console.log("You cancelled image picker");
+        console.log('You cancelled image picker');
       } else if (response.error) {
-        alert("And error occured: " + JSON.stringify(response));
+        alert('And error occured: ' + JSON.stringify(response));
       } else {
         const source = { uri: response.uri };
         this.setState({
@@ -200,52 +240,73 @@ class Setting extends React.PureComponent {
       <View style={styles.profileImgViewStyle}>
         <Avatar
           containerStyle={{ alignSelf: 'center' }}
-          renderPlaceholderContent={<Image
-            style={{
-              width: 120,
-              height: 120,
-            }}
-            resizeMode="stretch"
-            source={staticImages.profilePlaceholderImg}
-          />}
+          renderPlaceholderContent={
+            <Image
+              style={{
+                width: 120,
+                height: 120,
+              }}
+              resizeMode='stretch'
+              source={staticImages.profilePlaceholderImg}
+            />
+          }
           size={120}
           rounded
           source={{ uri: imageSrc ? imageSrc : null }}
-          activeOpacity={0.7} />
-        <TouchableOpacity onPress={() => {
-          this.requestCameraPermission();
-        }}>
+          activeOpacity={0.7}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            this.requestCameraPermission();
+          }}
+        >
           <CustomText style={styles.changeProfileTextStyle}>
             {lang.setting.changePhoto}
           </CustomText>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   renderInputTextView() {
-    const { firstName, lastName, dob, showSelectStateModal, selectedState } = this.state;
+    const {
+      firstName,
+      lastName,
+      dob,
+      showSelectStateModal,
+      selectedState,
+    } = this.state;
     const { staticImages } = Constant.App;
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <View style={styles.inputTextFirstNameContainerStyle}>
             <CustomInputText
-              autoCapitalize="words"
-              onChangeText={value => this.setState({ firstName: value })}
+              autoCapitalize='words'
+              onChangeText={(value) => this.setState({ firstName: value })}
               placeholder={lang.addProfileData.firstName}
               value={firstName}
-              style={firstName ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
-              placeholderTextColor={Constant.App.colors.blackColor} />
+              style={
+                firstName
+                  ? styles.inputTypeStyle
+                  : [styles.inputTypeStyle, { fontWeight: '100' }]
+              }
+              placeholderTextColor={Constant.App.colors.blackColor}
+            />
           </View>
           <View style={styles.inputTextFirstNameContainerStyle}>
             <CustomInputText
-              autoCapitalize="words"
-              onChangeText={value => this.setState({ lastName: value })}
+              autoCapitalize='words'
+              onChangeText={(value) => this.setState({ lastName: value })}
               placeholder={lang.addProfileData.lastName}
               value={lastName}
-              style={lastName ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
-              placeholderTextColor={Constant.App.colors.blackColor} />
+              style={
+                lastName
+                  ? styles.inputTypeStyle
+                  : [styles.inputTypeStyle, { fontWeight: '100' }]
+              }
+              placeholderTextColor={Constant.App.colors.blackColor}
+            />
           </View>
         </View>
 
@@ -258,7 +319,7 @@ class Setting extends React.PureComponent {
               console.log('---onSelection DatePicker---', date);
               this.setState({
                 dob: date,
-              })
+              });
             }}
           ></DatePicker>
         </View>
@@ -267,15 +328,19 @@ class Setting extends React.PureComponent {
           <TouchableOpacity
             style={{ flexDirection: 'row' }}
             onPress={() => {
-              this.setState({ showSelectStateModal: !showSelectStateModal })
-            }}>
+              this.setState({ showSelectStateModal: !showSelectStateModal });
+            }}
+          >
             <CustomText style={styles.stateDropDownTextStyle}>
-              {selectedState ? selectedState.value : lang.addProfileData.stateText}
+              {selectedState
+                ? selectedState.value
+                : lang.addProfileData.stateText}
             </CustomText>
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               source={staticImages.downArrow}
-              style={styles.dropDownIconStyle} />
+              style={styles.dropDownIconStyle}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -302,13 +367,17 @@ class Setting extends React.PureComponent {
               pronounsArr[key].selected = true;
               this.setState({
                 pronounsArr: Object.assign([], [], pronounsArr),
-              })
-            }}>
-            <View
-              style={styles.pronounsContainerStyle}>
+              });
+            }}
+          >
+            <View style={styles.pronounsContainerStyle}>
               <Image
-                resizeMode="contain"
-                source={item.selected ? staticImages.checkBoxSelectedIcon : staticImages.checkBoxIcon}
+                resizeMode='contain'
+                source={
+                  item.selected
+                    ? staticImages.checkBoxSelectedIcon
+                    : staticImages.checkBoxIcon
+                }
                 style={styles.pronounsChecboxIconStyle}
               />
               <CustomText style={styles.pronounsTextStyle}>
@@ -326,12 +395,15 @@ class Setting extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.btnContainerStyle}
-        onPress={() => { navigation.navigate(Constant.App.screenNames.ChangePassword) }}>
+        onPress={() => {
+          navigation.navigate(Constant.App.screenNames.ChangePassword);
+        }}
+      >
         <CustomText style={styles.btnTextStyle}>
           {lang.setting.changePassword}
         </CustomText>
       </TouchableOpacity>
-    )
+    );
   }
 
   render() {
@@ -340,27 +412,30 @@ class Setting extends React.PureComponent {
       <View style={styles.container}>
         {this.renderHeaderView()}
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderProfileImageView()}
           {this.renderInputTextView()}
           {this.renderPronounsView()}
           {this.renderButtonView()}
-          {showSelectStateModal ? <CustomSelectModal
-            onSelection={(item) => {
-              console.log('---onSelection CustomSelectModal---', item);
-              this.setState({
-                selectedState: item,
-                showSelectStateModal: false,
-              })
-            }}
-            onClose={() => {
-              console.log('---onClose CustomSelectModal---');
-              this.setState({
-                showSelectStateModal: false,
-              })
-            }}
-          /> : null}
+          {showSelectStateModal ? (
+            <CustomSelectModal
+              onSelection={(item) => {
+                console.log('---onSelection CustomSelectModal---', item);
+                this.setState({
+                  selectedState: item,
+                  showSelectStateModal: false,
+                });
+              }}
+              onClose={() => {
+                console.log('---onClose CustomSelectModal---');
+                this.setState({
+                  showSelectStateModal: false,
+                });
+              }}
+            />
+          ) : null}
         </ScrollView>
         {Platform.OS === 'ios' && <KeyboardSpacer />}
       </View>
@@ -368,16 +443,13 @@ class Setting extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.authLoadingReducer.userData,
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateUserData: value => dispatch(updateUserDataToFirebase(value)),
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
+const mapDispatchToProps = (dispatch) => ({
+  updateUserData: (value) => dispatch(updateUserDataToFirebase(value)),
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Setting);
+export default connect(mapStateToProps, mapDispatchToProps)(Setting);

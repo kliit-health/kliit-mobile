@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   ScrollView,
@@ -25,7 +25,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Avatar } from 'react-native-elements';
 
 let lang = Language.en;
-class AddProfileData extends React.PureComponent {
+class AddProfileData extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +91,7 @@ class AddProfileData extends React.PureComponent {
         path: 'images',
       },
     };
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
       } else if (response.error) {
         alert('And error occured: ' + JSON.stringify(response));
@@ -113,26 +113,27 @@ class AddProfileData extends React.PureComponent {
     return (
       <View style={styles.profileImgViewStyle}>
         {imageSrc ? (
+          <Avatar size={150} rounded source={imageSrc} activeOpacity={0.7} />
+        ) : (
           <Avatar
             size={150}
+            imageProps={{ resizeMode: 'contain' }}
             rounded
-            source={imageSrc}
-            activeOpacity={0.7} />
-        ) : (
-            <Avatar
-              size={150}
-              imageProps={{ resizeMode: 'contain' }}
-              rounded
-              source={staticImages.profilePlaceholderImg}
-              activeOpacity={0.7} />
-          )}
+            source={staticImages.profilePlaceholderImg}
+            activeOpacity={0.7}
+          />
+        )}
         <TouchableOpacity
           style={styles.cameraIconContainerStyle}
           onPress={() => {
             this.requestCameraPermission();
-          }}>
+          }}
+        >
           <Image
-            resizeMode="contain" source={staticImages.cameraWhiteImg} style={styles.cameraIconStyle} />
+            resizeMode='contain'
+            source={staticImages.cameraWhiteImg}
+            style={styles.cameraIconStyle}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -149,28 +150,43 @@ class AddProfileData extends React.PureComponent {
   }
 
   renderInputTextView() {
-    const { firstName, lastName, showSelectStateModal, selectedState } = this.state;
+    const {
+      firstName,
+      lastName,
+      showSelectStateModal,
+      selectedState,
+    } = this.state;
     const { staticImages } = Constant.App;
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <View style={styles.inputTextFirstNameContainerStyle}>
             <CustomInputText
-              autoCapitalize="words"
-              onChangeText={value => this.setState({ firstName: value })}
+              autoCapitalize='words'
+              onChangeText={(value) => this.setState({ firstName: value })}
               placeholder={lang.addProfileData.firstName}
               value={firstName}
-              style={firstName ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
-              placeholderTextColor={Constant.App.colors.blackColor} />
+              style={
+                firstName
+                  ? styles.inputTypeStyle
+                  : [styles.inputTypeStyle, { fontWeight: '100' }]
+              }
+              placeholderTextColor={Constant.App.colors.blackColor}
+            />
           </View>
           <View style={styles.inputTextFirstNameContainerStyle}>
             <CustomInputText
-              autoCapitalize="words"
-              onChangeText={value => this.setState({ lastName: value })}
+              autoCapitalize='words'
+              onChangeText={(value) => this.setState({ lastName: value })}
               placeholder={lang.addProfileData.lastName}
               value={lastName}
-              style={lastName ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
-              placeholderTextColor={Constant.App.colors.blackColor} />
+              style={
+                lastName
+                  ? styles.inputTypeStyle
+                  : [styles.inputTypeStyle, { fontWeight: '100' }]
+              }
+              placeholderTextColor={Constant.App.colors.blackColor}
+            />
           </View>
         </View>
 
@@ -183,7 +199,7 @@ class AddProfileData extends React.PureComponent {
                 dob: date,
               });
             }}
-           />
+          />
         </View>
 
         <View style={styles.stateDropDownContainerStyle}>
@@ -191,14 +207,18 @@ class AddProfileData extends React.PureComponent {
             style={{ flexDirection: 'row' }}
             onPress={() => {
               this.setState({ showSelectStateModal: !showSelectStateModal });
-            }}>
+            }}
+          >
             <CustomText style={styles.stateDropDownTextStyle}>
-              {selectedState ? selectedState.value : lang.addProfileData.stateText}
+              {selectedState
+                ? selectedState.value
+                : lang.addProfileData.stateText}
             </CustomText>
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               source={staticImages.downArrow}
-              style={styles.dropDownIconStyle} />
+              style={styles.dropDownIconStyle}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -226,12 +246,16 @@ class AddProfileData extends React.PureComponent {
               this.setState({
                 pronounsArr: Object.assign([], [], pronounsArr),
               });
-            }}>
-            <View
-              style={styles.pronounsContainerStyle}>
+            }}
+          >
+            <View style={styles.pronounsContainerStyle}>
               <Image
-                resizeMode="contain"
-                source={item.selected ? staticImages.checkBoxSelectedIcon : staticImages.checkBoxIcon}
+                resizeMode='contain'
+                source={
+                  item.selected
+                    ? staticImages.checkBoxSelectedIcon
+                    : staticImages.checkBoxIcon
+                }
                 style={styles.pronounsChecboxIconStyle}
               />
               <CustomText style={styles.pronounsTextStyle}>
@@ -266,7 +290,17 @@ class AddProfileData extends React.PureComponent {
 
   renderButtonView() {
     const { uploadUserData, showHideErrorModal, navigation } = this.props;
-    const { firstName, lastName, imageSrc, dob, pronounsArr, imageUri, file, filepath, selectedState } = this.state;
+    const {
+      firstName,
+      lastName,
+      imageSrc,
+      dob,
+      pronounsArr,
+      imageUri,
+      file,
+      filepath,
+      selectedState,
+    } = this.state;
     return (
       <CustomButton
         buttonStyle={styles.buttonContainerStyle}
@@ -277,10 +311,12 @@ class AddProfileData extends React.PureComponent {
             showHideErrorModal(lang.addProfileData.emptyFirstNameMsg);
           } else if (!lastName.trim()) {
             showHideErrorModal(lang.addProfileData.emptyLastNameMsg);
-          }
-          else if (!selectedState) {
+          } else if (!selectedState) {
             showHideErrorModal(lang.addProfileData.emptyStateSelectionMsg);
-          } else if (pronounsArr.length > 0 && !this.isPronounSelected(pronounsArr)) {
+          } else if (
+            pronounsArr.length > 0 &&
+            !this.isPronounSelected(pronounsArr)
+          ) {
             showHideErrorModal(lang.addProfileData.emptyPronounsMsg);
           } else {
             if (imageSrc) {
@@ -289,7 +325,10 @@ class AddProfileData extends React.PureComponent {
                 imageUri.length
               );
               const ext = file.type.split('/').pop(); // Extract image extension
-              const filename = Platform.OS === 'ios' ? `${Math.floor(Date.now())}${name}` : `${Math.floor(Date.now())}${name}.${ext}`;
+              const filename =
+                Platform.OS === 'ios'
+                  ? `${Math.floor(Date.now())}${name}`
+                  : `${Math.floor(Date.now())}${name}.${ext}`;
               const payloadData = {
                 userParams: {
                   firstName: firstName.trim(),
@@ -321,15 +360,22 @@ class AddProfileData extends React.PureComponent {
             }
           }
         }}
-        text={lang.addProfileData.save} />
+        text={lang.addProfileData.save}
+      />
     );
   }
 
   renderTermsConditionsView() {
     return (
       <View style={styles.termsConditionsTextContainerStyle}>
-        <CustomText style={styles.termsConditionsTextStyle}>{lang.signUp.termsConditionsText1}</CustomText>
-        <TouchableOpacity onPress={() => { Linking.openURL(Constant.App.termsAndConditionsUrl); }}>
+        <CustomText style={styles.termsConditionsTextStyle}>
+          {lang.signUp.termsConditionsText1}
+        </CustomText>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(Constant.App.termsAndConditionsUrl);
+          }}
+        >
           <CustomText style={styles.termsConditionsTextHighlightedStyle}>
             {lang.signUp.termsConditionsText2}
           </CustomText>
@@ -337,7 +383,11 @@ class AddProfileData extends React.PureComponent {
         <CustomText style={styles.termsConditionsTextStyle}>
           {lang.signUp.termsConditionsText3}
         </CustomText>
-        <TouchableOpacity onPress={() => { Linking.openURL(Constant.App.termsAndConditionsUrl); }}>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(Constant.App.termsAndConditionsUrl);
+          }}
+        >
           <CustomText style={styles.termsConditionsTextHighlightedStyle}>
             {lang.signUp.termsConditionsText4}
           </CustomText>
@@ -351,8 +401,9 @@ class AddProfileData extends React.PureComponent {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.contentContainerStyle}>
             {this.renderProfileImageView()}
             {this.renderTitleView()}
@@ -360,21 +411,23 @@ class AddProfileData extends React.PureComponent {
             {this.renderPronounsView()}
             {this.renderButtonView()}
             {this.renderTermsConditionsView()}
-            {showSelectStateModal ? <CustomSelectModal
-              onSelection={(item) => {
-                console.log('---onSelection CustomSelectModal---', item);
-                this.setState({
-                  selectedState: item,
-                  showSelectStateModal: false,
-                });
-              }}
-              onClose={() => {
-                console.log('---onClose CustomSelectModal---');
-                this.setState({
-                  showSelectStateModal: false,
-                });
-              }}
-            /> : null}
+            {showSelectStateModal ? (
+              <CustomSelectModal
+                onSelection={(item) => {
+                  console.log('---onSelection CustomSelectModal---', item);
+                  this.setState({
+                    selectedState: item,
+                    showSelectStateModal: false,
+                  });
+                }}
+                onClose={() => {
+                  console.log('---onClose CustomSelectModal---');
+                  this.setState({
+                    showSelectStateModal: false,
+                  });
+                }}
+              />
+            ) : null}
           </View>
         </ScrollView>
         {Platform.OS === 'ios' && <KeyboardSpacer />}
@@ -385,12 +438,10 @@ class AddProfileData extends React.PureComponent {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  uploadUserData: value => dispatch(uploadUserDataToFirebase(value, dispatch)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  uploadUserData: (value) =>
+    dispatch(uploadUserDataToFirebase(value, dispatch)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddProfileData);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProfileData);

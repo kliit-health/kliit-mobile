@@ -1,15 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Modal, Image } from 'react-native';
+import { View, Modal } from 'react-native';
 import CustomText from '../customText';
 import style from './style';
 import { hideToast } from './action';
 
-const CustomToast = (props) => {
-  const {
-    showToast, textMsg, dispatch, delay,
-  } = props;
-
+const CustomToast = ({ showToast, textMsg, dispatch, delay }) => {
   if (showToast) {
     setTimeout(() => {
       dispatch(hideToast());
@@ -18,16 +14,14 @@ const CustomToast = (props) => {
 
   return (
     <Modal
-      animationType="fade"
+      animationType='fade'
       onRequestClose={() => {}}
       transparent
       isVisible={showToast}
     >
       <View style={style.parentContainerStyle}>
         <View style={style.innerContainerStyle}>
-          <CustomText style={style.textStyle}>
-            {textMsg}
-          </CustomText>
+          <CustomText style={style.textStyle}>{textMsg}</CustomText>
         </View>
       </View>
     </Modal>

@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  View,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import CustomText from '../../components/customText';
 import styles from './style';
@@ -18,7 +13,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { isEmail } from '../../utils/helper';
 
 let lang = Language['en'];
-class ForgotPassword extends React.PureComponent {
+class ForgotPassword extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,15 +33,18 @@ class ForgotPassword extends React.PureComponent {
   renderInputTextView() {
     const { email } = this.state;
     return (
-      <View
-        style={styles.inputTextParentContainerStyle}>
+      <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize="none"
-            onChangeText={value => this.setState({ email: value })}
+            autoCapitalize='none'
+            onChangeText={(value) => this.setState({ email: value })}
             placeholder={lang.forgotPassword.Email}
             value={email}
-            style={email ? styles.inputTypeStyle : [styles.inputTypeStyle, { fontWeight: '100' }]}
+            style={
+              email
+                ? styles.inputTypeStyle
+                : [styles.inputTypeStyle, { fontWeight: '100' }]
+            }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
         </View>
@@ -61,17 +59,26 @@ class ForgotPassword extends React.PureComponent {
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
-        }}>
-        <Image resizeMode="contain" source={staticImages.crossIcon} style={styles.backIconStyle} />
+        }}
+      >
+        <Image
+          resizeMode='contain'
+          source={staticImages.crossIcon}
+          style={styles.backIconStyle}
+        />
       </TouchableOpacity>
-    )
+    );
   }
 
   renderLogoView() {
     const { staticImages } = Constant.App;
     return (
-      <Image resizeMode="contain" source={staticImages.loginLogoImage} style={styles.logoStyle} />
-    )
+      <Image
+        resizeMode='contain'
+        source={staticImages.loginLogoImage}
+        style={styles.logoStyle}
+      />
+    );
   }
 
   renderTitleView() {
@@ -84,7 +91,7 @@ class ForgotPassword extends React.PureComponent {
           {lang.forgotPassword.Subtitle}
         </CustomText>
       </View>
-    )
+    );
   }
 
   renderButtonView() {
@@ -102,21 +109,22 @@ class ForgotPassword extends React.PureComponent {
           } else {
             const payload = {
               email,
-            }
+            };
             forgotPassword(payload);
           }
         }}
         text={lang.forgotPassword.Submit}
       />
-    )
+    );
   }
 
   render() {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          keyboardShouldPersistTaps='handled'
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderCrossIconView()}
           <View style={styles.contentContainerStyle}>
             {this.renderLogoView()}
@@ -131,17 +139,14 @@ class ForgotPassword extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   forgotPasswordSuccess: state.forgotPasswordReducer.forgotPasswordSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showHideErrorModal: value => dispatch(showOrHideModal(value)),
-  forgotPassword: value => dispatch(forgotPasswordApiHit(value)),
+const mapDispatchToProps = (dispatch) => ({
+  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
+  forgotPassword: (value) => dispatch(forgotPasswordApiHit(value)),
   resetReducerState: () => dispatch(resertForgotPasswordState()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ForgotPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

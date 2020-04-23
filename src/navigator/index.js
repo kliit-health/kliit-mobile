@@ -6,7 +6,8 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 import NavigationService from './navigationService';
-import { Image, View, Linking } from 'react-native';
+import { Image, View } from 'react-native';
+
 import AuthLoadingScreen from '../screens/authLoading';
 import Login from '../screens/login';
 import Ask from '../screens/ask';
@@ -35,6 +36,7 @@ import BuyingCredit from '../screens/payment/buyingCredit';
 import PaymentMethods from '../screens/payment/paymentMethods';
 import AddCreditOrDebitCard from '../screens/payment/AddCreditOrDebitCard';
 import PayPalApproval from '../screens/payment/buyingCredit/paypal';
+
 let lang = Language.en;
 let tabIconSize = 25;
 const screenNames = Constant.App.screenNames;
@@ -409,7 +411,8 @@ AppStack.router.getStateForAction = (action, state) => {
   return prevGetStateForActionAppStack(action, state);
 };
 
-const prevGetStateForActionAppStackExpert = AppStackExpert.router.getStateForAction;
+const prevGetStateForActionAppStackExpert =
+  AppStackExpert.router.getStateForAction;
 
 AppStackExpert.router.getStateForAction = (action, state) => {
   if (state && action.type === 'ReplaceCurrentScreen') {
