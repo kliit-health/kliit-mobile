@@ -22,16 +22,7 @@ import { NavigationService } from './src/navigator';
 class App extends PureComponent {
   constructor(props) {
     super(props);
-    var firebaseConfig = {
-      apiKey: 'AIzaSyAZ55RNyB1Qmvufu99CfjXhlNCgLLGg1aE',
-      authDomain: 'kliit-health-app.firebaseapp.com',
-      databaseURL: 'https://kliit-health-app.firebaseio.com',
-      projectId: 'kliit-health-app',
-      storageBucket: '',
-      messagingSenderId: '85922620112',
-      appId: '1:85922620112:web:67901b0167a34869',
-    };
-    firebase.initializeApp(firebaseConfig);
+    firebase.app();
     this.state = {
       appState: AppState.currentState,
     };
@@ -224,4 +215,7 @@ const mapDispatchToProps = (dispatch) => ({
   setScreen: (value) => dispatch(setAppScreen(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
