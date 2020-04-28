@@ -8,11 +8,6 @@
     "prettier": "prettier \"./**/*.js\" --write",
     "postinstall": "npx jetify"
   },
-  "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
-  },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
     "axios": "^0.19.0",
