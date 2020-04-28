@@ -19,7 +19,7 @@ const Constant = {
       LONG: 2000,
     },
     credits: 0,
-    referalCredits: 20,
+    referalCredits: 10,
     questionCreditValue: 10,
     firebaseTableNames: {
       users: 'users',
