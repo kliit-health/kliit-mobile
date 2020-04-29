@@ -34,7 +34,7 @@ class App extends PureComponent {
       'hardwareBackPress',
       this.handleBackButtonClick
     );
-    //AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   componentDidUpdate() {
