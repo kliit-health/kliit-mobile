@@ -52,6 +52,7 @@
 		C2E2046BC9104277AC743ABF /* Poppins-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C264C275E86249DA9C63BC98 /* Poppins-ExtraBold.otf */; };
 		DFBBB2545C664E0598C97DF4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2BB7F7DAAE4F3BB77CD717 /* Zocial.ttf */; };
 		E1B74673252442B3B3E07C78 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA5490853EDA497B88269DE0 /* SimpleLineIcons.ttf */; };
+		E8EA6720245A256200800AFD /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E8EA671E245A256200800AFD /* AppCenter-Config.plist */; };
 		EFB22AA7BEEA40A9AA433589 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAD49363DC4B2FB4A5A557 /* FontAwesome5_Solid.ttf */; };
 		F868BDA0AEF5455BA47FC363 /* Poppins-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 845A8BBBEB8B46258555A4D0 /* Poppins-SemiBoldItalic.otf */; };
 		F916103F039846259946EC5C /* AvenirLTStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5EBE2F630F054E92BE69F77A /* AvenirLTStd-Black.otf */; };
@@ -136,6 +137,7 @@
 		E5548796A00348338275D208 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E768B13D2A9B4746BEBF5013 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		E8974EA67EBF4D7DAAB0FB21 /* Avenir-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Avenir-Book.ttf"; path = "../assets/fonts/Avenir-Book.ttf"; sourceTree = "<group>"; };
+		E8EA671E245A256200800AFD /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F9E7946994A54FFEBADF2F03 /* Poppins-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.otf"; path = "../assets/fonts/Poppins-ThinItalic.otf"; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				0613C35423446A83004A4B8D /* klit.entitlements */,
 				06086FF2230C00A200994F22 /* GoogleService-Info.plist */,
 				06CCEEA922FAB236006CF3AB /* splash.png */,
+				E8EA671E245A256200800AFD /* AppCenter-Config.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -429,6 +432,7 @@
 				3C60E355FD9D4FD5AEB6DA34 /* Poppins-ExtraLight.otf in Resources */,
 				1E34732D6D7E4FE1A2CC81EE /* Poppins-ExtraLightItalic.otf in Resources */,
 				6FF38DB1564C4F15981D6DCD /* Poppins-Italic.otf in Resources */,
+				E8EA6720245A256200800AFD /* AppCenter-Config.plist in Resources */,
 				05E954896E98416A98A9B99E /* Poppins-Light.otf in Resources */,
 				2BB721D029514D9093865850 /* Poppins-LightItalic.otf in Resources */,
 				4D4942B581FC4B3682D62CF8 /* Poppins-Medium.otf in Resources */,
