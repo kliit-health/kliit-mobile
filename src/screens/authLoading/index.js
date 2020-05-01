@@ -85,6 +85,7 @@ class AuthLoadingScreen extends Component {
     const { navigation, setData, userData } = this.props;
     const user = firebase.auth().currentUser;
     displayConsole('user', user);
+
     if (user && user.uid) {
       try {
         const obj = {
@@ -235,4 +236,7 @@ const mapDispatchToProps = (dispatch) => ({
   setToken: (value) => dispatch(setFcmToken(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthLoadingScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuthLoadingScreen);

@@ -46,6 +46,11 @@
   return YES;
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+  [[FIRApp defaultApp] deleteApp:^(BOOL success) { }];
+}
+
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
