@@ -60,16 +60,16 @@ class App extends PureComponent {
   }
 
   componentWillUnmount() {
+    firebase.auth().signOut();
     BackHandler.removeEventListener(
       'hardwareBackPress',
       this.handleBackButtonClick
     );
-    //AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   _handleAppStateChange = (nextAppState) => {
-    const { setState, signOut, userData } = this.props;
-    console.log('---nextAppState--', nextAppState);
+    const { setState, signOut } = this.props;
+    console.log('---nextAppState---', nextAppState);
     if (nextAppState === 'active') {
       console.log('App has come to the foreground!', nextAppState);
       setState(true);
@@ -83,20 +83,21 @@ class App extends PureComponent {
       }
     } else {
       console.log('App has gone to the background!', nextAppState);
+
       setState(false);
-      if (userData) {
-        if (this.timeoutId) {
-          BackgroundTimer.clearTimeout(this.timeoutId);
-        }
-        this.timeoutId = BackgroundTimer.setTimeout(() => {
-          console.log('this.timeoutId', this.timeoutId);
-          const payload = {
-            navigation: this.navigator._navigation,
-            isLoaderShow: false,
-          };
-          signOut(payload);
-        }, Constant.App.logoutInterval);
+
+      if (this.timeoutId) {
+        BackgroundTimer.clearTimeout(this.timeoutId);
       }
+
+      this.timeoutId = BackgroundTimer.setTimeout(() => {
+        console.log('this.timeoutId', this.timeoutId);
+        const payload = {
+          navigation: this.navigator._navigation,
+          isLoaderShow: false,
+        };
+        signOut(payload);
+      }, Constant.App.logoutInterval);
     }
   };
 

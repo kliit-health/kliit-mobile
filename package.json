@@ -6,7 +6,7 @@
     "start": "react-native start",
     "lint": "eslint .",
     "prettier": "prettier \"./**/*.js\" --write",
-    "postinstall": "npx jetify"
+    "postinstall": "npx jetify && cd ios && pod install"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",

@@ -99,7 +99,7 @@ const Language = {
       privacyPolicies: 'Privacy Policies',
       help: 'Help',
       rate: 'Rate us',
-      refer: 'Refer a Friend, Get 20 Credits',
+      refer: 'Refer a Friend, Get 10 Credits',
     },
     askUser: {
       headingText1: 'Hi',
@@ -177,9 +177,9 @@ const Language = {
     },
     referFriend: {
       title: 'Refer a Friend',
-      subTitleText: 'Invite friends, get 20 credits',
+      subTitleText: 'Invite friends, get 10 credits',
       subTitleText2:
-        'Get 20 credits for each friend who signs up with your referral code',
+        'Get 10 credits for each friend who signs up with your referral code',
       yourreferalCode: 'Your Referral Code',
       btnText: 'Copy My Referral Code',
       moreWays: 'More ways to share',

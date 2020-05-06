@@ -58,7 +58,6 @@ class CustomSelectModal extends PureComponent {
                     });
                     this.setState({ data: newData, search: text });
                   }}
-                  autoCorrect={false}
                   value={search}
                 />
               }
