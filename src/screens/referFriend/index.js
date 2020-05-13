@@ -31,7 +31,7 @@ class ReferFriend extends PureComponent {
     const { userData } = this.props;
     try {
       const result = await Share.share({
-        message: `Refer a friend and get 20 credits for free! Enter referal code ${
+        message: `Refer a friend and get 10 credits for free! Enter referal code ${
           userData.referalCode
         } while registrating in application. You can also download the application from given link ${
           Platform.OS == 'android'
@@ -183,4 +183,7 @@ const mapDispatchToProps = (dispatch) => ({
   showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReferFriend);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReferFriend);

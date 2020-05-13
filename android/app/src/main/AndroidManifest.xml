@@ -19,8 +19,10 @@
             android:value="MSS"/>
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
             android:value="Test Notification"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
       <activity
         android:name=".MainActivity"
+        android:noHistory="true"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
