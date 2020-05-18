@@ -6,6 +6,7 @@ import {
   FlatList,
   Platform,
   Image,
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import CustomText from '../../components/customText';
@@ -18,6 +19,7 @@ import CustomButton from '../../components/customButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { getQuestionData, updateQuestion } from './action';
 import moment from 'moment';
+import AppInstallDate from '../../../AppInstallDateNativeModule';
 
 const lang = language.en;
 class Ask extends PureComponent {
@@ -27,6 +29,24 @@ class Ask extends PureComponent {
       questionText: '',
     };
   }
+
+  componentWillMount() {
+    AppInstallDate.emitter.addListener("EXAMPLE_EVENT", ({ date }) =>   {
+      console.log(date)
+      const installedDate = Platform.OS === 'ios' ? moment(date,'DD-MM-YYYY').format("MM-DD-YYYY") : moment(date,'MM-DD-YYYY').format("MM-DD-YYYY");
+      const today = moment().format('MM-DD-YYYY');
+      const daysSinceInstall = moment(today).diff(moment(installedDate), 'days');
+      console.log(installedDate)
+      console.log(today)
+      alert(daysSinceInstall);
+    });
+  }
+  componentWillUnmount() {
+    AppInstallDate.emitter.remove();
+  }
+  onPress = () => {
+    AppInstallDate.getInstallDate();
+  };
 
   componentDidMount() {
     const { question } = this.props;
@@ -472,6 +492,9 @@ class Ask extends PureComponent {
           showsVerticalScrollIndicator={false}
         >
           {this.renderHeadingProfileView()}
+          <TouchableOpacity onPress={this.onPress}>
+            <Text>Click Me!!!</Text>
+          </TouchableOpacity>
           {this.renderCreditView()}
           {questionData
             ? this.renderAskedQuestionView()

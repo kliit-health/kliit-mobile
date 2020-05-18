@@ -150,11 +150,17 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        // release {
+        //     storeFile rootProject.file("app/release.keystore")
+        //     storePassword System.getProperty("APPCENTER_KEYSTORE_PASSWORD")
+        //     keyAlias System.getProperty("APPCENTER_KEY_ALIAS")
+        //     keyPassword System.getProperty("APPCENTER_KEY_PASSWORD")
+        // }
         release {
             storeFile rootProject.file("app/release.keystore")
-            storePassword System.getProperty("APPCENTER_KEYSTORE_PASSWORD")
-            keyAlias System.getProperty("APPCENTER_KEY_ALIAS")
-            keyPassword System.getProperty("APPCENTER_KEY_PASSWORD")
+            storePassword 'Admin123#'
+            keyAlias 'klit'
+            keyPassword 'Admin123#'
         }
     }
     buildTypes {
@@ -197,7 +203,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.android.support:multidex:1.0.3'
-
+    implementation "androidx.annotation:annotation:1.1.0"
 
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation "com.google.android.gms:play-services-base:16.1.0"
