@@ -45,10 +45,6 @@ class Ask extends PureComponent {
     };
   }
 
-  componentWillUnmount() {
-    AppInstallDate.emitter.remove();
-  }
-
   componentDidMount() {
     const { question } = this.props;
     if (question) {
