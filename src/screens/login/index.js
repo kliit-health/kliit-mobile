@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import CustomText from '../../components/customText';
@@ -17,6 +18,7 @@ import { showOrHideModal } from '../../components/customModal/action';
 import { isEmail } from '../../utils/helper';
 import { loginApi, resetLoginState } from './action';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+
 
 let lang = Language['en'];
 let rootRef;
