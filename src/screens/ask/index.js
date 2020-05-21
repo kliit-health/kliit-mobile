@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   TouchableOpacity,
@@ -6,25 +6,42 @@ import {
   FlatList,
   Platform,
   Image,
-} from 'react-native';
-import { connect } from 'react-redux';
-import CustomText from '../../components/customText';
-import styles from './style';
-import language from '../../utils/localization';
-import Constant from '../../utils/constants';
-import { Avatar } from 'react-native-elements';
-import InputText from '../../components/customInputText/simpleInputText';
-import CustomButton from '../../components/customButton';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { getQuestionData, updateQuestion } from './action';
-import moment from 'moment';
+  Alert,
+  Modal,
+  Text,
+  TouchableHighlight,
+  Button,
+} from "react-native";
+
+import { connect } from "react-redux";
+import CustomText from "../../components/customText";
+import styles from "./style";
+import language from "../../utils/localization";
+import Constant from "../../utils/constants";
+import { Avatar } from "react-native-elements";
+import InputText from "../../components/customInputText/simpleInputText";
+import CustomButton from "../../components/customButton";
+import KeyboardSpacer from "react-native-keyboard-spacer";
+import { getQuestionData, updateQuestion } from "./action";
+import moment from "moment";
+import AppInstallDate from "../../../AppInstallDateNativeModule";
+import AsyncStorage from "@react-native-community/async-storage";
+import Rate, { AndroidMarket } from "react-native-rate";
 
 const lang = language.en;
 class Ask extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      questionText: '',
+      questionText: "",
+      isModalOpen: false,
+      daysSinceInstall: null,
+      hasRated: null,
+      modalVisible: null,
+      timesRun: null,
+      reviewRequests: null,
+      loading: true,
+      reviewCalled: false,
     };
   }
 
@@ -36,10 +53,55 @@ class Ask extends PureComponent {
       });
     } else if (!question) {
       this.setState({
-        questionText: '',
+        questionText: "",
       });
     }
     this.fetchData();
+
+    AsyncStorage.getItem("timesRun").then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem("timesRun", 1);
+        this.setState({ timesRun: 1 });
+      } else {
+        AsyncStorage.setItem("timesRun", parseInt(value) + 1);
+        this.setState({ timesRun: parseInt(value) + 1 });
+      }
+    });
+
+    AsyncStorage.getItem("reviews").then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem("reviews", 0);
+        this.setState({ reviewRequests: 0 });
+      } else {
+        this.setState({ reviewRequests: parseInt(value) });
+      }
+    });
+
+    AsyncStorage.getItem("hasRated").then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem("hasRated", false);
+        this.setState({ hasRated: "0" });
+      } else {
+        this.setState({ hasRated: value });
+      }
+    });
+
+    AppInstallDate.emitter.addListener("EXAMPLE_EVENT", ({ date }) => {
+      const installedDate =
+        Platform.OS === "ios"
+          ? moment(date, "DD/MM/YYYY").format("MM/DD/YYYY")
+          : moment(date, "MM/DD/YYYY").format("MM/DD/YYYY");
+      const today = moment().format("MM/DD/YYYY");
+      const daysSinceInstall = moment(today).diff(
+        moment(installedDate),
+        "days"
+      );
+
+      AsyncStorage.setItem("daysSinceInstall", daysSinceInstall);
+      this.setState({ daysSinceInstall });
+    });
+
+    AppInstallDate.getInstallDate();
   }
 
   componentDidUpdate() {
@@ -50,8 +112,17 @@ class Ask extends PureComponent {
       });
     } else if (!question) {
       this.setState({
-        questionText: '',
+        questionText: "",
       });
+    }
+    this.getReviewStats();
+  }
+
+  shouldComponentUpdate(prevProps, nextState) {
+    if (prevProps !== this.props) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -112,7 +183,7 @@ class Ask extends PureComponent {
                   width: 70,
                   height: 70,
                 }}
-                resizeMode='stretch'
+                resizeMode="stretch"
                 source={staticImages.profilePlaceholderImg}
               />
             }
@@ -150,7 +221,7 @@ class Ask extends PureComponent {
         <InputText
           maxHeight={100}
           multiline={true}
-          autoCapitalize='sentences'
+          autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
               questionText: value,
@@ -196,8 +267,8 @@ class Ask extends PureComponent {
         </CustomText>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          keyboardDismissMode={Platform.OS === 'ios' ? 'none' : 'on-drag'}
-          keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
+          keyboardDismissMode={Platform.OS === "ios" ? "none" : "on-drag"}
+          keyboardShouldPersistTaps={Platform.OS === "ios" ? "never" : "always"}
           data={recentExpertData}
           horizontal={true}
           renderItem={({ item, index }) => {
@@ -228,18 +299,18 @@ class Ask extends PureComponent {
                     style={{
                       width: 100,
                       height: 100,
-                      alignSelf: 'center',
+                      alignSelf: "center",
                     }}
                   >
                     <Avatar
-                      containerStyle={{ alignSelf: 'center' }}
+                      containerStyle={{ alignSelf: "center" }}
                       renderPlaceholderContent={
                         <Image
                           style={{
                             width: 100,
                             height: 100,
                           }}
-                          resizeMode='stretch'
+                          resizeMode="stretch"
                           source={staticImages.profilePlaceholderImg}
                         />
                       }
@@ -261,7 +332,7 @@ class Ask extends PureComponent {
                           right: 15,
                           borderRadius: 8,
                           backgroundColor: Constant.App.colors.greenColor,
-                          position: 'absolute',
+                          position: "absolute",
                         }}
                       />
                     ) : (
@@ -273,14 +344,14 @@ class Ask extends PureComponent {
                           right: 15,
                           borderRadius: 8,
                           backgroundColor: Constant.App.colors.grayColor,
-                          position: 'absolute',
+                          position: "absolute",
                         }}
                       />
                     )}
                   </View>
-                  <CustomText
-                    style={styles.expertNameTextStyle}
-                  >{`${item.profileInfo.firstName} ${item.profileInfo.lastName}`}</CustomText>
+                  <CustomText style={styles.expertNameTextStyle}>{`${
+                    item.profileInfo.firstName
+                  } ${item.profileInfo.lastName}`}</CustomText>
                   <CustomText style={styles.expertProfTextStyle}>
                     {item.profileInfo.profession.fullName}
                   </CustomText>
@@ -304,8 +375,8 @@ class Ask extends PureComponent {
         </CustomText>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          keyboardDismissMode={Platform.OS === 'ios' ? 'none' : 'on-drag'}
-          keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
+          keyboardDismissMode={Platform.OS === "ios" ? "none" : "on-drag"}
+          keyboardShouldPersistTaps={Platform.OS === "ios" ? "never" : "always"}
           data={previousQuestionData}
           renderItem={({ item }) => {
             item = item.data();
@@ -334,14 +405,14 @@ class Ask extends PureComponent {
                       }}
                     >
                       <Avatar
-                        containerStyle={{ alignSelf: 'center' }}
+                        containerStyle={{ alignSelf: "center" }}
                         renderPlaceholderContent={
                           <Image
                             style={{
                               width: 50,
                               height: 50,
                             }}
-                            resizeMode='stretch'
+                            resizeMode="stretch"
                             source={staticImages.profilePlaceholderImg}
                           />
                         }
@@ -410,14 +481,14 @@ class Ask extends PureComponent {
           </CustomText>
           <View style={styles.expertInfoContainerStyle}>
             <Avatar
-              containerStyle={{ alignSelf: 'center' }}
+              containerStyle={{ alignSelf: "center" }}
               renderPlaceholderContent={
                 <Image
                   style={{
                     width: 50,
                     height: 50,
                   }}
-                  resizeMode='stretch'
+                  resizeMode="stretch"
                   source={staticImages.profilePlaceholderImg}
                 />
               }
@@ -440,7 +511,11 @@ class Ask extends PureComponent {
                     ]
               }
             >
-              {`${lang.askUser.asking} ${questionData.expertInfo.profileInfo.firstName} ${questionData.expertInfo.profileInfo.lastName}, ${questionData.expertInfo.profileInfo.profession.shortName}`}
+              {`${lang.askUser.asking} ${
+                questionData.expertInfo.profileInfo.firstName
+              } ${questionData.expertInfo.profileInfo.lastName}, ${
+                questionData.expertInfo.profileInfo.profession.shortName
+              }`}
             </CustomText>
           </View>
         </View>
@@ -458,6 +533,56 @@ class Ask extends PureComponent {
     );
   }
 
+  getReviewStats() {
+    let {
+      daysSinceInstall,
+      reviewRequests,
+      timesRun,
+      hasRated,
+      reviewCalled,
+    } = this.state;
+
+    if (
+      typeof daysSinceInstall === "number" &&
+      typeof reviewRequests === "number" &&
+      typeof timesRun === "number" &&
+      typeof hasRated === "string" &&
+      !reviewCalled
+    ) {
+      this.setState({ reviewCalled: true }, () => {
+        if (
+          daysSinceInstall >= 0 &&
+          reviewRequests < 2 &&
+          timesRun >= 0 &&
+          hasRated === "0"
+        ) {
+          this.showReview();
+          AsyncStorage.setItem("reviews", 1);
+        } else if (
+          daysSinceInstall >= 30 &&
+          reviewRequests < 3 &&
+          timesRun >= 15 &&
+          hasRated === "0"
+        ) {
+          this.showReview();
+          AsyncStorage.setItem("reviews", 2);
+        } else if (
+          daysSinceInstall >= 60 &&
+          reviewRequests < 4 &&
+          timesRun >= 30 &&
+          hasRated === "0"
+        ) {
+          this.showReview();
+          AsyncStorage.setItem("reviews", 3);
+        }
+      });
+    }
+  }
+
+  showReview() {
+    this.setState({ modalVisible: true });
+  }
+
   render() {
     const {
       recentExpertData,
@@ -465,14 +590,28 @@ class Ask extends PureComponent {
       questionData,
       userData,
     } = this.props;
+
+    const options = {
+      AppleAppID: "1487436865",
+      GooglePackageName: "com.klit",
+      preferredAndroidMarket: AndroidMarket.Google,
+      preferInApp: true,
+      openAppStoreIfInAppFails: true,
+      fallbackPlatformURL: "https://kliit.com",
+    };
+
+    const showAndroid = this.state.modalVisible;
+    const showiOS = this.state.modalVisible;
+
     return (
       <View style={styles.container}>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {this.renderHeadingProfileView()}
           {this.renderCreditView()}
+
           {questionData
             ? this.renderAskedQuestionView()
             : userData && userData.credits > 0
@@ -488,8 +627,73 @@ class Ask extends PureComponent {
           {previousQuestionData &&
             previousQuestionData.length > 0 &&
             this.renderPreviousQuestionView()}
-          {Platform.OS === 'ios' && <KeyboardSpacer />}
+          {Platform.OS === "ios" && <KeyboardSpacer />}
         </ScrollView>
+        {/* {Platform.OS !== "ios" && showAndroid && (
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.myRecentExpertTitleTextStyle}>
+                    Enjoying the Kliit App?
+                  </Text>
+                  <Text style={styles.modalText}>Leave us a review</Text>
+                  <TouchableHighlight
+                    style={{
+                      ...styles.openButton,
+                      backgroundColor: "#2196F3",
+                    }}
+                    onPress={() => {
+                      AsyncStorage.setItem("hasRated", true);
+                      this.setState(
+                        { hasRated: true, modalVisible: false },
+                        () =>
+                          setTimeout(() => {
+                            Rate.rate(options, (success) => {
+                              if (success)
+                                this.setState({
+                                  hasRated: true,
+                                  modalVisible: false,
+                                });
+                            });
+                          }, 1200)
+                      );
+                    }}
+                  >
+                    <Text style={styles.textStyle}>OK_</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight
+                    style={{
+                      ...styles.openButton,
+                      backgroundColor: "#2196F3",
+                    }}
+                    onPress={() => {
+                      this.setState({ modalVisible: false });
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Cancel_</Text>
+                  </TouchableHighlight>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        )} */}
+        {Platform.OS === "ios" &&
+          showiOS &&
+          Rate.rate(options, (success) => {
+            if (success)
+              this.setState({
+                hasRated: true,
+                modalVisible: false,
+              });
+          })}
       </View>
     );
   }
@@ -509,4 +713,7 @@ const mapDispatchToProps = (dispatch) => ({
   // setNewKeyToUserTable: (id, data) => dispatch(updateUserDataWithNewKey(id, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ask);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Ask);

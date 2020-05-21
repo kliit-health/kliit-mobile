@@ -52,6 +52,7 @@
 		C2E2046BC9104277AC743ABF /* Poppins-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C264C275E86249DA9C63BC98 /* Poppins-ExtraBold.otf */; };
 		DFBBB2545C664E0598C97DF4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E2BB7F7DAAE4F3BB77CD717 /* Zocial.ttf */; };
 		E1B74673252442B3B3E07C78 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA5490853EDA497B88269DE0 /* SimpleLineIcons.ttf */; };
+		E858EE072477329500F5278F /* AppInstallDateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E858EE062477329500F5278F /* AppInstallDateManager.m */; };
 		E8EA6720245A256200800AFD /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E8EA671E245A256200800AFD /* AppCenter-Config.plist */; };
 		EFB22AA7BEEA40A9AA433589 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CAAD49363DC4B2FB4A5A557 /* FontAwesome5_Solid.ttf */; };
 		F868BDA0AEF5455BA47FC363 /* Poppins-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 845A8BBBEB8B46258555A4D0 /* Poppins-SemiBoldItalic.otf */; };
@@ -136,6 +137,8 @@
 		E3824EFCFC2240B08881011E /* Poppins-LightItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.otf"; path = "../assets/fonts/Poppins-LightItalic.otf"; sourceTree = "<group>"; };
 		E5548796A00348338275D208 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E768B13D2A9B4746BEBF5013 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		E858EE042477329500F5278F /* AppInstallDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInstallDate.h; sourceTree = "<group>"; };
+		E858EE062477329500F5278F /* AppInstallDateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInstallDateManager.m; sourceTree = "<group>"; };
 		E8974EA67EBF4D7DAAB0FB21 /* Avenir-Book.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Avenir-Book.ttf"; path = "../assets/fonts/Avenir-Book.ttf"; sourceTree = "<group>"; };
 		E8EA671E245A256200800AFD /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -210,6 +213,8 @@
 		13B07FAE1A68108700A75B9A /* klit */ = {
 			isa = PBXGroup;
 			children = (
+				E858EE042477329500F5278F /* AppInstallDate.h */,
+				E858EE062477329500F5278F /* AppInstallDateManager.m */,
 				0613C35423446A83004A4B8D /* klit.entitlements */,
 				06086FF2230C00A200994F22 /* GoogleService-Info.plist */,
 				06CCEEA922FAB236006CF3AB /* splash.png */,
@@ -586,6 +591,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				0673138022FAB91D0060C566 /* RCTSplashScreen.m in Sources */,
+				E858EE072477329500F5278F /* AppInstallDateManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
