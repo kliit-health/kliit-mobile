@@ -1,4 +1,5 @@
 package com.klit;
+import com.klit.appinstalldate.AppInstallDatePackage;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -50,7 +51,8 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new RNFirebaseMessagingPackage());
       packages.add(new RNFirebaseRemoteConfigPackage());
       packages.add(new RNFirebaseFunctionsPackage());
-      
+      packages.add(new AppInstallDatePackage());
+
       return packages;
     }
 
