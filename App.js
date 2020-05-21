@@ -46,6 +46,7 @@ class App extends PureComponent {
           isOnline: isActive,
         },
       };
+
       updateStatus(updateStatusParams);
     } else if (!isActive && userData && userData.uid) {
       const updateStatusParams = {
@@ -57,6 +58,7 @@ class App extends PureComponent {
       updateStatus(updateStatusParams);
     }
     console.log('isActive', isActive);
+    console.log(this.state);
   }
 
   componentWillUnmount() {
@@ -69,6 +71,7 @@ class App extends PureComponent {
 
   _handleAppStateChange = (nextAppState) => {
     const { setState, signOut } = this.props;
+
     console.log('---nextAppState---', nextAppState);
     if (nextAppState === 'active') {
       console.log('App has come to the foreground!', nextAppState);
@@ -90,13 +93,18 @@ class App extends PureComponent {
         BackgroundTimer.clearTimeout(this.timeoutId);
       }
 
-      this.timeoutId = BackgroundTimer.setTimeout(() => {
+      this.timeoutId = BackgroundTimer.setTimeout(async () => {
         console.log('this.timeoutId', this.timeoutId);
         const payload = {
           navigation: this.navigator._navigation,
           isLoaderShow: false,
         };
-        signOut(payload);
+        Alert.alert(
+          'Log Out',
+          'For your security, you have been logged out due to 20 minutes of inactivity.',
+          [{ text: 'OK', onPress: () => signOut(payload) }],
+          { cancelable: false }
+        );
       }, Constant.App.logoutInterval);
     }
   };
