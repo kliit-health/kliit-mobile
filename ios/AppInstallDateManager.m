@@ -72,3 +72,4 @@ RCT_EXPORT_METHOD(getInstallDate)
 }
 
 @end
+

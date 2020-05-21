@@ -16,6 +16,7 @@ import { signoutApihit } from './action';
 import Constant from '../../utils/constants';
 import { Avatar } from 'react-native-elements';
 
+
 let lang = Language['en'];
 class Account extends PureComponent {
   constructor(props) {

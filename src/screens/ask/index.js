@@ -551,9 +551,9 @@ class Ask extends PureComponent {
     ) {
       this.setState({ reviewCalled: true }, () => {
         if (
-          daysSinceInstall >= 0 &&
+          daysSinceInstall >= 5 &&
           reviewRequests < 2 &&
-          timesRun >= 0 &&
+          timesRun >= 5 &&
           hasRated === "0"
         ) {
           this.showReview();
@@ -669,6 +669,7 @@ class Ask extends PureComponent {
                   >
                     <Text style={styles.textStyle}>OK_</Text>
                   </TouchableHighlight>
+
                   <TouchableHighlight
                     style={{
                       ...styles.openButton,

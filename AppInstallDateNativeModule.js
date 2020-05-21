@@ -9,3 +9,4 @@ export default {
   emitter: AppInstallDateEmitter,
   EXAMPLE_CONSTANT: AppInstallDate.EXAMPLE_CONSTANT,
 };
+

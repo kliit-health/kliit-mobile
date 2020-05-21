@@ -27,3 +27,4 @@ public class AppInstallDatePackage implements ReactPackage {
         return Collections.emptyList();
     }
 }
+

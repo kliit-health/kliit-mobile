@@ -1,5 +1,5 @@
 package com.klit;
-import com.nativemoduleexample.appinstalldate.AppInstallDatePackage;
+import com.klit.appinstalldate.AppInstallDatePackage;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

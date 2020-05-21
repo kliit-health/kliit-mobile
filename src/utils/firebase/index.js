@@ -10,7 +10,9 @@ const exponent = '10001';
 const mySecretSalt = 'klit280391';
 export function createUser(obj) {
   try {
-    displayConsole('\n\n--------------***** createUser Start *********-----------');
+    displayConsole(
+      '\n\n--------------***** createUser Start *********-----------'
+    );
     displayConsole('obj', obj);
     return firebase
       .auth()
@@ -19,19 +21,25 @@ export function createUser(obj) {
         const { user } = success;
         displayConsole('success', success);
         displayConsole('user', user.uid);
-        displayConsole('--------------***** createUser End *********-----------\n\n');
+        displayConsole(
+          '--------------***** createUser End *********-----------\n\n'
+        );
         return user;
       })
       .catch(function(error) {
         const { message, code } = error;
         displayConsole('error message', message);
         displayConsole('error code', code);
-        displayConsole('--------------***** createUser End *********-----------\n\n');
+        displayConsole(
+          '--------------***** createUser End *********-----------\n\n'
+        );
         return error;
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------***** createUser End *********-----------\n\n');
+    displayConsole(
+      '--------------***** createUser End *********-----------\n\n'
+    );
     return false;
   }
 }
@@ -74,26 +82,32 @@ export function loginInWithFirebase(obj) {
 
 export function uploadImage(obj, success, error) {
   try {
-    displayConsole('\n\n--------------***** uploadImage Start *********-----------');
+    displayConsole(
+      '\n\n--------------***** uploadImage Start *********-----------'
+    );
     displayConsole('obj', obj);
     const result = firebase
       .storage()
       .ref(`Kliit/${obj.filename}`)
       .putFile(obj.file);
     return result
-      .then(data => {
+      .then((data) => {
         displayConsole('---data--', data);
-        displayConsole('--------------***** uploadImage End *********-----------\n\n');
+        displayConsole(
+          '--------------***** uploadImage End *********-----------\n\n'
+        );
         const obj = {
           success: true,
           data,
         };
         return obj;
       })
-      .catch(error => {
+      .catch((error) => {
         const { message } = error;
         displayConsole('---message--', message);
-        displayConsole('--------------***** uploadImage End *********-----------\n\n');
+        displayConsole(
+          '--------------***** uploadImage End *********-----------\n\n'
+        );
         const obj = {
           success: true,
           message,
@@ -102,24 +116,28 @@ export function uploadImage(obj, success, error) {
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------***** uploadImage End *********-----------\n\n');
+    displayConsole(
+      '--------------***** uploadImage End *********-----------\n\n'
+    );
     return false;
   }
 }
 
 export function addUserData(obj) {
   try {
-    displayConsole('\n\n--------------**** addUserData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** addUserData Start ********-----------'
+    );
     displayConsole('obj', obj);
     return firebase
       .firestore()
       .collection('users')
       .where('uid', '==', obj.uid)
       .get()
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshot', querySnapshot);
         var userData;
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           userData = element.data();
         });
         displayConsole('userData', userData);
@@ -140,7 +158,7 @@ export function addUserData(obj) {
                   };
                   return data;
                 },
-                error => {
+                (error) => {
                   const { message, code } = error;
                   displayConsole('error message', message);
                   displayConsole('error code', code);
@@ -170,7 +188,7 @@ export function addUserData(obj) {
                   };
                   return data;
                 },
-                error => {
+                (error) => {
                   const { message, code } = error;
                   displayConsole('error message', message);
                   displayConsole('error code', code);
@@ -185,7 +203,7 @@ export function addUserData(obj) {
                 }
               );
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -195,7 +213,9 @@ export function addUserData(obj) {
           message: message,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** getSecretKey End ********-----------\n\n');
+        displayConsole(
+          '--------------**** getSecretKey End ********-----------\n\n'
+        );
         return data;
       });
   } catch (error) {
@@ -203,63 +223,77 @@ export function addUserData(obj) {
       success: false,
     };
     displayConsole('Crash error', error);
-    displayConsole('--------------**** addUserData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** addUserData End ********-----------\n\n'
+    );
     return data;
   }
 }
 
 export function getUserData(obj, success, error) {
   try {
-    displayConsole('\n\n--------------**** getUserData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getUserData Start ********-----------'
+    );
     displayConsole('obj', obj);
     let userRef = firebase.firestore().doc(`${obj.tableName}/${obj.uid}`);
     return userRef.onSnapshot(success, error);
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** getUserData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** getUserData End ********-----------\n\n'
+    );
     return false;
   }
 }
 
 export function getDataFromTable(obj) {
   try {
-    displayConsole('\n\n--------------**** getDataFromTable Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getDataFromTable Start ********-----------'
+    );
     displayConsole('obj', obj);
     let userRef = firebase
       .firestore()
       .doc(`${obj.tableName}/${obj.uid}`)
       .get();
     return userRef
-      .then(doc => {
+      .then((doc) => {
         displayConsole('doc', doc);
         displayConsole('doc.data()', doc.data());
-        displayConsole('--------------**** getDataFromTable End ********-----------\n\n');
+        displayConsole(
+          '--------------**** getDataFromTable End ********-----------\n\n'
+        );
         return doc.data();
       })
-      .catch(e => {
+      .catch((e) => {
         displayConsole('e', e);
         return false;
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** getDataFromTable End ********-----------\n\n');
+    displayConsole(
+      '--------------**** getDataFromTable End ********-----------\n\n'
+    );
     return false;
   }
 }
 
 export function getCollectionData(obj) {
   try {
-    displayConsole('\n\n--------------**** getCollectionData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getCollectionData Start ********-----------'
+    );
     displayConsole('obj', obj);
     let userRef = firebase
       .firestore()
       .collection(obj.tableName)
       .get();
     return userRef
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshot', querySnapshot);
         const arr = [];
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           arr.push(element.data());
         });
         const data = {
@@ -272,7 +306,7 @@ export function getCollectionData(obj) {
         );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -308,10 +342,10 @@ export function getCollectionDataWithCondition(obj) {
       .where(obj.key, '==', obj.value)
       .get();
     return userRef
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshot', querySnapshot);
         const arr = [];
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           arr.push(element.data());
         });
         const data = {
@@ -324,7 +358,7 @@ export function getCollectionDataWithCondition(obj) {
         );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -350,7 +384,9 @@ export function getCollectionDataWithCondition(obj) {
 
 export function getQuestionsData(obj, success, error) {
   try {
-    displayConsole('\n\n--------------**** getQuestionsData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getQuestionsData Start ********-----------'
+    );
     displayConsole('obj', obj);
     let ref;
     if (obj.value) {
@@ -409,14 +445,17 @@ export function logout(userData) {
       .signOut()
       .then(
         function() {
+          console.log('You have been logged out for real');
           displayConsole('success', true);
-          displayConsole('--------------***** logout End *********-----------\n\n');
+          displayConsole(
+            '--------------***** logout End *********-----------\n\n'
+          );
           const data = {
             success: true,
           };
           return data;
         },
-        error => {
+        (error) => {
           let data = {};
           const { message, code } = error;
           displayConsole('error message', message);
@@ -431,7 +470,9 @@ export function logout(userData) {
               message,
             };
           }
-          displayConsole('--------------***** logout End *********-----------\n\n');
+          displayConsole(
+            '--------------***** logout End *********-----------\n\n'
+          );
           return data;
         }
       );
@@ -449,7 +490,9 @@ export function resetPassword(email) {
       .sendPasswordResetEmail(email.trim())
       .then(function() {
         displayConsole('success', true);
-        displayConsole('--------------***** forgotPassword End *********-----------\n\n');
+        displayConsole(
+          '--------------***** forgotPassword End *********-----------\n\n'
+        );
         const data = {
           success: true,
         };
@@ -463,12 +506,16 @@ export function resetPassword(email) {
           success: false,
           message: message,
         };
-        displayConsole('--------------***** forgotPassword End *********-----------\n\n');
+        displayConsole(
+          '--------------***** forgotPassword End *********-----------\n\n'
+        );
         return data;
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** forgotPassword End ********-----------\n\n');
+    displayConsole(
+      '--------------**** forgotPassword End ********-----------\n\n'
+    );
     return false;
   }
 }
@@ -487,10 +534,10 @@ export function getFilterDataWithCondition(obj) {
     }
     return collection
       .get()
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshotS********', querySnapshot);
         const arr = [];
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           if (
             obj.professions &&
             obj.professions.length > 0 &&
@@ -500,34 +547,42 @@ export function getFilterDataWithCondition(obj) {
             let isLanguagesMatch = false;
             let isProfessionMatch = false;
 
-            obj.professions.forEach(profession => {
-              if (element.data().profileInfo.profession.fullName == profession) {
+            obj.professions.forEach((profession) => {
+              if (
+                element.data().profileInfo.profession.fullName == profession
+              ) {
                 isProfessionMatch = true;
               }
             });
-            obj.languages.forEach(language => {
-              element.data().profileInfo.languages.forEach(elementLanguage => {
-                if (elementLanguage.code == language.code) {
-                  isLanguagesMatch = true;
-                }
-              });
+            obj.languages.forEach((language) => {
+              element
+                .data()
+                .profileInfo.languages.forEach((elementLanguage) => {
+                  if (elementLanguage.code == language.code) {
+                    isLanguagesMatch = true;
+                  }
+                });
             });
             if (isLanguagesMatch && isProfessionMatch) {
               arr.push(element.data());
             }
           } else if (obj.professions && obj.professions.length > 0) {
-            obj.professions.forEach(profession => {
-              if (element.data().profileInfo.profession.fullName == profession) {
+            obj.professions.forEach((profession) => {
+              if (
+                element.data().profileInfo.profession.fullName == profession
+              ) {
                 arr.push(element.data());
               }
             });
           } else if (obj.languages && obj.languages.length > 0) {
-            obj.languages.forEach(language => {
-              element.data().profileInfo.languages.forEach(elementLanguage => {
-                if (elementLanguage.code == language.code) {
-                  arr.push(element.data());
-                }
-              });
+            obj.languages.forEach((language) => {
+              element
+                .data()
+                .profileInfo.languages.forEach((elementLanguage) => {
+                  if (elementLanguage.code == language.code) {
+                    arr.push(element.data());
+                  }
+                });
             });
           } else {
             arr.push(element.data());
@@ -543,7 +598,7 @@ export function getFilterDataWithCondition(obj) {
         );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -569,7 +624,9 @@ export function getFilterDataWithCondition(obj) {
 
 export function reAunthenticate(userProvidedPassword) {
   try {
-    displayConsole('--------------**** reAunthenticate Start ********-----------\n\n');
+    displayConsole(
+      '--------------**** reAunthenticate Start ********-----------\n\n'
+    );
     displayConsole('userProvidedPassword********', userProvidedPassword);
     const user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(
@@ -583,7 +640,9 @@ export function reAunthenticate(userProvidedPassword) {
           success: true,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** reAunthenticate End ********-----------\n\n');
+        displayConsole(
+          '--------------**** reAunthenticate End ********-----------\n\n'
+        );
         return data;
       })
       .catch(function(error) {
@@ -595,12 +654,16 @@ export function reAunthenticate(userProvidedPassword) {
           message,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** reAunthenticate End ********-----------\n\n');
+        displayConsole(
+          '--------------**** reAunthenticate End ********-----------\n\n'
+        );
         return data;
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** reAunthenticate End ********-----------\n\n');
+    displayConsole(
+      '--------------**** reAunthenticate End ********-----------\n\n'
+    );
     return false;
   }
 }
@@ -608,7 +671,9 @@ export function reAunthenticate(userProvidedPassword) {
 export function changePassword(newPassword) {
   try {
     displayConsole('newPassword', newPassword);
-    displayConsole('--------------**** changePassword Start ********-----------\n\n');
+    displayConsole(
+      '--------------**** changePassword Start ********-----------\n\n'
+    );
     var user = firebase.auth().currentUser;
     return user
       .updatePassword(newPassword)
@@ -617,7 +682,9 @@ export function changePassword(newPassword) {
           success: true,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** changePassword End ********-----------\n\n');
+        displayConsole(
+          '--------------**** changePassword End ********-----------\n\n'
+        );
         return reAunthenticate(newPassword);
       })
       .catch(function(error) {
@@ -629,7 +696,9 @@ export function changePassword(newPassword) {
           message,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** changePassword End ********-----------\n\n');
+        displayConsole(
+          '--------------**** changePassword End ********-----------\n\n'
+        );
       });
   } catch (error) {
     displayConsole('Crash error', error);
@@ -638,12 +707,13 @@ export function changePassword(newPassword) {
   }
 }
 
-export const cipher = salt => {
-  let textToChars = text => text.split('').map(c => c.charCodeAt(0));
-  let byteHex = n => ('0' + Number(n).toString(16)).substr(-2);
-  let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
+export const cipher = (salt) => {
+  let textToChars = (text) => text.split('').map((c) => c.charCodeAt(0));
+  let byteHex = (n) => ('0' + Number(n).toString(16)).substr(-2);
+  let applySaltToChar = (code) =>
+    textToChars(salt).reduce((a, b) => a ^ b, code);
 
-  return text =>
+  return (text) =>
     text
       .split('')
       .map(textToChars)
@@ -652,15 +722,16 @@ export const cipher = salt => {
       .join('');
 };
 
-export const decipher = salt => {
-  let textToChars = text => text.split('').map(c => c.charCodeAt(0));
-  let applySaltToChar = code => textToChars(salt).reduce((a, b) => a ^ b, code);
-  return encoded =>
+export const decipher = (salt) => {
+  let textToChars = (text) => text.split('').map((c) => c.charCodeAt(0));
+  let applySaltToChar = (code) =>
+    textToChars(salt).reduce((a, b) => a ^ b, code);
+  return (encoded) =>
     encoded
       .match(/.{1,2}/g)
-      .map(hex => parseInt(hex, 16))
+      .map((hex) => parseInt(hex, 16))
       .map(applySaltToChar)
-      .map(charCode => String.fromCharCode(charCode))
+      .map((charCode) => String.fromCharCode(charCode))
       .join('');
 };
 
@@ -673,7 +744,7 @@ export function sendEncryptedKeyToFirebase() {
     .collection('EncryptedKeys')
     .doc('EncryptedKeysDoc')
     .get();
-  return Keyref.then(doc => {
+  return Keyref.then((doc) => {
     if (doc.exists) {
       displayConsole('Keyref doc', doc._data.salt.key);
       let myDecipher = decipher(mySecretSalt);
@@ -713,14 +784,14 @@ export function sendEncryptedKeyToFirebase() {
             );
             return JSON.parse(JSON.stringify(keys));
           },
-          error => {
+          (error) => {
             const { message, code } = error;
             displayConsole('message', message);
             displayConsole('code', code);
           }
         );
     }
-  }).catch(e => {
+  }).catch((e) => {
     displayConsole('e', e);
     return false;
   });
@@ -739,9 +810,11 @@ export const deleteEncryptedKeyCollection = () => {
     });
 };
 
-export const sendMessage = obj => {
+export const sendMessage = (obj) => {
   try {
-    displayConsole('--------------**** sendMessage Start ********-----------\n\n');
+    displayConsole(
+      '--------------**** sendMessage Start ********-----------\n\n'
+    );
     displayConsole('obj', obj);
     firebase
       .firestore()
@@ -751,7 +824,9 @@ export const sendMessage = obj => {
       .doc()
       .set(obj.messageParams);
     console.log('--------------**** sendMessage End ********-----------\n\n');
-    displayConsole('--------------**** update question Start ********-----------\n\n');
+    displayConsole(
+      '--------------**** update question Start ********-----------\n\n'
+    );
     const { userUnreadCount, expertUnreadCount } = obj.unreadCount;
     const updateData = {
       lastMessage: obj.lastMessage,
@@ -764,7 +839,9 @@ export const sendMessage = obj => {
       .collection(Constant.App.firebaseTableNames.questions)
       .doc(obj.questionId)
       .update(updateData);
-    displayConsole('--------------**** update question end ********-----------\n\n');
+    displayConsole(
+      '--------------**** update question end ********-----------\n\n'
+    );
   } catch (error) {
     displayConsole('Crash error', error);
     console.log('--------------*** sendMessage End *******-----------\n\n');
@@ -772,7 +849,9 @@ export const sendMessage = obj => {
 };
 
 export const loadMessages = (obj, success, error) => {
-  displayConsole('--------------**** loadMessages Start ********-----------\n\n');
+  displayConsole(
+    '--------------**** loadMessages Start ********-----------\n\n'
+  );
   displayConsole('obj', obj);
   let ref = firebase
     .firestore()
@@ -784,7 +863,9 @@ export const loadMessages = (obj, success, error) => {
 };
 
 export const checkStatus = (obj, success, error) => {
-  displayConsole('--------------**** checkStatus Start ********-----------\n\n');
+  displayConsole(
+    '--------------**** checkStatus Start ********-----------\n\n'
+  );
   displayConsole('obj', obj);
   let ref = firebase
     .firestore()
@@ -794,7 +875,9 @@ export const checkStatus = (obj, success, error) => {
 };
 
 export const checkQuestionStatus = (obj, success, error) => {
-  displayConsole('--------------**** checkQuestionStatus Start ********-----------\n\n');
+  displayConsole(
+    '--------------**** checkQuestionStatus Start ********-----------\n\n'
+  );
   displayConsole('obj', obj);
   let ref = firebase
     .firestore()
@@ -819,7 +902,7 @@ export const updateRefrealcodeForAllUsers = (uid, data) => {
           '--------------**** updateRefrealcodeForAllUsers Id End ********-----------\n\n'
         );
       },
-      error => {
+      (error) => {
         const { message, code } = error;
         displayConsole('updateRefrealcodeForAllUsers error message', message);
         displayConsole('updateRefrealcodeForAllUserserror code', code);
@@ -829,19 +912,25 @@ export const updateRefrealcodeForAllUsers = (uid, data) => {
     '--------------**** updateRefrealcodeForAllUsers End ********-----------\n\n'
   );
 };
-export const updateStatus = obj => {
-  displayConsole('--------------**** updateStatusCredit Start ********-----------\n\n');
+export const updateStatus = (obj) => {
+  displayConsole(
+    '--------------**** updateStatusCredit Start ********-----------\n\n'
+  );
   displayConsole('obj', obj);
   firebase
     .firestore()
     .collection('users')
     .doc(obj.uid)
     .update(obj.updatedData);
-  console.log('--------------**** updateStatusCredit End ********-----------\n\n');
+  console.log(
+    '--------------**** updateStatusCredit End ********-----------\n\n'
+  );
 };
 
-export const updateUnreadCount = obj => {
-  displayConsole('--------------**** updateUnreadCount Start ********-----------\n\n');
+export const updateUnreadCount = (obj) => {
+  displayConsole(
+    '--------------**** updateUnreadCount Start ********-----------\n\n'
+  );
   displayConsole('obj', obj);
   firebase
     .firestore()
@@ -852,7 +941,9 @@ export const updateUnreadCount = obj => {
 
 export function saveQuestion(obj) {
   try {
-    displayConsole('\n\n--------------**** saveQuestion Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** saveQuestion Start ********-----------'
+    );
     displayConsole('obj', obj);
     return firebase
       .firestore()
@@ -862,8 +953,12 @@ export function saveQuestion(obj) {
         function(success) {
           displayConsole('success', success);
           displayConsole('documentID', success.id);
-          displayConsole('--------------***** saveQuestion End *********-----------\n\n');
-          obj.messageId = `${success.id}${obj.userInfo.uid}${obj.expertInfo.uid}`;
+          displayConsole(
+            '--------------***** saveQuestion End *********-----------\n\n'
+          );
+          obj.messageId = `${success.id}${obj.userInfo.uid}${
+            obj.expertInfo.uid
+          }`;
           obj.questionId = success.id;
           return firebase
             .firestore()
@@ -883,7 +978,7 @@ export function saveQuestion(obj) {
                 );
                 return data;
               },
-              error => {
+              (error) => {
                 const { message, code } = error;
                 displayConsole('error message', message);
                 displayConsole('error code', code);
@@ -899,7 +994,7 @@ export function saveQuestion(obj) {
               }
             );
         },
-        error => {
+        (error) => {
           const { message, code } = error;
           displayConsole('error message', message);
           displayConsole('error code', code);
@@ -908,7 +1003,9 @@ export function saveQuestion(obj) {
             message: message,
           };
           displayConsole('data', data);
-          displayConsole('--------------***** saveQuestion End *********-----------\n\n');
+          displayConsole(
+            '--------------***** saveQuestion End *********-----------\n\n'
+          );
           return data;
         }
       );
@@ -917,14 +1014,18 @@ export function saveQuestion(obj) {
       success: false,
     };
     displayConsole('Crash error', error);
-    displayConsole('--------------**** testAddData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** testAddData End ********-----------\n\n'
+    );
     return data;
   }
 }
 
 export function resolvedQuestion(obj) {
   try {
-    displayConsole('\n\n--------------**** resolvedQuestion Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** resolvedQuestion Start ********-----------'
+    );
     displayConsole('obj', obj);
     return firebase
       .firestore()
@@ -939,10 +1040,12 @@ export function resolvedQuestion(obj) {
             success: true,
           };
           displayConsole('data', data);
-          console.log('--------------**** resolvedQuestion End ********-----------\n\n');
+          console.log(
+            '--------------**** resolvedQuestion End ********-----------\n\n'
+          );
           return data;
         },
-        error => {
+        (error) => {
           const { message, code } = error;
           displayConsole('error message', message);
           displayConsole('error code', code);
@@ -962,7 +1065,9 @@ export function resolvedQuestion(obj) {
       success: false,
     };
     displayConsole('Crash error', error);
-    displayConsole('--------------**** resolvedQuestion End ********-----------\n\n');
+    displayConsole(
+      '--------------**** resolvedQuestion End ********-----------\n\n'
+    );
     return data;
   }
 }
@@ -982,9 +1087,9 @@ export function updateReadMessageStatus(obj) {
       .where(obj.key, '==', obj.value)
       .get();
     questionDocRef
-      .then(querySnapshotQuestionDoc => {
+      .then((querySnapshotQuestionDoc) => {
         displayConsole('querySnapshotQuestionDoc', querySnapshotQuestionDoc);
-        querySnapshotQuestionDoc.docs.forEach(element => {
+        querySnapshotQuestionDoc.docs.forEach((element) => {
           displayConsole('element', element.data());
           displayConsole('element', element.id);
           batch.update(element._ref, {
@@ -993,7 +1098,7 @@ export function updateReadMessageStatus(obj) {
         });
         batch
           .commit()
-          .then(response => {
+          .then((response) => {
             displayConsole('response', response);
             const data = {
               success: true,
@@ -1003,7 +1108,7 @@ export function updateReadMessageStatus(obj) {
               '--------------**** updateReadMessageStatus End ********-----------\n\n'
             );
           })
-          .catch(error => {
+          .catch((error) => {
             displayConsole('batch error', error);
             const { message, code } = error;
             displayConsole('batch error message', message);
@@ -1018,7 +1123,7 @@ export function updateReadMessageStatus(obj) {
             );
           });
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('questionDocRef error', error);
         const { message, code } = error;
         displayConsole('questionDocRef error message', message);
@@ -1036,7 +1141,9 @@ export function updateReadMessageStatus(obj) {
       success: false,
     };
     displayConsole('Crash error', error);
-    displayConsole('--------------**** testAddData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** testAddData End ********-----------\n\n'
+    );
     return data;
   }
 }
@@ -1055,7 +1162,9 @@ export function makeid() {
 
 export function checkSecretKey(obj) {
   try {
-    displayConsole('\n\n--------------**** getSecretKey Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getSecretKey Start ********-----------'
+    );
     displayConsole('obj', obj);
     let userRef = firebase
       .firestore()
@@ -1063,10 +1172,10 @@ export function checkSecretKey(obj) {
       .where('secretKey', '==', obj.secretKey)
       .get();
     return userRef
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshot', querySnapshot);
         var secretKeyData;
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           secretKeyData = element.data();
         });
         const data = {
@@ -1074,10 +1183,12 @@ export function checkSecretKey(obj) {
           data: secretKeyData,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** getSecretKey End ********-----------\n\n');
+        displayConsole(
+          '--------------**** getSecretKey End ********-----------\n\n'
+        );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -1087,19 +1198,25 @@ export function checkSecretKey(obj) {
           message: message,
         };
         displayConsole('data', data);
-        displayConsole('--------------**** getSecretKey End ********-----------\n\n');
+        displayConsole(
+          '--------------**** getSecretKey End ********-----------\n\n'
+        );
         return data;
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** getSecretKey End ********-----------\n\n');
+    displayConsole(
+      '--------------**** getSecretKey End ********-----------\n\n'
+    );
     return false;
   }
 }
 
 export function checkReferedUserData(obj) {
   try {
-    displayConsole('\n\n--------------**** getReferedUserData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getReferedUserData Start ********-----------'
+    );
     displayConsole('obj', obj);
     let userRef = firebase
       .firestore()
@@ -1107,10 +1224,10 @@ export function checkReferedUserData(obj) {
       .where('referalCode', '==', obj.referalCode)
       .get();
     return userRef
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshot', querySnapshot);
         var userData;
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           userData = element.data();
         });
         const data = {
@@ -1123,7 +1240,7 @@ export function checkReferedUserData(obj) {
         );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -1140,14 +1257,18 @@ export function checkReferedUserData(obj) {
       });
   } catch (error) {
     displayConsole('Crash error', error);
-    displayConsole('--------------**** getReferedUserData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** getReferedUserData End ********-----------\n\n'
+    );
     return false;
   }
 }
 
 export function setDataTesting() {
   try {
-    displayConsole('\n\n--------------**** addUserData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** addUserData Start ********-----------'
+    );
     firebase
       .firestore()
       .doc('userSecretKey/bc8uTx6LvbqkvhTrGVHY')
@@ -1160,13 +1281,15 @@ export function setDataTesting() {
       .then(
         function() {
           displayConsole('success', true);
-          displayConsole('--------------***** addUserData End *********-----------\n\n');
+          displayConsole(
+            '--------------***** addUserData End *********-----------\n\n'
+          );
           const data = {
             success: true,
           };
           return data;
         },
-        error => {
+        (error) => {
           const { message, code } = error;
           displayConsole('error message', message);
           displayConsole('error code', code);
@@ -1174,7 +1297,9 @@ export function setDataTesting() {
             success: false,
             message: message,
           };
-          displayConsole('--------------***** addUserData End *********-----------\n\n');
+          displayConsole(
+            '--------------***** addUserData End *********-----------\n\n'
+          );
           return data;
         }
       );
@@ -1183,21 +1308,27 @@ export function setDataTesting() {
       success: false,
     };
     displayConsole('Crash error', error);
-    displayConsole('--------------**** addUserData End ********-----------\n\n');
+    displayConsole(
+      '--------------**** addUserData End ********-----------\n\n'
+    );
     return data;
   }
 }
 
 export function deleteUser() {
   try {
-    displayConsole('--------------***** deleteUser Start *********-----------\n\n');
+    displayConsole(
+      '--------------***** deleteUser Start *********-----------\n\n'
+    );
     return firebase
       .auth()
       .currentUser.delete()
       .then(
         function() {
           displayConsole('success', true);
-          displayConsole('--------------***** deleteUser End *********-----------\n\n');
+          displayConsole(
+            '--------------***** deleteUser End *********-----------\n\n'
+          );
           const data = {
             success: true,
           };
@@ -1219,7 +1350,9 @@ export function deleteUser() {
               message,
             };
           }
-          displayConsole('--------------***** deleteUser End *********-----------\n\n');
+          displayConsole(
+            '--------------***** deleteUser End *********-----------\n\n'
+          );
           return data;
         }
       );
@@ -1248,7 +1381,9 @@ export function getRecentExpertsData(obj, success, error) {
 
 export function getExpertsData(obj, success, error) {
   try {
-    displayConsole('\n\n--------------**** getExpertsData Start ********-----------');
+    displayConsole(
+      '\n\n--------------**** getExpertsData Start ********-----------'
+    );
     displayConsole('obj', obj);
     // let ref = firebase.firestore().collection(obj.tableName).where(obj.roleKey, "==", obj.roleValue);
     var db = firebase.firestore();
@@ -1277,10 +1412,10 @@ export function getFiltersDataWithCondition(obj) {
     }
     return collection
       .get()
-      .then(querySnapshot => {
+      .then((querySnapshot) => {
         displayConsole('querySnapshotS********', querySnapshot);
         const arr = [];
-        querySnapshot.docs.forEach(element => {
+        querySnapshot.docs.forEach((element) => {
           if (
             obj.professions &&
             obj.professions.length > 0 &&
@@ -1290,34 +1425,42 @@ export function getFiltersDataWithCondition(obj) {
             let isLanguagesMatch = false;
             let isProfessionMatch = false;
 
-            obj.professions.forEach(profession => {
-              if (element.data().profileInfo.profession.fullName == profession) {
+            obj.professions.forEach((profession) => {
+              if (
+                element.data().profileInfo.profession.fullName == profession
+              ) {
                 isProfessionMatch = true;
               }
             });
-            obj.languages.forEach(language => {
-              element.data().profileInfo.languages.forEach(elementLanguage => {
-                if (elementLanguage.code == language.code) {
-                  isLanguagesMatch = true;
-                }
-              });
+            obj.languages.forEach((language) => {
+              element
+                .data()
+                .profileInfo.languages.forEach((elementLanguage) => {
+                  if (elementLanguage.code == language.code) {
+                    isLanguagesMatch = true;
+                  }
+                });
             });
             if (isLanguagesMatch && isProfessionMatch) {
               arr.push(element.data());
             }
           } else if (obj.professions && obj.professions.length > 0) {
-            obj.professions.forEach(profession => {
-              if (element.data().profileInfo.profession.fullName == profession) {
+            obj.professions.forEach((profession) => {
+              if (
+                element.data().profileInfo.profession.fullName == profession
+              ) {
                 arr.push(element.data());
               }
             });
           } else if (obj.languages && obj.languages.length > 0) {
-            obj.languages.forEach(language => {
-              element.data().profileInfo.languages.forEach(elementLanguage => {
-                if (elementLanguage.code == language.code) {
-                  arr.push(element.data());
-                }
-              });
+            obj.languages.forEach((language) => {
+              element
+                .data()
+                .profileInfo.languages.forEach((elementLanguage) => {
+                  if (elementLanguage.code == language.code) {
+                    arr.push(element.data());
+                  }
+                });
             });
           } else {
             arr.push(element.data());
@@ -1333,7 +1476,7 @@ export function getFiltersDataWithCondition(obj) {
         );
         return data;
       })
-      .catch(error => {
+      .catch((error) => {
         displayConsole('e', error);
         const { message, code } = error;
         displayConsole('error message', message);
@@ -1386,11 +1529,13 @@ export async function addNewPaymentCard(obj) {
 
 export async function getPaymentMethods() {
   try {
-    const response = await firebase.functions().httpsCallable('apiPaymentsListCards')();
+    const response = await firebase
+      .functions()
+      .httpsCallable('apiPaymentsListCards')();
     if (response.data.data) {
       return {
         ok: true,
-        data: response.data.data.map(data => ({ ...data.card, id: data.id })),
+        data: response.data.data.map((data) => ({ ...data.card, id: data.id })),
       };
     } else {
       return {
@@ -1408,7 +1553,9 @@ export async function getPaymentMethods() {
 export async function payAmount(cardID, amount) {
   try {
     const amountInCents = Number(amount) * 100;
-    const response = await firebase.functions().httpsCallable('apiPaymentsPayAmount')({
+    const response = await firebase
+      .functions()
+      .httpsCallable('apiPaymentsPayAmount')({
       card_id: cardID,
       amount: amountInCents,
     });
@@ -1451,7 +1598,7 @@ export async function addUserCredits(credits) {
       .update({
         credits: userData.credits + credits,
       });
-    return { ok: true, newCredits:  userData.credits + credits };
+    return { ok: true, newCredits: userData.credits + credits };
   } catch (err) {
     return { ok: false, status: 'internal' };
   }
@@ -1467,7 +1614,7 @@ export async function updateCredits(credits, forUser) {
       .update({
         credits,
       });
-    return { ok: true, newCredits:  credits };
+    return { ok: true, newCredits: credits };
   } catch (err) {
     return { ok: false, status: 'internal' };
   }

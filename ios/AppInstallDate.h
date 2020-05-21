@@ -6,7 +6,9 @@
 #elif __has_include(“RCTBridgeModule.h”)
 #import “RCTBridgeModule.h”
 #else
-#import “React / RCTBridgeModule.h” // Required when used as a Pod in a Swift project
+
+#import “React/RCTBridgeModule.h” // Required when used as a Pod in a Swift project
+
 #endif
 
 // import RCTEventEmitter
@@ -15,9 +17,11 @@
 #elif __has_include(“RCTEventEmitter.h”)
 #import “RCTEventEmitter.h”
 #else
-#import “React / RCTEventEmitter.h” // Required when used as a Pod in a Swift project
+
+#import “React/RCTEventEmitter.h” // Required when used as a Pod in a Swift project
 #endif
 
 @interface AppInstallDate : RCTEventEmitter <RCTBridgeModule>
-// Define class properties here with @property
+  // Define class properties here with @property
+
 @end

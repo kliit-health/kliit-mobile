@@ -2,28 +2,8 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+### App Center Status ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+iOS: [![Build status](https://build.appcenter.ms/v0.1/apps/bfe98167-13ac-4fa2-affe-6cfb5fe102f7/branches/dev/badge)](https://appcenter.ms)
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Android: [![Build status](https://build.appcenter.ms/v0.1/apps/9e72407b-e6cc-4dbf-9b00-9b71d48e2696/branches/dev/badge)](https://appcenter.ms)
