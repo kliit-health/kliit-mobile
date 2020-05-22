@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   TouchableOpacity,
@@ -6,29 +6,32 @@ import {
   FlatList,
   Platform,
   Image,
-} from 'react-native';
-import { connect } from 'react-redux';
-import CustomText from '../../components/customText';
-import styles from './style';
-import language from '../../utils/localization';
-import Constant from '../../utils/constants';
-import { Avatar } from 'react-native-elements';
-import InputText from '../../components/customInputText/simpleInputText';
-import CustomButton from '../../components/customButton';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { getQuestionData, updateQuestion } from './action';
-import moment from 'moment';
+  Alert,
+} from "react-native";
+import { connect } from "react-redux";
+import CustomText from "../../components/customText";
+import styles from "./style";
+import language from "../../utils/localization";
+import Constant from "../../utils/constants";
+import { Avatar } from "react-native-elements";
+import InputText from "../../components/customInputText/simpleInputText";
+import CustomButton from "../../components/customButton";
+import KeyboardSpacer from "react-native-keyboard-spacer";
+import { getQuestionData, updateQuestion } from "./action";
+import moment from "moment";
+import Rate, { AndroidMarket } from "react-native-rate";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const lang = language.en;
 class Ask extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      questionText: '',
+      questionText: "",
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { question } = this.props;
     if (question) {
       this.setState({
@@ -36,10 +39,45 @@ class Ask extends PureComponent {
       });
     } else if (!question) {
       this.setState({
-        questionText: '',
+        questionText: "",
       });
     }
     this.fetchData();
+
+    const isAlreadyRate = await AsyncStorage.getItem("isAlreadyRate");
+    const countStartApp = await AsyncStorage.getItem("countStartApp");
+    const count = countStartApp ? parseInt(countStartApp) : 1;
+
+    if (!isAlreadyRate) {
+      Alert.alert("App Rating", "Please give us your opinion!", [
+        {
+          text: "Later",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            setTimeout(() => {
+              let options = {
+                AppleAppID: "1487436865",
+                GooglePackageName: "com.klit",
+                preferredAndroidMarket: AndroidMarket.Google,
+                preferInApp: true,
+                openAppStoreIfInAppFails: true,
+                fallbackPlatformURL: "https://kliit.com",
+              };
+              Rate.rate(options, (success) => {
+                if (success) {
+                  AsyncStorage.setItem("isAlreadyRate", "true");
+                }
+              });
+            }, 500);
+          },
+        },
+      ]);
+    }
+    await AsyncStorage.setItem("countStartApp", `${count + 1}`);
   }
 
   componentDidUpdate() {
@@ -50,7 +88,7 @@ class Ask extends PureComponent {
       });
     } else if (!question) {
       this.setState({
-        questionText: '',
+        questionText: "",
       });
     }
   }
@@ -112,7 +150,7 @@ class Ask extends PureComponent {
                   width: 70,
                   height: 70,
                 }}
-                resizeMode='stretch'
+                resizeMode="stretch"
                 source={staticImages.profilePlaceholderImg}
               />
             }
@@ -150,7 +188,7 @@ class Ask extends PureComponent {
         <InputText
           maxHeight={100}
           multiline={true}
-          autoCapitalize='sentences'
+          autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
               questionText: value,
@@ -196,8 +234,8 @@ class Ask extends PureComponent {
         </CustomText>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          keyboardDismissMode={Platform.OS === 'ios' ? 'none' : 'on-drag'}
-          keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
+          keyboardDismissMode={Platform.OS === "ios" ? "none" : "on-drag"}
+          keyboardShouldPersistTaps={Platform.OS === "ios" ? "never" : "always"}
           data={recentExpertData}
           horizontal={true}
           renderItem={({ item, index }) => {
@@ -228,18 +266,18 @@ class Ask extends PureComponent {
                     style={{
                       width: 100,
                       height: 100,
-                      alignSelf: 'center',
+                      alignSelf: "center",
                     }}
                   >
                     <Avatar
-                      containerStyle={{ alignSelf: 'center' }}
+                      containerStyle={{ alignSelf: "center" }}
                       renderPlaceholderContent={
                         <Image
                           style={{
                             width: 100,
                             height: 100,
                           }}
-                          resizeMode='stretch'
+                          resizeMode="stretch"
                           source={staticImages.profilePlaceholderImg}
                         />
                       }
@@ -261,7 +299,7 @@ class Ask extends PureComponent {
                           right: 15,
                           borderRadius: 8,
                           backgroundColor: Constant.App.colors.greenColor,
-                          position: 'absolute',
+                          position: "absolute",
                         }}
                       />
                     ) : (
@@ -273,14 +311,14 @@ class Ask extends PureComponent {
                           right: 15,
                           borderRadius: 8,
                           backgroundColor: Constant.App.colors.grayColor,
-                          position: 'absolute',
+                          position: "absolute",
                         }}
                       />
                     )}
                   </View>
-                  <CustomText
-                    style={styles.expertNameTextStyle}
-                  >{`${item.profileInfo.firstName} ${item.profileInfo.lastName}`}</CustomText>
+                  <CustomText style={styles.expertNameTextStyle}>{`${
+                    item.profileInfo.firstName
+                  } ${item.profileInfo.lastName}`}</CustomText>
                   <CustomText style={styles.expertProfTextStyle}>
                     {item.profileInfo.profession.fullName}
                   </CustomText>
@@ -304,8 +342,8 @@ class Ask extends PureComponent {
         </CustomText>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          keyboardDismissMode={Platform.OS === 'ios' ? 'none' : 'on-drag'}
-          keyboardShouldPersistTaps={Platform.OS === 'ios' ? 'never' : 'always'}
+          keyboardDismissMode={Platform.OS === "ios" ? "none" : "on-drag"}
+          keyboardShouldPersistTaps={Platform.OS === "ios" ? "never" : "always"}
           data={previousQuestionData}
           renderItem={({ item }) => {
             item = item.data();
@@ -334,14 +372,14 @@ class Ask extends PureComponent {
                       }}
                     >
                       <Avatar
-                        containerStyle={{ alignSelf: 'center' }}
+                        containerStyle={{ alignSelf: "center" }}
                         renderPlaceholderContent={
                           <Image
                             style={{
                               width: 50,
                               height: 50,
                             }}
-                            resizeMode='stretch'
+                            resizeMode="stretch"
                             source={staticImages.profilePlaceholderImg}
                           />
                         }
@@ -410,14 +448,14 @@ class Ask extends PureComponent {
           </CustomText>
           <View style={styles.expertInfoContainerStyle}>
             <Avatar
-              containerStyle={{ alignSelf: 'center' }}
+              containerStyle={{ alignSelf: "center" }}
               renderPlaceholderContent={
                 <Image
                   style={{
                     width: 50,
                     height: 50,
                   }}
-                  resizeMode='stretch'
+                  resizeMode="stretch"
                   source={staticImages.profilePlaceholderImg}
                 />
               }
@@ -440,7 +478,11 @@ class Ask extends PureComponent {
                     ]
               }
             >
-              {`${lang.askUser.asking} ${questionData.expertInfo.profileInfo.firstName} ${questionData.expertInfo.profileInfo.lastName}, ${questionData.expertInfo.profileInfo.profession.shortName}`}
+              {`${lang.askUser.asking} ${
+                questionData.expertInfo.profileInfo.firstName
+              } ${questionData.expertInfo.profileInfo.lastName}, ${
+                questionData.expertInfo.profileInfo.profession.shortName
+              }`}
             </CustomText>
           </View>
         </View>
@@ -468,7 +510,7 @@ class Ask extends PureComponent {
     return (
       <View style={styles.container}>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {this.renderHeadingProfileView()}
@@ -488,7 +530,7 @@ class Ask extends PureComponent {
           {previousQuestionData &&
             previousQuestionData.length > 0 &&
             this.renderPreviousQuestionView()}
-          {Platform.OS === 'ios' && <KeyboardSpacer />}
+          {Platform.OS === "ios" && <KeyboardSpacer />}
         </ScrollView>
       </View>
     );
@@ -509,4 +551,7 @@ const mapDispatchToProps = (dispatch) => ({
   // setNewKeyToUserTable: (id, data) => dispatch(updateUserDataWithNewKey(id, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ask);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Ask);
