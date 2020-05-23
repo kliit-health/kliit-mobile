@@ -1,23 +1,23 @@
-import React, { PureComponent } from 'react';
-import { View, Alert, BackHandler, AppState } from 'react-native';
-import { connect } from 'react-redux';
-import AppNavigator from './src/navigator';
-import { showOrHideModal } from './src/components/customModal/action';
-import CustomLoader from './src/components/customLoader';
-import CustomModal from './src/components/customModal';
-import CustomToast from './src/components/customToast';
-import { getBottomSpace } from './src/components/iPhoneXHelper';
-import firebase from 'react-native-firebase';
+import React, { PureComponent } from "react";
+import { View, Alert, BackHandler, AppState } from "react-native";
+import { connect } from "react-redux";
+import AppNavigator from "./src/navigator";
+import { showOrHideModal } from "./src/components/customModal/action";
+import CustomLoader from "./src/components/customLoader";
+import CustomModal from "./src/components/customModal";
+import CustomToast from "./src/components/customToast";
+import { getBottomSpace } from "./src/components/iPhoneXHelper";
+import firebase from "react-native-firebase";
 import {
   setFcmToken,
   setAppState,
   setAppScreen,
-} from './src/screens/authLoading/action';
-import { signoutApihit } from './src/screens/account/action';
-import Constant from './src/utils/constants';
-import BackgroundTimer from 'react-native-background-timer';
-import { updateStatus } from './src/utils/firebase';
-import { NavigationService } from './src/navigator';
+} from "./src/screens/authLoading/action";
+import { signoutApihit } from "./src/screens/account/action";
+import Constant from "./src/utils/constants";
+import BackgroundTimer from "react-native-background-timer";
+import { updateStatus } from "./src/utils/firebase";
+import { NavigationService } from "./src/navigator";
 
 class App extends PureComponent {
   constructor(props) {
@@ -31,10 +31,10 @@ class App extends PureComponent {
   async componentDidMount() {
     console.disableYellowBox = true;
     BackHandler.addEventListener(
-      'hardwareBackPress',
+      "hardwareBackPress",
       this.handleBackButtonClick
     );
-    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener("change", this._handleAppStateChange);
   }
 
   componentDidUpdate() {
@@ -56,25 +56,25 @@ class App extends PureComponent {
       };
       updateStatus(updateStatusParams);
     }
-    console.log('isActive', isActive);
+    console.log("isActive", isActive);
   }
 
   componentWillUnmount() {
     firebase.auth().signOut();
     BackHandler.removeEventListener(
-      'hardwareBackPress',
+      "hardwareBackPress",
       this.handleBackButtonClick
     );
   }
 
   _handleAppStateChange = (nextAppState) => {
     const { setState, signOut } = this.props;
-    console.log('---nextAppState---', nextAppState);
-    if (nextAppState === 'active') {
-      console.log('App has come to the foreground!', nextAppState);
+    console.log("---nextAppState---", nextAppState);
+    if (nextAppState === "active") {
+      console.log("App has come to the foreground!", nextAppState);
       setState(true);
-      console.log('this.timer', this.timer);
-      console.log('this.timeoutId', this.timeoutId);
+      console.log("this.timer", this.timer);
+      console.log("this.timeoutId", this.timeoutId);
       if (this.timer) {
         clearTimeout(this.timer);
       }
@@ -82,7 +82,7 @@ class App extends PureComponent {
         BackgroundTimer.clearTimeout(this.timeoutId);
       }
     } else {
-      console.log('App has gone to the background!', nextAppState);
+      console.log("App has gone to the background!", nextAppState);
 
       setState(false);
 
@@ -91,12 +91,18 @@ class App extends PureComponent {
       }
 
       this.timeoutId = BackgroundTimer.setTimeout(() => {
-        console.log('this.timeoutId', this.timeoutId);
+        console.log("this.timeoutId", this.timeoutId);
         const payload = {
           navigation: this.navigator._navigation,
           isLoaderShow: false,
         };
         signOut(payload);
+        Alert.alert(
+          "Log Out",
+          "For your security, you have been logged out due to 20 minutes of inactivity.",
+          [{ text: "OK", onPress: () => {} }],
+          { cancelable: false }
+        );
       }, Constant.App.logoutInterval);
     }
   };
@@ -104,19 +110,19 @@ class App extends PureComponent {
   handleBackButtonClick() {
     setTimeout(() => {
       Alert.alert(
-        'Exit App',
-        'Are you sure you want to exit the App?',
+        "Exit App",
+        "Are you sure you want to exit the App?",
         [
           {
-            text: 'OK',
+            text: "OK",
             onPress: () => {
               BackHandler.exitApp();
             },
           },
           {
-            text: 'Cancel',
+            text: "Cancel",
             onPress: () => {
-              console.log('Cancel Pressed');
+              console.log("Cancel Pressed");
             },
           },
         ],
@@ -146,7 +152,7 @@ class App extends PureComponent {
       toastState,
       setScreen,
     } = this.props;
-    console.log('spinnerState ', spinnerState);
+    console.log("spinnerState ", spinnerState);
     return (
       <View
         style={{
@@ -162,8 +168,8 @@ class App extends PureComponent {
           onNavigationStateChange={(prevState, currentState) => {
             const currentScreen = this.getCurrentRouteName(currentState);
             const prevScreen = this.getCurrentRouteName(prevState);
-            console.log('currentScreen', currentScreen);
-            console.log('prevScreen', prevScreen);
+            console.log("currentScreen", currentScreen);
+            console.log("prevScreen", prevScreen);
             const obj = {
               currentScreen,
               prevScreen,

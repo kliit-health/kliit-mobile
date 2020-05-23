@@ -40,4 +40,6 @@ target 'klit' do
 
   use_native_modules!
 
+  pod 'RNRate', :path => '../node_modules/react-native-rate'
+
 end
