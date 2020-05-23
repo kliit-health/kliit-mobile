@@ -13,7 +13,7 @@ const Constant = {
       googlePlay: "https://play.google.com/store/apps/details?id=com.klit",
       appleStore: "https://apps.apple.com/us/app/id1487436865",
     },
-    logoutInterval: 1000 * 20,
+    logoutInterval: 1000 * 20 * 60,
     Toast: {
       SHORT: 200,
       LONG: 2000,

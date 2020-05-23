@@ -48,7 +48,7 @@ class Ask extends PureComponent {
     const countStartApp = await AsyncStorage.getItem("countStartApp");
     const count = countStartApp ? parseInt(countStartApp) : 1;
 
-    if (!isAlreadyRate) {
+    if (!isAlreadyRate && count % 15 === 0) {
       Alert.alert("App Rating", "Please give us your opinion!", [
         {
           text: "Later",

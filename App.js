@@ -96,10 +96,11 @@ class App extends PureComponent {
           navigation: this.navigator._navigation,
           isLoaderShow: false,
         };
+        signOut(payload);
         Alert.alert(
           "Log Out",
           "For your security, you have been logged out due to 20 minutes of inactivity.",
-          [{ text: "OK", onPress: () => signOut(payload) }],
+          [{ text: "OK", onPress: () => {} }],
           { cancelable: false }
         );
       }, Constant.App.logoutInterval);
