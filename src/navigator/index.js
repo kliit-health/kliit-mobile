@@ -1,41 +1,51 @@
-import React from 'react';
+import React from "react";
 import {
   createStackNavigator,
   createAppContainer,
   createSwitchNavigator,
   createBottomTabNavigator,
-} from 'react-navigation';
-import NavigationService from './navigationService';
-import { Image, View } from 'react-native';
+} from "react-navigation";
+import NavigationService from "./navigationService";
+import { Image, View } from "react-native";
 
-import AuthLoadingScreen from '../screens/authLoading';
-import Login from '../screens/login';
-import Ask from '../screens/ask';
-import AskExpert from '../screens/ask/expert';
-import Account from '../screens/account';
-import AccountExpert from '../screens/account/expert';
-import Tutorial from '../screens/tutorial';
-import CustomText from '../components/customText';
-import Constant from '../utils/constants';
-import ForgotPassword from '../screens/forgotPassword';
-import SignUp from '../screens/signUp';
-import AddProfileData from '../screens/addProfileData';
-import GetStarted from '../screens/getStarted';
-import Language from '../utils/localization';
-import ChooseExpert from '../screens/chooseExpert';
-import ExpertProfile from '../screens/expertProfile';
-import Setting from '../screens/setting';
-import SettingExpert from '../screens/setting/expert';
-import ChangePassword from '../screens/changePassword';
-import ChangePasswordExpert from '../screens/changePassword/expert';
-import Chat from '../screens/chat';
-import ChatExpert from '../screens/chat/expert';
-import Learn from '../screens/learn';
-import ReferFriend from '../screens/referFriend';
-import BuyingCredit from '../screens/payment/buyingCredit';
-import PaymentMethods from '../screens/payment/paymentMethods';
-import AddCreditOrDebitCard from '../screens/payment/AddCreditOrDebitCard';
-import PayPalApproval from '../screens/payment/buyingCredit/paypal';
+import Appointments from "../screens/appointments/";
+import AuthLoadingScreen from "../screens/authLoading";
+import Login from "../screens/login";
+import Ask from "../screens/ask";
+import AskExpert from "../screens/ask/expert";
+import Account from "../screens/account";
+import AccountExpert from "../screens/account/expert";
+import Tutorial from "../screens/tutorial";
+import CustomText from "../components/customText";
+import Constant from "../utils/constants";
+import ForgotPassword from "../screens/forgotPassword";
+import SignUp from "../screens/signUp";
+import AddProfileData from "../screens/addProfileData";
+import GetStarted from "../screens/getStarted";
+import Language from "../utils/localization";
+import ChooseExpert from "../screens/chooseExpert";
+import ExpertProfile from "../screens/expertProfile";
+import Setting from "../screens/setting";
+import SettingExpert from "../screens/setting/expert";
+import ChangePassword from "../screens/changePassword";
+import ChangePasswordExpert from "../screens/changePassword/expert";
+import Chat from "../screens/chat";
+import ChatExpert from "../screens/chat/expert";
+import Learn from "../screens/learn";
+import ReferFriend from "../screens/referFriend";
+import BuyingCredit from "../screens/payment/buyingCredit";
+import PaymentMethods from "../screens/payment/paymentMethods";
+import AddCreditOrDebitCard from "../screens/payment/AddCreditOrDebitCard";
+import PayPalApproval from "../screens/payment/buyingCredit/paypal";
+import HealthHistory from "../screens/healthHistory/";
+import BasicInfo from "../screens/basicInfo";
+import Pregnancy from "../screens/pregnancy";
+import Lifestyle from "../screens/lifestyle";
+import Allergies from "../screens/allergies";
+import Medications from "../screens/medications";
+import MedicalHistory from "../screens/medicalHistory";
+import Insurance from "../screens/insurance";
+import PrevAppointmentNotes from "../screens/prevAppointmentsNotes";
 
 let lang = Language.en;
 let tabIconSize = 25;
@@ -48,7 +58,7 @@ const TransparentStyle = {
   },
   transitionConfig: () => ({
     containerStyle: {
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
   }),
 };
@@ -63,8 +73,8 @@ const AuthStack = createStackNavigator(
     GetStarted: { screen: GetStarted },
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'Tutorial',
+    headerMode: "none",
+    initialRouteName: "Tutorial",
   }
 );
 
@@ -73,8 +83,8 @@ const PaymentStack = createStackNavigator(
     [screenNames.BuyingCredit]: { screen: BuyingCredit },
   },
   {
-    mode: 'modal',
-    headerMode: 'none',
+    mode: "modal",
+    headerMode: "none",
     initialRouteName: screenNames.BuyingCredit,
     ...TransparentStyle,
   }
@@ -87,18 +97,18 @@ const BottomTab = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <View
             style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
-              resizeMode={'contain'}
+              resizeMode={"contain"}
               style={{ width: tabIconSize, height: tabIconSize }}
               source={
                 focused
-                  ? require('../../assets/account_tab_active.png')
-                  : require('../../assets/account_tab_inactive.png')
+                  ? require("../../assets/account_tab_active.png")
+                  : require("../../assets/account_tab_inactive.png")
               }
             />
             <CustomText
@@ -121,18 +131,18 @@ const BottomTab = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <View
             style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
-              resizeMode={'contain'}
+              resizeMode={"contain"}
               style={{ width: tabIconSize, height: tabIconSize }}
               source={
                 focused
-                  ? require('../../assets/ask_tab_active.png')
-                  : require('../../assets/ask_tab_inactive.png')
+                  ? require("../../assets/ask_tab_active.png")
+                  : require("../../assets/ask_tab_inactive.png")
               }
             />
             <CustomText
@@ -156,18 +166,18 @@ const BottomTab = createBottomTabNavigator(
           return (
             <View
               style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Image
-                resizeMode={'contain'}
+                resizeMode={"contain"}
                 style={{ width: tabIconSize, height: tabIconSize }}
                 source={
                   focused
-                    ? require('../../assets/discuss_tab_active.png')
-                    : require('../../assets/discuss_tab_inactive.png')
+                    ? require("../../assets/discuss_tab_active.png")
+                    : require("../../assets/discuss_tab_inactive.png")
                 }
               />
               <CustomText
@@ -187,15 +197,15 @@ const BottomTab = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Ask',
-    tabBarposition: 'bottom',
+    initialRouteName: "Ask",
+    tabBarposition: "bottom",
     swipeEnabled: true,
     tabBarOptions: {
-      activeTintColor: 'black',
-      inactiveTintColor: 'black',
+      activeTintColor: "black",
+      inactiveTintColor: "black",
       showLabel: false,
       style: {
-        backgroundColor: 'white',
+        backgroundColor: "white",
       },
     },
   }
@@ -209,18 +219,18 @@ const BottomTabExpert = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <View
             style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
-              resizeMode={'contain'}
+              resizeMode={"contain"}
               style={{ width: tabIconSize, height: tabIconSize }}
               source={
                 focused
-                  ? require('../../assets/account_tab_active.png')
-                  : require('../../assets/account_tab_inactive.png')
+                  ? require("../../assets/account_tab_active.png")
+                  : require("../../assets/account_tab_inactive.png")
               }
             />
             <CustomText
@@ -243,18 +253,18 @@ const BottomTabExpert = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <View
             style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
-              resizeMode={'contain'}
+              resizeMode={"contain"}
               style={{ width: tabIconSize, height: tabIconSize }}
               source={
                 focused
-                  ? require('../../assets/ask_tab_active.png')
-                  : require('../../assets/ask_tab_inactive.png')
+                  ? require("../../assets/ask_tab_active.png")
+                  : require("../../assets/ask_tab_inactive.png")
               }
             />
             <CustomText
@@ -277,18 +287,18 @@ const BottomTabExpert = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <View
             style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image
-              resizeMode={'contain'}
+              resizeMode={"contain"}
               style={{ width: tabIconSize, height: tabIconSize }}
               source={
                 focused
-                  ? require('../../assets/discuss_tab_active.png')
-                  : require('../../assets/discuss_tab_inactive.png')
+                  ? require("../../assets/discuss_tab_active.png")
+                  : require("../../assets/discuss_tab_inactive.png")
               }
             />
             <CustomText
@@ -307,15 +317,15 @@ const BottomTabExpert = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'AskExpert',
-    tabBarposition: 'bottom',
+    initialRouteName: "AskExpert",
+    tabBarposition: "bottom",
     swipeEnabled: true,
     tabBarOptions: {
-      activeTintColor: 'black',
-      inactiveTintColor: 'black',
+      activeTintColor: "black",
+      inactiveTintColor: "black",
       showLabel: false,
       style: {
-        backgroundColor: 'white',
+        backgroundColor: "white",
       },
     },
   }
@@ -330,13 +340,14 @@ const AppStackExpert = createStackNavigator(
     Learn: { screen: Learn },
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'BottomTabExpert',
+    headerMode: "none",
+    initialRouteName: "BottomTabExpert",
   }
 );
 
 const MainAppStack = createStackNavigator(
   {
+    Appointments: { screen: Appointments },
     BottomTab: { screen: BottomTab },
     ChooseExpert: { screen: ChooseExpert },
     ExpertProfile: { screen: ExpertProfile },
@@ -348,10 +359,19 @@ const MainAppStack = createStackNavigator(
     AddCreditOrDebitCard: { screen: AddCreditOrDebitCard },
     PaymentMethods: { screen: PaymentMethods },
     PayPalApproval: { screen: PayPalApproval },
+    HealthHistory: { screen: HealthHistory },
+    BasicInfo: { screen: BasicInfo },
+    PregnancyAndChildren: { screen: Pregnancy },
+    Lifestyle: { screen: Lifestyle },
+    Allergies: { screen: Allergies },
+    Medications: { screen: Medications },
+    MedicalHistory: { screen: MedicalHistory },
+    Insurance: { screen: Insurance },
+    PrevAppointmentNotes: { screen: PrevAppointmentNotes },
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'BottomTab',
+    headerMode: "none",
+    initialRouteName: "BottomTab",
   }
 );
 
@@ -361,9 +381,9 @@ const AppStack = createStackNavigator(
     Payment: PaymentStack,
   },
   {
-    mode: 'modal',
-    headerMode: 'none',
-    initialRouteName: 'MainApp',
+    mode: "modal",
+    headerMode: "none",
+    initialRouteName: "MainApp",
     ...TransparentStyle,
   }
 );
@@ -376,15 +396,15 @@ const AppNavigator = createSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
   },
   {
-    initialRouteName: 'AuthLoading',
-    headerMode: 'none',
+    initialRouteName: "AuthLoading",
+    headerMode: "none",
   }
 );
 
 const prevGetStateForActionHomeStack = AuthStack.router.getStateForAction;
 
 AuthStack.router.getStateForAction = (action, state) => {
-  if (state && action.type === 'ReplaceCurrentScreen') {
+  if (state && action.type === "ReplaceCurrentScreen") {
     const routes = state.routes.slice(0, state.routes.length - 1);
     routes.push(action);
     return {
@@ -399,7 +419,7 @@ AuthStack.router.getStateForAction = (action, state) => {
 const prevGetStateForActionAppStack = AppStack.router.getStateForAction;
 
 AppStack.router.getStateForAction = (action, state) => {
-  if (state && action.type === 'ReplaceCurrentScreen') {
+  if (state && action.type === "ReplaceCurrentScreen") {
     const routes = state.routes.slice(0, state.routes.length - 1);
     routes.push(action);
     return {
@@ -415,7 +435,7 @@ const prevGetStateForActionAppStackExpert =
   AppStackExpert.router.getStateForAction;
 
 AppStackExpert.router.getStateForAction = (action, state) => {
-  if (state && action.type === 'ReplaceCurrentScreen') {
+  if (state && action.type === "ReplaceCurrentScreen") {
     const routes = state.routes.slice(0, state.routes.length - 1);
     routes.push(action);
     return {

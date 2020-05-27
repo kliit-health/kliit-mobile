@@ -1,30 +1,27 @@
 /* eslint-disable react/prop-types */
-import React, { PureComponent } from 'react';
-import { View, Modal, FlatList, TouchableOpacity } from 'react-native';
-import CustomText from '../customText';
-import styles from './style';
-import CustomButton from '../customButton';
-import { SearchBar } from 'react-native-elements';
-
-import states from './states';
+import React, { PureComponent } from "react";
+import { View, Modal, FlatList, TouchableOpacity } from "react-native";
+import CustomText from "../customText";
+import styles from "./style";
+import CustomButton from "../customButton";
+import { SearchBar } from "react-native-elements";
 
 class CustomSelectModal extends PureComponent {
   constructor(props) {
     super(props);
-    this.stateArr = states;
     this.state = {
-      data: this.stateArr,
-      search: '',
-      selectedState: '',
+      data: this.props.data,
+      search: "",
+      selectedState: "",
     };
   }
 
   render() {
     const { data, search } = this.state;
-    const { onSelection, onClose } = this.props;
+    const { onSelection, onClose, showSearch } = this.props;
     return (
       <Modal
-        animationType='slide'
+        animationType="slide"
         transparent={true}
         onRequestClose={() => {}}
         visible={true}
@@ -39,27 +36,29 @@ class CustomSelectModal extends PureComponent {
               ListEmptyComponent={() => (
                 <View style={styles.emptyContainerStyle}>
                   <CustomText style={styles.emptyTextStyle}>
-                    {'No Data available'}
+                    {"No Data available"}
                   </CustomText>
                 </View>
               )}
               ListHeaderComponent={
-                <SearchBar
-                  containerStyle={styles.searchBarContaineStyle}
-                  inputContainerStyle={styles.searchBarInputContainerStyle}
-                  inputStyle={styles.searchBarInputTextStyle}
-                  placeholder='Search Here...'
-                  lightTheme
-                  onChangeText={(text) => {
-                    const newData = this.stateArr.filter((item) => {
-                      const itemData = item.value.toUpperCase();
-                      const textData = text.toUpperCase();
-                      return itemData.indexOf(textData) > -1;
-                    });
-                    this.setState({ data: newData, search: text });
-                  }}
-                  value={search}
-                />
+                showSearch && (
+                  <SearchBar
+                    containerStyle={styles.searchBarContaineStyle}
+                    inputContainerStyle={styles.searchBarInputContainerStyle}
+                    inputStyle={styles.searchBarInputTextStyle}
+                    placeholder="Search Here..."
+                    lightTheme
+                    onChangeText={(text) => {
+                      const newData = this.stateArr.filter((item) => {
+                        const itemData = item.value.toUpperCase();
+                        const textData = text.toUpperCase();
+                        return itemData.indexOf(textData) > -1;
+                      });
+                      this.setState({ data: newData, search: text });
+                    }}
+                    value={search}
+                  />
+                )
               }
               showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.code}
@@ -67,7 +66,7 @@ class CustomSelectModal extends PureComponent {
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({
-                      search: '',
+                      search: "",
                       selectedState: item.value,
                       data: this.stateArr,
                     });
@@ -76,8 +75,8 @@ class CustomSelectModal extends PureComponent {
                   style={styles.stateTextContainerStyle}
                 >
                   <CustomText style={styles.stateTextStyle}>
-                    {' '}
-                    {item.value}{' '}
+                    {" "}
+                    {item.value}{" "}
                   </CustomText>
                 </TouchableOpacity>
               )}
@@ -85,11 +84,11 @@ class CustomSelectModal extends PureComponent {
             <CustomButton
               buttonStyle={styles.cancelSelectStateButtonStyle}
               textStyle={styles.cancelSelectStateButtonTextStyle}
-              text={'Close'}
+              text={"Close"}
               onPress={() => {
                 this.setState({
                   data: this.stateArr,
-                  search: '',
+                  search: "",
                 });
                 onClose();
               }}

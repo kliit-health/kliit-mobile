@@ -97,30 +97,40 @@ const Constant = {
       AuthLoading: "AuthLoading",
     },
     screenNames: {
-      Login: "Login",
-      ForgotPassword: "ForgotPassword",
-      SignUp: "SignUp",
+      AddCreditOrDebitCard: "AddCreditOrDebitCard",
       AddProfileData: "AddProfileData",
-      GetStarted: "GetStarted",
-      ChooseExpert: "ChooseExpert",
-      ExpertProfile: "ExpertProfile",
+      Allergies: "Allergies",
+      Appointments: "Appointments",
       AskUser: "Ask",
       AskExpert: "AskExpert",
-      Setting: "Setting",
-      SettingExpert: "SettingExpert",
+      BasicInfo: "BasicInfo",
+      BottomTab: "BottomTab",
+      BottomTabExpert: "BottomTabExpert",
+      BuyingCredit: "BuyingCredit",
       ChangePassword: "ChangePassword",
       ChangePasswordExpert: "ChangePasswordExpert",
       Chat: "Chat",
       ChatExpert: "ChatExpert",
-      BottomTab: "BottomTab",
-      BottomTabExpert: "BottomTabExpert",
+      ChooseExpert: "ChooseExpert",
+      ExpertProfile: "ExpertProfile",
+      ForgotPassword: "ForgotPassword",
+      GetStarted: "GetStarted",
+      HealthHistory: "HealthHistory",
+      Insurance: "Insurance",
       Learn: "Learn",
       LearnExpert: "LearnExpert",
-      ReferFriend: "ReferFriend",
-      BuyingCredit: "BuyingCredit",
-      AddCreditOrDebitCard: "AddCreditOrDebitCard",
+      LifeStyle: "Lifestyle",
+      Login: "Login",
+      MedicalHistory: "MedicalHistory",
+      Medications: "Medications",
       PaymentMethods: "PaymentMethods",
       PayPalApproval: "PayPalApproval",
+      PrevAppointmentNotes: "PrevAppointmentNotes",
+      PregnancyAndChildren: "PregnancyAndChildren",
+      ReferFriend: "ReferFriend",
+      Setting: "Setting",
+      SettingExpert: "SettingExpert",
+      SignUp: "SignUp",
     },
     fontFamily: {
       headerRegular: "Poppins-Regular",
@@ -176,6 +186,247 @@ const Constant = {
     Api: {
       BaseUrl: "",
       endPoints: {},
+    },
+    Modal: {
+      gender: [{ value: "Male", code: "M" }, { value: "Female", code: "F" }],
+      states: [
+        {
+          value: "Alabama",
+          code: "AL",
+        },
+        {
+          value: "Alaska",
+          code: "AK",
+        },
+        {
+          value: "American Samoa",
+          code: "AS",
+        },
+        {
+          value: "Arizona",
+          code: "AZ",
+        },
+        {
+          value: "Arkansas",
+          code: "AR",
+        },
+        {
+          value: "California",
+          code: "CA",
+        },
+        {
+          value: "Colorado",
+          code: "CO",
+        },
+        {
+          value: "Connecticut",
+          code: "CT",
+        },
+        {
+          value: "Delaware",
+          code: "DE",
+        },
+        {
+          value: "District Of Columbia",
+          code: "DC",
+        },
+        {
+          value: "Federated States Of Micronesia",
+          code: "FM",
+        },
+        {
+          value: "Florida",
+          code: "FL",
+        },
+        {
+          value: "Georgia",
+          code: "GA",
+        },
+        {
+          value: "Guam",
+          code: "GU",
+        },
+        {
+          value: "Hawaii",
+          code: "HI",
+        },
+        {
+          value: "Idaho",
+          code: "ID",
+        },
+        {
+          value: "Illinois",
+          code: "IL",
+        },
+        {
+          value: "Indiana",
+          code: "IN",
+        },
+        {
+          value: "Iowa",
+          code: "IA",
+        },
+        {
+          value: "Kansas",
+          code: "KS",
+        },
+        {
+          value: "Kentucky",
+          code: "KY",
+        },
+        {
+          value: "Louisiana",
+          code: "LA",
+        },
+        {
+          value: "Maine",
+          code: "ME",
+        },
+        {
+          value: "Marshall Islands",
+          code: "MH",
+        },
+        {
+          value: "Maryland",
+          code: "MD",
+        },
+        {
+          value: "Massachusetts",
+          code: "MA",
+        },
+        {
+          value: "Michigan",
+          code: "MI",
+        },
+        {
+          value: "Minnesota",
+          code: "MN",
+        },
+        {
+          value: "Mississippi",
+          code: "MS",
+        },
+        {
+          value: "Missouri",
+          code: "MO",
+        },
+        {
+          value: "Montana",
+          code: "MT",
+        },
+        {
+          value: "Nebraska",
+          code: "NE",
+        },
+        {
+          value: "Nevada",
+          code: "NV",
+        },
+        {
+          value: "New Hampshire",
+          code: "NH",
+        },
+        {
+          value: "New Jersey",
+          code: "NJ",
+        },
+        {
+          value: "New Mexico",
+          code: "NM",
+        },
+        {
+          value: "New York",
+          code: "NY",
+        },
+        {
+          value: "North Carolina",
+          code: "NC",
+        },
+        {
+          value: "North Dakota",
+          code: "ND",
+        },
+        {
+          value: "Northern Mariana Islands",
+          code: "MP",
+        },
+        {
+          value: "Ohio",
+          code: "OH",
+        },
+        {
+          value: "Oklahoma",
+          code: "OK",
+        },
+        {
+          value: "Oregon",
+          code: "OR",
+        },
+        {
+          value: "Palau",
+          code: "PW",
+        },
+        {
+          value: "Pennsylvania",
+          code: "PA",
+        },
+        {
+          value: "Puerto Rico",
+          code: "PR",
+        },
+        {
+          value: "Rhode Island",
+          code: "RI",
+        },
+        {
+          value: "South Carolina",
+          code: "SC",
+        },
+        {
+          value: "South Dakota",
+          code: "SD",
+        },
+        {
+          value: "Tennessee",
+          code: "TN",
+        },
+        {
+          value: "Texas",
+          code: "TX",
+        },
+        {
+          value: "Utah",
+          code: "UT",
+        },
+        {
+          value: "Vermont",
+          code: "VT",
+        },
+        {
+          value: "Virgin Islands",
+          code: "VI",
+        },
+        {
+          value: "Virginia",
+          code: "VA",
+        },
+        {
+          value: "Washington",
+          code: "WA",
+        },
+        {
+          value: "West Virginia",
+          code: "WV",
+        },
+        {
+          value: "Wisconsin",
+          code: "WI",
+        },
+        {
+          value: "Wyoming",
+          code: "WY",
+        },
+      ],
     },
   },
 };

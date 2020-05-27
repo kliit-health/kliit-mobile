@@ -12,21 +12,41 @@ import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-import { signoutApihit } from "./action";
+// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
 import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
-class Account extends PureComponent {
+class HealthHistory extends PureComponent {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    this.fetchData();
+  renderHeaderView() {
+    const { navigation } = this.props;
+    const { staticImages } = Constant.App;
+    return (
+      <View style={styles.headerStyle}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Image
+            style={{
+              width: 20,
+              height: 40,
+              transform: [{ rotate: "180deg" }],
+            }}
+            resizeMode="contain"
+            source={staticImages.rightChevronIcon}
+          />
+        </TouchableOpacity>
+        <CustomText style={styles.titleTextStyle}>My Health History</CustomText>
+        <CustomText style={styles.doneTextStyle}>{}</CustomText>
+      </View>
+    );
   }
-
-  fetchData() {}
 
   render() {
     const { navigation, signOut, userData } = this.props;
@@ -34,63 +54,19 @@ class Account extends PureComponent {
     return (
       userData && (
         <View style={styles.container}>
+          {this.renderHeaderView()}
           <ScrollView
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.headerStyle}>
-              <View style={styles.profileInfoParentContainerStyle}>
-                <CustomText style={styles.nameTextStyle}>
-                  {`${userData.profileInfo.firstName} ${
-                    userData.profileInfo.lastName
-                  }`}
-                </CustomText>
-                <CustomText style={styles.genderTextStyle}>
-                  {userData.profileInfo.pronouns}
-                </CustomText>
-                <CustomText style={styles.creditTextStyle}>
-                  {`${userData.credits} ${lang.askUser.credits}`}
-                </CustomText>
-                <CustomButton
-                  onPress={() => {
-                    navigation.navigate(Constant.App.screenNames.BuyingCredit);
-                  }}
-                  text={lang.askUser.buyMoreCredits}
-                  buttonStyle={styles.creditButtonStyle}
-                  textStyle={styles.creditButtonTextStyle}
-                />
-              </View>
-              <View style={styles.profileImageParentContainerStyle}>
-                <Avatar
-                  renderPlaceholderContent={
-                    <Image
-                      style={{
-                        width: AVATAR_SIZE,
-                        height: AVATAR_SIZE,
-                      }}
-                      resizeMode="stretch"
-                      source={staticImages.profilePlaceholderImg}
-                    />
-                  }
-                  size={AVATAR_SIZE}
-                  rounded
-                  source={{
-                    uri: userData.profileInfo.profileImageUrl
-                      ? userData.profileInfo.profileImageUrl
-                      : null,
-                  }}
-                  activeOpacity={0.7}
-                />
-              </View>
-            </View>
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.Appointments);
+                navigation.navigate(Constant.App.screenNames.BasicInfo);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.appointments}
+                {lang.healthHistory.basicInfo}
               </CustomText>
               <Image
                 style={{
@@ -105,11 +81,13 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.HealthHistory);
+                navigation.navigate(
+                  Constant.App.screenNames.PregnancyAndChildren
+                );
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.healthHistory}
+                {lang.healthHistory.pregnancy}
               </CustomText>
               <Image
                 style={{
@@ -124,11 +102,11 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.Setting);
+                navigation.navigate(Constant.App.screenNames.LifeStyle);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.setting}
+                {lang.healthHistory.lifestyle}
               </CustomText>
               <Image
                 style={{
@@ -143,11 +121,11 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                Linking.openURL(Constant.App.termsAndConditionsUrl);
+                navigation.navigate(Constant.App.screenNames.Allergies);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.termsPolicies}
+                {lang.healthHistory.allergies}
               </CustomText>
               <Image
                 style={{
@@ -162,11 +140,11 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                Linking.openURL(Constant.App.privacyPolicyurl);
+                navigation.navigate(Constant.App.screenNames.Medications);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.privacyPolicies}
+                {lang.healthHistory.medications}
               </CustomText>
               <Image
                 style={{
@@ -181,11 +159,11 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                Linking.openURL(Constant.App.helpUrl);
+                navigation.navigate(Constant.App.screenNames.MedicalHistory);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.help}
+                {lang.healthHistory.medicalHistory}
               </CustomText>
               <Image
                 style={{
@@ -200,11 +178,11 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                Linking.openURL(Constant.App.rateUsUrl);
+                navigation.navigate(Constant.App.screenNames.Insurance);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.rate}
+                {lang.healthHistory.insurance}
               </CustomText>
               <Image
                 style={{
@@ -219,11 +197,13 @@ class Account extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.ReferFriend);
+                navigation.navigate(
+                  Constant.App.screenNames.PrevAppointmentNotes
+                );
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.account.refer}
+                {lang.healthHistory.notes}
               </CustomText>
               <Image
                 style={{
@@ -233,21 +213,6 @@ class Account extends PureComponent {
                 resizeMode="contain"
                 source={staticImages.rightChevronIcon}
               />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.logoutParentContainerStyle}
-              onPress={() => {
-                const payload = {
-                  navigation,
-                  isLoaderShow: true,
-                };
-                signOut(payload);
-              }}
-            >
-              <CustomText style={styles.logoutTextStyle}>
-                {lang.account.logout}
-              </CustomText>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -268,4 +233,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Account);
+)(HealthHistory);
