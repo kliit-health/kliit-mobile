@@ -60,7 +60,66 @@ class Pregnancy extends PureComponent {
           <ScrollView
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
-          />
+          >
+            <TouchableOpacity
+              style={styles.itemsParentContainerStyle}
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.BasicInfo);
+              }}
+            >
+              <CustomText style={styles.itemTextStyle}>
+                {lang.pregnancy.pregnancyHistory}
+              </CustomText>
+              <Image
+                style={{
+                  width: 20,
+                  height: 40,
+                }}
+                resizeMode="contain"
+                source={staticImages.rightChevronIcon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.itemsParentContainerStyle}
+              onPress={() => {
+                navigation.navigate(
+                  Constant.App.screenNames.PregnancyAndChildren
+                );
+              }}
+            >
+              <CustomText style={styles.itemTextStyle}>
+                {lang.pregnancy.currentPregnancy}
+              </CustomText>
+              <Image
+                style={{
+                  width: 20,
+                  height: 40,
+                }}
+                resizeMode="contain"
+                source={staticImages.rightChevronIcon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.itemsParentContainerStyle}
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.LifeStyle);
+              }}
+            >
+              <CustomText style={styles.itemTextStyle}>
+                {lang.pregnancy.children}
+              </CustomText>
+              <Image
+                style={{
+                  width: 20,
+                  height: 40,
+                }}
+                resizeMode="contain"
+                source={staticImages.rightChevronIcon}
+              />
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       )
     );

@@ -229,6 +229,11 @@ const Language = {
       insurance: "Insurance",
       notes: "Previous Appointment Notes",
     },
+    pregnancy: {
+      pregnancyHistory: "Pregnancy History",
+      currentPregnancy: "Current Pregnancy",
+      children: "Children",
+    },
   },
 };
 export default Language;
