@@ -1,20 +1,11 @@
 import React, { PureComponent } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Linking,
-} from "react-native";
+import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import styles, { AVATAR_SIZE } from "./style";
 import CustomText from "../../components/customText";
-import CustomButton from "../../components/customButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
 class Pregnancy extends PureComponent {
@@ -64,7 +55,7 @@ class Pregnancy extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.BasicInfo);
+                navigation.navigate(Constant.App.screenNames.PregnancyHistory);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
@@ -110,6 +101,40 @@ class Pregnancy extends PureComponent {
               <CustomText style={styles.itemTextStyle}>
                 {lang.pregnancy.children}
               </CustomText>
+              <Image
+                style={{
+                  width: 20,
+                  height: 40,
+                }}
+                resizeMode="contain"
+                source={staticImages.rightChevronIcon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.itemsParentContainerStyle}
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.Loss);
+              }}
+            >
+              <CustomText style={styles.itemTextStyle}>Loss</CustomText>
+              <Image
+                style={{
+                  width: 20,
+                  height: 40,
+                }}
+                resizeMode="contain"
+                source={staticImages.rightChevronIcon}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.itemsParentContainerStyle}
+              onPress={() => {
+                navigation.navigate(Constant.App.screenNames.Birth);
+              }}
+            >
+              <CustomText style={styles.itemTextStyle}>Birth</CustomText>
               <Image
                 style={{
                   width: 20,

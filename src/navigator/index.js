@@ -46,6 +46,9 @@ import Medications from "../screens/medications";
 import MedicalHistory from "../screens/medicalHistory";
 import Insurance from "../screens/insurance";
 import PrevAppointmentNotes from "../screens/prevAppointmentsNotes";
+import PregnancyHistory from "../screens/pregnancyHistory";
+import Loss from "../screens/loss";
+import Birth from "../screens/birth";
 
 let lang = Language.en;
 let tabIconSize = 25;
@@ -368,6 +371,9 @@ const MainAppStack = createStackNavigator(
     MedicalHistory: { screen: MedicalHistory },
     Insurance: { screen: Insurance },
     PrevAppointmentNotes: { screen: PrevAppointmentNotes },
+    PregnancyHistory: { screen: PregnancyHistory },
+    Loss: { screen: Loss },
+    Birth: { screen: Birth },
   },
   {
     headerMode: "none",
