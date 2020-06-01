@@ -19,7 +19,6 @@ import { loginApi, resetLoginState } from './action';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 let lang = Language['en'];
-let rootRef;
 class Login extends PureComponent {
   constructor(props) {
     super(props);

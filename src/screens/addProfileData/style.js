@@ -7,25 +7,51 @@ let parentPaddingValue = metrics.DEVICE_WIDTH * 0.08;
 let parentPadding = parentPaddingValue * 2;
 let childPaddingValue = metrics.DEVICE_WIDTH * 0.03;
 let childPadding = parentPadding + (childPaddingValue * 2);
+
 const styles = StyleSheet.create({
-  parentContainerStyle: {
-    flex: 1,
-    marginTop: getStatusBarHeight(),
-  },
-  contentContainerStyle: {
-    padding: parentPaddingValue,
-  },
   backIconStyle: {
     margin: metrics.DEVICE_HEIGHT * 0.02,
     height: metrics.DEVICE_WIDTH * 0.05,
     width: metrics.DEVICE_WIDTH * 0.05,
     alignSelf: 'flex-end',
   },
-  profileImgViewStyle: {
-    justifyContent: 'center',
+
+  birthDayContainerStyle: {
+    flexDirection: 'row',
     alignItems: 'center',
-    width: metrics.DEVICE_WIDTH - parentPadding,
+    justifyContent: 'center',
+    width: metrics.DEVICE_WIDTH - childPadding,
+    marginTop: metrics.DEVICE_HEIGHT * 0.03,
+    borderBottomColor: Constant.App.colors.blackColor,
+    borderBottomWidth: 0.5,
+    paddingBottom: metrics.DEVICE_HEIGHT * 0.01,
   },
+
+  birthDayTextStyle: {
+    color: Constant.App.colors.blackColor,
+    fontSize: Constant.App.textSize.Normal,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+    textAlign: 'left',
+    alignSelf: 'center',
+    width: metrics.DEVICE_WIDTH - childPadding,
+  },
+
+  buttonContainerStyle: {
+    alignSelf: 'center',
+    borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
+    padding: Constant.App.dimensions.btnPaddingGlobal,
+    width: metrics.DEVICE_WIDTH - childPadding,
+    backgroundColor: Constant.App.colors.blueColor,
+    marginTop: metrics.DEVICE_HEIGHT * 0.03,
+  },
+
+  buttonTextStyle: {
+    textAlign: 'center',
+    fontSize: Constant.App.textSize.Normal,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+    color: Constant.App.colors.whiteColor,
+  },
+
   cameraIconContainerStyle: {
     alignItems: 'center',
     backgroundColor: Constant.App.colors.blueColor,
@@ -37,25 +63,21 @@ const styles = StyleSheet.create({
     top: 0,
     right: metrics.DEVICE_WIDTH * 0.32 - (metrics.DEVICE_WIDTH * 0.32) * 0.2,
   },
+
   cameraIconStyle: {
     height: metrics.DEVICE_WIDTH * 0.04,
     width: metrics.DEVICE_WIDTH * 0.04,
   },
-  titleContainer: {
-    fontFamily: Constant.App.fontFamily.headerBold,
-    marginTop: metrics.DEVICE_HEIGHT * 0.05,
-    flexDirection: 'column',
-    width: metrics.DEVICE_WIDTH - parentPadding,
-    paddingLeft: childPaddingValue,
-    paddingRight: childPaddingValue,
+  
+  contentContainerStyle: {
+    padding: parentPaddingValue,
   },
-  titleTextStyle: {
-    fontFamily: Constant.App.fontFamily.headerBold,
-    textAlign: 'center',
-    fontSize: Constant.App.textSize.xxLarge,
-    color: Constant.App.colors.blackColor,
-    width: metrics.DEVICE_WIDTH - childPadding,
+
+  dropDownIconStyle: {
+    height: metrics.DEVICE_WIDTH * 0.04,
+    width: metrics.DEVICE_WIDTH * 0.04,
   },
+
   inputTextParentContainerStyle: {
     flexDirection: 'column',
     width: metrics.DEVICE_WIDTH - parentPadding,
@@ -63,6 +85,7 @@ const styles = StyleSheet.create({
     paddingRight: childPaddingValue,
     marginTop: metrics.DEVICE_HEIGHT * 0.02,
   },
+
   inputTextContainerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -70,6 +93,7 @@ const styles = StyleSheet.create({
     width: metrics.DEVICE_WIDTH - childPadding,
     marginTop: metrics.DEVICE_HEIGHT * 0.01,
   },
+
   inputTextFirstNameContainerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -79,6 +103,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Constant.App.colors.blackColor,
     borderBottomWidth: 0.5,
   },
+
   inputTypeStyle: {
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
@@ -86,24 +111,57 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: (metrics.DEVICE_WIDTH - childPadding) * 0.47,
   },
-  birthDayContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: metrics.DEVICE_WIDTH - childPadding,
-    marginTop: metrics.DEVICE_HEIGHT * 0.03,
-    borderBottomColor: Constant.App.colors.blackColor,
-    borderBottomWidth: 0.5,
-    paddingBottom: metrics.DEVICE_HEIGHT * 0.01,
+  
+  parentContainerStyle: {
+    flex: 1,
+    marginTop: getStatusBarHeight(),
   },
-  birthDayTextStyle: {
+  
+
+  profileImgViewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: metrics.DEVICE_WIDTH - parentPadding,
+  },
+
+  pronounsParentContainerStyle: {
+    marginTop: metrics.DEVICE_HEIGHT * 0.03,
+    width: metrics.DEVICE_WIDTH - parentPadding,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  pronounsTitleTextStyle: {
+    color: Constant.App.colors.blackColor,
+    fontSize: Constant.App.textSize.Large,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+    textAlign: 'left',
+    width: metrics.DEVICE_WIDTH - parentPadding,
+  },
+
+  pronounsContainerStyle: {
+    marginTop: metrics.DEVICE_HEIGHT * 0.02,
+    width: metrics.DEVICE_WIDTH - parentPadding,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  pronounsTextStyle: {
+    paddingLeft: 10,
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
     textAlign: 'left',
-    alignSelf: 'center',
-    width: metrics.DEVICE_WIDTH - childPadding,
+    width: metrics.DEVICE_WIDTH - parentPadding - (metrics.DEVICE_WIDTH * 0.05),
   },
+
+  pronounsChecboxIconStyle: {
+    height: metrics.DEVICE_WIDTH * 0.05,
+    width: metrics.DEVICE_WIDTH * 0.05,
+  },
+
   stateDropDownContainerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -114,6 +172,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     paddingBottom: metrics.DEVICE_HEIGHT * 0.01,
   },
+
   stateDropDownTextStyle: {
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
@@ -122,57 +181,24 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: metrics.DEVICE_WIDTH - childPadding - (metrics.DEVICE_WIDTH * 0.05),
   },
-  dropDownIconStyle: {
-    height: metrics.DEVICE_WIDTH * 0.04,
-    width: metrics.DEVICE_WIDTH * 0.04,
-  },
-  pronounsParentContainerStyle: {
-    marginTop: metrics.DEVICE_HEIGHT * 0.03,
-    width: metrics.DEVICE_WIDTH - parentPadding,
+
+  titleContainer: {
+    fontFamily: Constant.App.fontFamily.headerBold,
+    marginTop: metrics.DEVICE_HEIGHT * 0.05,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pronounsTitleTextStyle: {
-    color: Constant.App.colors.blackColor,
-    fontSize: Constant.App.textSize.Large,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
     width: metrics.DEVICE_WIDTH - parentPadding,
+    paddingLeft: childPaddingValue,
+    paddingRight: childPaddingValue,
   },
-  pronounsContainerStyle: {
-    marginTop: metrics.DEVICE_HEIGHT * 0.02,
-    width: metrics.DEVICE_WIDTH - parentPadding,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pronounsTextStyle: {
-    paddingLeft: 10,
-    color: Constant.App.colors.blackColor,
-    fontSize: Constant.App.textSize.Normal,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
-    width: metrics.DEVICE_WIDTH - parentPadding - (metrics.DEVICE_WIDTH * 0.05),
-  },
-  pronounsChecboxIconStyle: {
-    height: metrics.DEVICE_WIDTH * 0.05,
-    width: metrics.DEVICE_WIDTH * 0.05,
-  },
-  buttonContainerStyle: {
-    alignSelf: 'center',
-    borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
-    padding: Constant.App.dimensions.btnPaddingGlobal,
-    width: metrics.DEVICE_WIDTH - childPadding,
-    backgroundColor: Constant.App.colors.blueColor,
-    marginTop: metrics.DEVICE_HEIGHT * 0.03,
-  },
-  buttonTextStyle: {
+
+  titleTextStyle: {
+    fontFamily: Constant.App.fontFamily.headerBold,
     textAlign: 'center',
-    fontSize: Constant.App.textSize.Normal,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-    color: Constant.App.colors.whiteColor,
+    fontSize: Constant.App.textSize.xxLarge,
+    color: Constant.App.colors.blackColor,
+    width: metrics.DEVICE_WIDTH - childPadding,
   },
+
   termsConditionsTextContainerStyle: {
     marginTop: metrics.DEVICE_HEIGHT * 0.03,
     marginBottom: metrics.DEVICE_HEIGHT * 0.03,
@@ -184,6 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   termsConditionsTextStyle: {
     marginTop: 2,
     padding: 2,
@@ -192,6 +219,7 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.Small,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
+
   termsConditionsTextHighlightedStyle: {
     padding: 2,
     textAlign: 'center',
@@ -199,6 +227,7 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.Small,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
+  
 });
 
 export default styles;
