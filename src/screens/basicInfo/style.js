@@ -9,8 +9,6 @@ let parentPadding = parentPaddingValue * 2;
 let childPaddingValue = metrices.DEVICE_WIDTH * 0.03;
 let childPadding = parentPadding + childPaddingValue * 2;
 
-export const AVATAR_SIZE = 111;
-
 const styles = StyleSheet.create({
   birthDayContainerStyle: {
     flexDirection: "row",

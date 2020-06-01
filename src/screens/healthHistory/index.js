@@ -4,17 +4,13 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Linking,
 } from "react-native";
 import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
+import styles from "./style";
 import CustomText from "../../components/customText";
-import CustomButton from "../../components/customButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
 class HealthHistory extends PureComponent {
@@ -49,7 +45,7 @@ class HealthHistory extends PureComponent {
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
+    const { navigation, userData } = this.props;
     const { staticImages } = Constant.App;
     return (
       userData && (

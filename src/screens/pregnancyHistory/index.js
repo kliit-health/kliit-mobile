@@ -4,19 +4,16 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Linking,
   Text,
 } from "react-native";
 import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
+import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import RadioButtonRN from "../../components/radioButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
 class PregnancyHistory extends PureComponent {

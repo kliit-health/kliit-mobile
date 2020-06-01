@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
+import styles from "./style";
 import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
@@ -42,7 +42,7 @@ class Pregnancy extends PureComponent {
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
+    const { navigation, userData } = this.props;
     const { staticImages } = Constant.App;
     return (
       userData && (
