@@ -8,7 +8,7 @@ import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 
 let lang = Language["en"];
-class Pregnancy extends PureComponent {
+class CurrentPregnancy extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -33,9 +33,7 @@ class Pregnancy extends PureComponent {
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
-        <CustomText style={styles.titleTextStyle}>
-          Pregnancy and Children
-        </CustomText>
+        <CustomText style={styles.titleTextStyle}>Current Pregnancy</CustomText>
         <CustomText style={styles.doneTextStyle}>{}</CustomText>
       </View>
     );
@@ -59,7 +57,7 @@ class Pregnancy extends PureComponent {
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.pregnancy.pregnancyHistory}
+                {lang.pregnancy.adjustDueDate}
               </CustomText>
               <Image
                 style={{
@@ -74,11 +72,11 @@ class Pregnancy extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.PregnancyCurrent);
+                navigation.navigate(Constant.App.screenNames.Birth);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.pregnancy.currentPregnancy}
+                {lang.pregnancy.birth}
               </CustomText>
               <Image
                 style={{
@@ -93,11 +91,11 @@ class Pregnancy extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.LifeStyle);
+                navigation.navigate(Constant.App.screenNames.Loss);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
-                {lang.pregnancy.children}
+                {lang.pregnancy.loss}
               </CustomText>
               <Image
                 style={{
@@ -127,4 +125,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Pregnancy);
+)(CurrentPregnancy);

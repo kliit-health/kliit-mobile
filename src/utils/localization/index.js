@@ -233,6 +233,9 @@ const Language = {
       pregnancyHistory: "Pregnancy History",
       currentPregnancy: "Current Pregnancy",
       children: "Children",
+      adjustDueDate: "Adjust Due Date",
+      birth: "I Have Given Birth",
+      loss: "I Have Experienced a Loss",
     },
   },
 };

@@ -128,6 +128,7 @@ const Constant = {
       PaymentMethods: "PaymentMethods",
       PayPalApproval: "PayPalApproval",
       PrevAppointmentNotes: "PrevAppointmentNotes",
+      PregnancyCurrent: "PregnancyCurrent",
       PregnancyHistory: "PregnancyHistory",
       PregnancyAndChildren: "PregnancyAndChildren",
       ReferFriend: "ReferFriend",

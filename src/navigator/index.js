@@ -49,6 +49,7 @@ import PrevAppointmentNotes from "../screens/prevAppointmentsNotes";
 import PregnancyHistory from "../screens/pregnancyHistory";
 import Loss from "../screens/loss";
 import Birth from "../screens/birth";
+import CurrentPregnancy from "../screens/pregnancyCurrent";
 
 let lang = Language.en;
 let tabIconSize = 25;
@@ -374,6 +375,7 @@ const MainAppStack = createStackNavigator(
     PregnancyHistory: { screen: PregnancyHistory },
     Loss: { screen: Loss },
     Birth: { screen: Birth },
+    PregnancyCurrent: { screen: CurrentPregnancy },
   },
   {
     headerMode: "none",
