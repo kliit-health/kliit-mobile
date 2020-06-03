@@ -8,48 +8,51 @@ import {
 import NavigationService from "./navigationService";
 import { Image, View } from "react-native";
 
-import Appointments from "../screens/appointments/";
-import AuthLoadingScreen from "../screens/authLoading";
-import Login from "../screens/login";
-import Ask from "../screens/ask";
-import AskExpert from "../screens/ask/expert";
 import Account from "../screens/account";
 import AccountExpert from "../screens/account/expert";
-import Tutorial from "../screens/tutorial";
-import CustomText from "../components/customText";
-import Constant from "../utils/constants";
-import ForgotPassword from "../screens/forgotPassword";
-import SignUp from "../screens/signUp";
+import AddChild from "../screens/addChild";
+import AddCreditOrDebitCard from "../screens/payment/AddCreditOrDebitCard";
 import AddProfileData from "../screens/addProfileData";
-import GetStarted from "../screens/getStarted";
-import Language from "../utils/localization";
-import ChooseExpert from "../screens/chooseExpert";
-import ExpertProfile from "../screens/expertProfile";
-import Setting from "../screens/setting";
-import SettingExpert from "../screens/setting/expert";
+import Allergies from "../screens/allergies";
+import Appointments from "../screens/appointments/";
+import Ask from "../screens/ask";
+import AskExpert from "../screens/ask/expert";
+import AuthLoadingScreen from "../screens/authLoading";
+import BasicInfo from "../screens/basicInfo";
+import Birth from "../screens/birth";
+import BuyingCredit from "../screens/payment/buyingCredit";
 import ChangePassword from "../screens/changePassword";
 import ChangePasswordExpert from "../screens/changePassword/expert";
 import Chat from "../screens/chat";
 import ChatExpert from "../screens/chat/expert";
-import Learn from "../screens/learn";
-import ReferFriend from "../screens/referFriend";
-import BuyingCredit from "../screens/payment/buyingCredit";
-import PaymentMethods from "../screens/payment/paymentMethods";
-import AddCreditOrDebitCard from "../screens/payment/AddCreditOrDebitCard";
-import PayPalApproval from "../screens/payment/buyingCredit/paypal";
+import Children from "../screens/children";
+import ChooseExpert from "../screens/chooseExpert";
+import Constant from "../utils/constants";
+import CurrentPregnancy from "../screens/pregnancyCurrent";
+import CustomText from "../components/customText";
+import DueDate from "../screens/dueDate";
+import ExpertProfile from "../screens/expertProfile";
+import ForgotPassword from "../screens/forgotPassword";
+import GetStarted from "../screens/getStarted";
 import HealthHistory from "../screens/healthHistory/";
-import BasicInfo from "../screens/basicInfo";
-import Pregnancy from "../screens/pregnancy";
+import Insurance from "../screens/insurance";
+import Language from "../utils/localization";
+import Learn from "../screens/learn";
 import Lifestyle from "../screens/lifestyle";
-import Allergies from "../screens/allergies";
+import Loss from "../screens/loss";
+import Login from "../screens/login";
 import Medications from "../screens/medications";
 import MedicalHistory from "../screens/medicalHistory";
-import Insurance from "../screens/insurance";
-import PrevAppointmentNotes from "../screens/prevAppointmentsNotes";
+import PaymentMethods from "../screens/payment/paymentMethods";
+import PayPalApproval from "../screens/payment/buyingCredit/paypal";
+import Pregnancy from "../screens/pregnancy";
 import PregnancyHistory from "../screens/pregnancyHistory";
-import Loss from "../screens/loss";
-import Birth from "../screens/birth";
-import CurrentPregnancy from "../screens/pregnancyCurrent";
+import PrevAppointmentNotes from "../screens/prevAppointmentsNotes";
+import ReferFriend from "../screens/referFriend";
+import SignUp from "../screens/signUp";
+import Setting from "../screens/setting";
+import SettingExpert from "../screens/setting/expert";
+import Tutorial from "../screens/tutorial";
 
 let lang = Language.en;
 let tabIconSize = 25;
@@ -351,31 +354,34 @@ const AppStackExpert = createStackNavigator(
 
 const MainAppStack = createStackNavigator(
   {
+    AddChild: { screen: AddChild },
+    AddCreditOrDebitCard: { screen: AddCreditOrDebitCard },
+    Allergies: { screen: Allergies },
     Appointments: { screen: Appointments },
+    BasicInfo: { screen: BasicInfo },
+    Birth: { screen: Birth },
     BottomTab: { screen: BottomTab },
-    ChooseExpert: { screen: ChooseExpert },
-    ExpertProfile: { screen: ExpertProfile },
-    Setting: { screen: Setting },
     ChangePassword: { screen: ChangePassword },
     Chat: { screen: Chat },
-    Learn: { screen: Learn },
-    ReferFriend: { screen: ReferFriend },
-    AddCreditOrDebitCard: { screen: AddCreditOrDebitCard },
-    PaymentMethods: { screen: PaymentMethods },
-    PayPalApproval: { screen: PayPalApproval },
+    Children: { screen: Children },
+    ChooseExpert: { screen: ChooseExpert },
+    DueDate: { screen: DueDate },
+    ExpertProfile: { screen: ExpertProfile },
     HealthHistory: { screen: HealthHistory },
-    BasicInfo: { screen: BasicInfo },
-    PregnancyAndChildren: { screen: Pregnancy },
+    Insurance: { screen: Insurance },
+    Learn: { screen: Learn },
     Lifestyle: { screen: Lifestyle },
-    Allergies: { screen: Allergies },
+    Loss: { screen: Loss },
     Medications: { screen: Medications },
     MedicalHistory: { screen: MedicalHistory },
-    Insurance: { screen: Insurance },
+    PaymentMethods: { screen: PaymentMethods },
+    PayPalApproval: { screen: PayPalApproval },
+    PregnancyAndChildren: { screen: Pregnancy },
+    PregnancyCurrent: { screen: CurrentPregnancy },
     PrevAppointmentNotes: { screen: PrevAppointmentNotes },
     PregnancyHistory: { screen: PregnancyHistory },
-    Loss: { screen: Loss },
-    Birth: { screen: Birth },
-    PregnancyCurrent: { screen: CurrentPregnancy },
+    ReferFriend: { screen: ReferFriend },
+    Setting: { screen: Setting },
   },
   {
     headerMode: "none",

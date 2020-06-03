@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   Modal,
@@ -7,27 +7,29 @@ import {
   DatePickerAndroid,
   DatePickerIOS,
   Platform,
-} from 'react-native';
-import CustomText from '../customText';
-import styles from './style';
-import CustomButton from '../customButton';
-import Moment from 'moment';
+} from "react-native";
+import CustomText from "../customText";
+import styles from "./style";
+import CustomButton from "../customButton";
+import Moment from "moment";
 
 let iosSelectedDate = null;
-const dateFormat = 'MM-DD-YYYY';
+const dateFormat = "MM-DD-YYYY";
 class DatePicker extends PureComponent {
   constructor(props) {
     super(props);
     const { selectedDate } = this.props;
     this.state = {
       showIosDateModal: false,
-      selectedDate: selectedDate ? selectedDate : '',
+      selectedDate: selectedDate ? selectedDate : "",
     };
   }
 
   openDatePicker() {
-    if (Platform.OS === 'ios') {
-      iosSelectedDate = Moment(new Date()).format(dateFormat);
+    if (Platform.OS === "ios") {
+      iosSelectedDate = Moment(new Date()).format(
+        this.props.format || dateFormat
+      );
       const { showIosDateModal } = this.state;
       this.showHideModal(showIosDateModal);
     } else {
@@ -36,7 +38,7 @@ class DatePicker extends PureComponent {
   }
 
   onDateChange(date) {
-    iosSelectedDate = Moment(date).format(dateFormat);
+    iosSelectedDate = Moment(date).format(this.props.format || dateFormat);
   }
 
   doneButtonModalDatePickerClick = () => {
@@ -45,7 +47,7 @@ class DatePicker extends PureComponent {
     if (iosSelectedDate) {
       this.setState({ selectedDate: iosSelectedDate });
       onSelection(iosSelectedDate);
-      iosSelectedDate = '';
+      iosSelectedDate = "";
     }
     this.showHideModal(showIosDateModal);
   };
@@ -56,51 +58,53 @@ class DatePicker extends PureComponent {
 
   async openAndroidDatePicker() {
     const { onSelection } = this.props;
+    const deliveryWindow = new Date();
+    deliveryWindow.setDate(deliveryWindow.getDate() + 365);
     try {
       const { action, year, month, day } = await DatePickerAndroid.open({
         date: new Date(),
-        maxDate: new Date(),
+        maxDate: deliveryWindow,
       });
       if (action !== DatePickerAndroid.dismissedAction) {
         const formatedDate = `${
           month + 1 === 1
-            ? '01'
+            ? "01"
             : month + 1 === 2
-            ? '02'
+            ? "02"
             : month + 1 === 3
-            ? '03'
+            ? "03"
             : month + 1 === 4
-            ? '04'
+            ? "04"
             : month + 1 === 5
-            ? '05'
+            ? "05"
             : month + 1 === 6
-            ? '06'
+            ? "06"
             : month + 1 === 7
-            ? '07'
+            ? "07"
             : month + 1 === 8
-            ? '08'
+            ? "08"
             : month + 1 === 9
-            ? '09'
+            ? "09"
             : month + 1
         }-${
           day === 1
-            ? '01'
+            ? "01"
             : day === 2
-            ? '02'
+            ? "02"
             : day === 3
-            ? '03'
+            ? "03"
             : day === 4
-            ? '04'
+            ? "04"
             : day === 5
-            ? '05'
+            ? "05"
             : day === 6
-            ? '06'
+            ? "06"
             : day === 7
-            ? '07'
+            ? "07"
             : day === 8
-            ? '08'
+            ? "08"
             : day === 9
-            ? '09'
+            ? "09"
             : day
         }-${year}`;
         this.setState({
@@ -109,15 +113,17 @@ class DatePicker extends PureComponent {
         onSelection(formatedDate);
       }
     } catch ({ code, message }) {
-      console.log('Cannot open date picker', message);
+      console.log("Cannot open date picker", message);
     }
   }
 
   renderIosDatePickerModalView() {
     const { showIosDateModal } = this.state;
+    const deliveryWindow = new Date();
+    deliveryWindow.setDate(deliveryWindow.getDate() + 365);
     return (
       <Modal
-        animationType='slide'
+        animationType="slide"
         transparent={true}
         onRequestClose={() => {}}
         visible={true}
@@ -125,29 +131,29 @@ class DatePicker extends PureComponent {
         <View
           style={{
             flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            justifyContent: 'flex-end',
+            backgroundColor: "rgba(0,0,0,0.5)",
+            justifyContent: "flex-end",
           }}
         >
           <View style={styles.modalDatePickerContainer}>
             <CustomButton
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
-              text={'Close'}
+              text={"Close"}
               onPress={() => this.showHideModal(showIosDateModal)}
             />
             <CustomButton
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
-              text={'Done'}
+              text={"Done"}
               onPress={() => this.doneButtonModalDatePickerClick()}
             />
           </View>
-          <View style={{ backgroundColor: 'white' }}>
+          <View style={{ backgroundColor: "white" }}>
             <DatePickerIOS
               date={new Date()}
-              maximumDate={new Date()}
-              mode='date'
+              maximumDate={deliveryWindow}
+              mode="date"
               onDateChange={(date) => this.onDateChange(date)}
             />
           </View>
@@ -171,7 +177,7 @@ class DatePicker extends PureComponent {
               ? selectedDate
               : placeHolder
               ? placeHolder
-              : 'Select date'}
+              : "Select date"}
           </CustomText>
         </TouchableOpacity>
         {showIosDateModal ? this.renderIosDatePickerModalView() : null}

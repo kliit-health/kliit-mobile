@@ -1,6 +1,6 @@
 <!-- Comment out this section and uncomment below to use DEV enviroment -->
 
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -35,11 +35,11 @@
 	<key>DATABASE_URL</key>
 	<string>https://kliit-health-app.firebaseio.com</string>
 </dict>
-</plist>
+</plist> -->
 
 <!-- Uncomment below to use DEV -->
 
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -74,4 +74,4 @@
 	<key>DATABASE_URL</key>
 	<string>https://kliit-health-dev.firebaseio.com</string>
 </dict>
-</plist> -->
+</plist>

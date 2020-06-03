@@ -6,9 +6,11 @@ import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import CustomInputText from "../../components/customInputText";
+
 
 let lang = Language["en"];
-class PregnancyCurrent extends PureComponent {
+class BasicInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +22,14 @@ class PregnancyCurrent extends PureComponent {
       height: null,
     };
   }
+
+  setWeight = (value) => {
+    this.setState({ weight: value });
+  };
+
+  setHeight = (value) => {
+    this.setState({ height: value });
+  };
 
   renderHeaderView() {
     const { navigation } = this.props;
@@ -41,13 +51,22 @@ class PregnancyCurrent extends PureComponent {
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
-        <CustomText style={styles.titleTextStyle}>Current Pregnancy</CustomText>
+        <CustomText style={styles.titleTextStyle}>Children</CustomText>
         <CustomText style={styles.doneTextStyle}>{}</CustomText>
       </View>
     );
   }
 
   render() {
+    const { staticImages } = Constant.App;
+    let {
+      dob,
+      gender,
+      showSelectHeight,
+      showSelectWeight,
+      weight,
+      height,
+    } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -58,14 +77,14 @@ class PregnancyCurrent extends PureComponent {
         >
           <View style={styles.inputTextParentContainerStyle}>
             <View style={styles.inputTextContainerStyle}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate(Constant.App.screenNames.DueDate);
-                }}
-              >
-                <View style={styles.dropDownContainerStyle}>
-                  <Text>Add New Pregnancy</Text>
-                </View>
+            <TouchableOpacity onPress={() => {
+                navigation.navigate(Constant.App.screenNames.AddChild);
+              }}>
+              <View style={styles.dropDownContainerStyle}>
+                
+                    <Text>Add New Child</Text>
+                
+              </View>
               </TouchableOpacity>
             </View>
           </View>
@@ -87,4 +106,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PregnancyCurrent);
+)(BasicInfo);

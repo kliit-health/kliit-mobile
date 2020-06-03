@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginTop: metrices.DEVICE_HEIGHT * 0.03,
     borderBottomColor: Constant.App.colors.lightGrey,
     borderBottomWidth: 0.5,
-    paddingBottom: metrices.DEVICE_HEIGHT * 0.01,
+    paddingBottom: metrices.DEVICE_HEIGHT * 0.1,
   },
 
   birthDayTextStyle: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontFamily: Constant.App.fontFamily.bodyRegular,
     textAlign: "left",
     alignSelf: "center",
-    width: metrices.DEVICE_WIDTH - parentPadding,
+    width: metrices.DEVICE_WIDTH - parentPadding - 30,
   },
 
   buttonContainerStyle: {
@@ -59,10 +59,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: metrices.DEVICE_WIDTH - parentPadding,
     marginTop: metrices.DEVICE_HEIGHT * 0.03,
-    borderColor: Constant.App.colors.lightGrey,
-    borderWidth: 0.5,
-    borderRadius: 4,
-    padding: metrices.DEVICE_HEIGHT * 0.01,
+    borderBottomColor: Constant.App.colors.lightGrey,
+    borderBottomWidth: 0.5,
+    paddingBottom: metrices.DEVICE_HEIGHT * 0.01,
   },
 
   dropDownIconStyle: {

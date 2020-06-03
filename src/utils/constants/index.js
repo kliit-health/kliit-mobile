@@ -97,6 +97,7 @@ const Constant = {
       AuthLoading: "AuthLoading",
     },
     screenNames: {
+      AddChild: "AddChild",
       AddCreditOrDebitCard: "AddCreditOrDebitCard",
       AddProfileData: "AddProfileData",
       Allergies: "Allergies",
@@ -112,7 +113,9 @@ const Constant = {
       ChangePasswordExpert: "ChangePasswordExpert",
       Chat: "Chat",
       ChatExpert: "ChatExpert",
+      Children: "Children",
       ChooseExpert: "ChooseExpert",
+      DueDate: "DueDate",
       ExpertProfile: "ExpertProfile",
       ForgotPassword: "ForgotPassword",
       GetStarted: "GetStarted",

@@ -32,6 +32,7 @@ class ExpertProfile extends Component {
   componentDidMount() {
     const { getData, navigation } = this.props;
     const { uid } = navigation.state.params;
+    console.log("Navigation Props: ", navigation.state.props)
     displayConsole('navigation.state.params', navigation.state.params);
     const obj = {
       expertsParams: {

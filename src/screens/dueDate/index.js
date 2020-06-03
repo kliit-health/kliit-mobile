@@ -1,23 +1,20 @@
 import React, { PureComponent } from "react";
-import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
+import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import CustomButton from "../../components/customButton";
+import DatePicker from "../../components/datePicker";
 
 let lang = Language["en"];
-class PregnancyCurrent extends PureComponent {
+class DueDate extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       dob: "",
-      gender: "",
-      showSelectHeight: false,
-      showSelectWeight: false,
-      weight: null,
-      height: null,
     };
   }
 
@@ -41,14 +38,16 @@ class PregnancyCurrent extends PureComponent {
             source={staticImages.rightChevronIcon}
           />
         </TouchableOpacity>
-        <CustomText style={styles.titleTextStyle}>Current Pregnancy</CustomText>
+        <CustomText style={styles.titleTextStyle}>Due Date</CustomText>
         <CustomText style={styles.doneTextStyle}>{}</CustomText>
       </View>
     );
   }
 
   render() {
-    const { navigation } = this.props;
+    const { staticImages } = Constant.App;
+    let { dob, showSelectHeight } = this.state;
+
     return (
       <View style={styles.container}>
         {this.renderHeaderView()}
@@ -58,16 +57,42 @@ class PregnancyCurrent extends PureComponent {
         >
           <View style={styles.inputTextParentContainerStyle}>
             <View style={styles.inputTextContainerStyle}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate(Constant.App.screenNames.DueDate);
-                }}
-              >
-                <View style={styles.dropDownContainerStyle}>
-                  <Text>Add New Pregnancy</Text>
-                </View>
-              </TouchableOpacity>
+              <View style={styles.dropDownContainerStyle}>
+                <TouchableOpacity
+                  style={{ flexDirection: "row" }}
+                  onPress={() => {
+                    this.setState({
+                      showSelectHeight: !showSelectHeight,
+                    });
+                  }}
+                >
+                  <DatePicker
+                    format="MMM Do YYYY"
+                    selectedDate={dob}
+                    placeHolder="Due Date"
+                    textStyle={styles.birthDayTextStyle}
+                    onSelection={(date) => {
+                      this.setState({
+                        dob: date,
+                      });
+                    }}
+                  />
+                  <Image
+                    resizeMode="contain"
+                    source={staticImages.downArrow}
+                    style={styles.dropDownIconStyle}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
+            <CustomButton
+              buttonStyle={styles.buttonContainerStyle}
+              textStyle={styles.buttonTextStyle}
+              onPress={() => {
+                console.log("");
+              }}
+              text="Save Due Date"
+            />
           </View>
         </ScrollView>
       </View>
@@ -87,4 +112,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PregnancyCurrent);
+)(DueDate);

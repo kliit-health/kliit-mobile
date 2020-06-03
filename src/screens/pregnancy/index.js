@@ -93,7 +93,7 @@ class Pregnancy extends PureComponent {
             <TouchableOpacity
               style={styles.itemsParentContainerStyle}
               onPress={() => {
-                navigation.navigate(Constant.App.screenNames.LifeStyle);
+                navigation.navigate(Constant.App.screenNames.Children);
               }}
             >
               <CustomText style={styles.itemTextStyle}>
