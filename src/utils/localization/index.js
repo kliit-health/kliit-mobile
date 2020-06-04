@@ -79,6 +79,7 @@ const Language = {
       heHim: "He/Him",
       theyThem: "They/Them",
       pronounsTitle: "Your pronouns (check all that apply)",
+      partnersTitle: "Your partners (check all that apply)",
       emptyProfileImageMsg: "Profile image is a required field",
       emptyFirstNameMsg: "First name is a required field",
       emptyLastNameMsg: "Last name is a required field",
