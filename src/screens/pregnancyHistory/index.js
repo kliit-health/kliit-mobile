@@ -1,16 +1,10 @@
 import React, { PureComponent } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Text,
-} from "react-native";
+import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
-import RadioButtonRN from "../../components/radioButton";
+import RadioButtonRN from "../../components/horizontalRadioButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
@@ -83,7 +77,7 @@ class PregnancyHistory extends PureComponent {
             </View>
             <RadioButtonRN
               box={false}
-              textColor="darkGrey"
+              textColor={Constant.App.colors.greyColorText}
               textStyle={{ fontSize: 14 }}
               data={data}
               selectedBtn={(e) => console.log(e)}
@@ -97,7 +91,7 @@ class PregnancyHistory extends PureComponent {
             </View>
             <RadioButtonRN
               box={false}
-              textColor="darkGrey"
+              textColor={Constant.App.colors.greyColorText}
               textStyle={{ fontSize: 14 }}
               data={data}
               selectedBtn={(e) => console.log(e)}
@@ -110,7 +104,7 @@ class PregnancyHistory extends PureComponent {
             </View>
             <RadioButtonRN
               box={false}
-              textColor="darkGrey"
+              textColor={Constant.App.colors.greyColorText}
               textStyle={{ fontSize: 14 }}
               data={data}
               selectedBtn={(e) => console.log(e)}
@@ -122,7 +116,7 @@ class PregnancyHistory extends PureComponent {
             </View>
             <RadioButtonRN
               box={false}
-              textColor="darkGrey"
+              textColor={Constant.App.colors.greyColorText}
               textStyle={{ fontSize: 14 }}
               data={data}
               selectedBtn={(e) => console.log(e)}
@@ -134,7 +128,7 @@ class PregnancyHistory extends PureComponent {
             </View>
             <RadioButtonRN
               box={false}
-              textColor="darkGrey"
+              textColor={Constant.App.colors.greyColorText}
               textStyle={{ fontSize: 14 }}
               data={data}
               selectedBtn={(e) => console.log(e)}

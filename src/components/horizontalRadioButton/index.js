@@ -133,7 +133,6 @@ class RadioButtonRN extends Component {
     return (
       <View style={styles.container}>
         {data.map((item, index) => {
-          console.log("Item: ", item);
           return (
             <TouchableOpacity
               key={index}

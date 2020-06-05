@@ -9,6 +9,22 @@ let parentPadding = parentPaddingValue * 2;
 export const AVATAR_SIZE = 111;
 
 const styles = StyleSheet.create({
+  buttonContainerStyle: {
+    alignSelf: "center",
+    borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
+    padding: Constant.App.dimensions.btnPaddingGlobal,
+    width: metrices.DEVICE_WIDTH - parentPadding,
+    backgroundColor: Constant.App.colors.blueColor,
+    marginTop: metrices.DEVICE_HEIGHT * 0.03,
+  },
+
+  buttonTextStyle: {
+    textAlign: "center",
+    fontSize: Constant.App.textSize.Large,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+    color: Constant.App.colors.whiteColor,
+  },
+
   container: {
     flex: 1,
     flexDirection: "column",
@@ -110,6 +126,29 @@ const styles = StyleSheet.create({
     fontSize: Constant.App.textSize.xLarge,
     width: metrices.DEVICE_WIDTH,
     fontFamily: Constant.App.fontFamily.bodyRegular,
+  },
+
+  inputTextContainerStyle: {
+    marginTop: metrices.DEVICE_HEIGHT * 0.05,
+    flexDirection: "row",
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    width: metrices.DEVICE_WIDTH - parentPadding,
+    paddingBottom: Platform.OS === "ios" ? metrices.DEVICE_HEIGHT * 0.01 : 0,
+    borderBottomColor: Constant.App.colors.lightGrey,
+    borderBottomWidth: 0.5,
+  },
+
+  inputTypeStyle: {
+    paddingHorizontal: 0,
+    color: Constant.App.colors.blackColor,
+    width: metrices.DEVICE_WIDTH - parentPadding,
+    fontSize: Constant.App.textSize.Large,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+    textAlign: "left",
+    fontWeight: "200",
+    textAlignVertical: "top",
   },
 });
 export default styles;

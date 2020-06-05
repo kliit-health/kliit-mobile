@@ -1,20 +1,13 @@
 import React, { PureComponent } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Linking,
-} from "react-native";
+import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
+import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
+import RadioButtonRN from "../../components/verticalRadioButton";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
 class Insurance extends PureComponent {
@@ -51,14 +44,60 @@ class Insurance extends PureComponent {
   render() {
     const { navigation, signOut, userData } = this.props;
     const { staticImages } = Constant.App;
+    const data = [
+      {
+        label: "Aetna Health",
+      },
+      {
+        label: "Blue Cross / Blue Shield",
+      },
+      {
+        label: "Cigna",
+      },
+      {
+        label: "Humana",
+      },
+      {
+        label: "Kaiser",
+      },
+      {
+        label: "United Health",
+      },
+      {
+        label: "WellPoint",
+      },
+      {
+        label: "Other",
+      },
+    ];
     return (
       userData && (
         <View style={styles.container}>
           {this.renderHeaderView()}
           <ScrollView
+            style={{ marginTop: 20 }}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
-          />
+          >
+            <View style={styles.questionContainer}>
+              <Text style={styles.title}>What insurance do you have?</Text>
+            </View>
+            <RadioButtonRN
+              box={false}
+              textColor={Constant.App.colors.greyColorText}
+              textStyle={{ fontSize: 14 }}
+              data={data}
+              selectedBtn={(e) => console.log(e)}
+            />
+            <CustomButton
+              buttonStyle={styles.buttonContainerStyle}
+              textStyle={styles.buttonTextStyle}
+              onPress={() => {
+                console.log("");
+              }}
+              text="Save"
+            />
+          </ScrollView>
         </View>
       )
     );
