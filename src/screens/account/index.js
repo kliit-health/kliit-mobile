@@ -77,7 +77,7 @@ class Account extends PureComponent {
                   source={{
                     uri: userData.profileInfo.profileImageUrl
                       ? userData.profileInfo.profileImageUrl
-                      : null,
+                      : "",
                   }}
                   activeOpacity={0.7}
                 />

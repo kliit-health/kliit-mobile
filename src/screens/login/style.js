@@ -1,25 +1,25 @@
-import { StyleSheet } from 'react-native';
-import Constant from '../../utils/constants';
-import metrics from '../../utils/metrices';
-import { getStatusBarHeight } from '../../components/iPhoneXHelper';
+import { StyleSheet } from "react-native";
+import Constant from "../../utils/constants";
+import metrics from "../../utils/metrices";
+import { getStatusBarHeight } from "../../components/iPhoneXHelper";
 
 let parentPaddingValue = metrics.DEVICE_WIDTH * 0.08;
 let parentPadding = parentPaddingValue * 2;
 let childPaddingValue = metrics.DEVICE_WIDTH * 0.03;
-let childPadding = parentPadding + (childPaddingValue * 2);
+let childPadding = parentPadding + childPaddingValue * 2;
 
 const styles = StyleSheet.create({
   backIconStyle: {
     margin: metrics.DEVICE_HEIGHT * 0.02,
     height: metrics.DEVICE_WIDTH * 0.05,
     width: metrics.DEVICE_WIDTH * 0.05,
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
-  
+
   contentContainerStyle: {
     padding: parentPaddingValue,
   },
-  
+
   expertButtonContainerStyle: {
     borderWidth: 1,
     padding: 5,
@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
     width: (metrics.DEVICE_WIDTH - parentPadding) * 0.5,
     backgroundColor: Constant.App.colors.lightGrey,
   },
-  
+
   expertButtonTextStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
     color: Constant.App.colors.blackColor,
   },
 
   forgotPasswordTextStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: metrics.DEVICE_HEIGHT * 0.02,
     color: Constant.App.colors.blueColor,
     fontSize: Constant.App.textSize.Medium,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
 
   inputTextParentContainerStyle: {
-    flexDirection: 'column',
+    flexDirection: "column",
     width: metrics.DEVICE_WIDTH - parentPadding,
     marginTop: metrics.DEVICE_HEIGHT * 0.01,
     paddingLeft: childPaddingValue,
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
   },
 
   inputTextContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: metrics.DEVICE_WIDTH - childPadding,
-    paddingBottom: Platform.OS === 'ios' ? metrics.DEVICE_HEIGHT * 0.01 : 0,
+    paddingBottom: Platform.OS === "ios" ? metrics.DEVICE_HEIGHT * 0.01 : 0,
     marginTop: metrics.DEVICE_HEIGHT * 0.01,
     borderBottomColor: Constant.App.colors.blackColor,
     borderBottomWidth: 0.5,
@@ -72,43 +72,49 @@ const styles = StyleSheet.create({
     width: metrics.DEVICE_WIDTH - parentPadding,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
+    textAlign: "left",
     width: metrics.DEVICE_WIDTH - childPadding,
   },
 
   inputTypePasswordStyle: {
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
-    textAlign: 'left',
-    width: metrics.DEVICE_WIDTH - childPadding - (metrics.DEVICE_WIDTH * 0.05),
+    textAlign: "left",
+    width: metrics.DEVICE_WIDTH - childPadding - metrics.DEVICE_WIDTH * 0.05,
   },
 
   loginButtonContainerStyle: {
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
     padding: Constant.App.dimensions.btnPaddingGlobal,
     width: metrics.DEVICE_WIDTH - childPadding,
     backgroundColor: Constant.App.colors.blueColor,
     marginTop: metrics.DEVICE_HEIGHT * 0.05,
   },
-  
+
   loginButtonTextStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
     color: Constant.App.colors.whiteColor,
   },
-  
+
   logoStyle: {
-    alignSelf: 'center',
-    height: metrics.DEVICE_WIDTH * 0.32,
-    width: metrics.DEVICE_WIDTH * 0.32,
+    alignSelf: "center",
+    height: metrics.DEVICE_WIDTH * 0.2,
+    width: metrics.DEVICE_WIDTH * 0.2,
+  },
+
+  logo2Style: {
+    alignSelf: "center",
+    height: metrics.DEVICE_WIDTH * 0.35,
+    width: metrics.DEVICE_WIDTH * 0.35,
   },
 
   parentContainerStyle: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: getStatusBarHeight(),
   },
 
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
   },
 
   toggleButtonContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: metrics.DEVICE_WIDTH - parentPadding,
     backgroundColor: Constant.App.colors.lightGrey,
     borderRadius: 10,
@@ -136,12 +142,11 @@ const styles = StyleSheet.create({
   },
 
   userButtonTextStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
     color: Constant.App.colors.blackColor,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
-
 });
 
 export default styles;

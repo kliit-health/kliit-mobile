@@ -1,30 +1,30 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   ScrollView,
   Image,
   TouchableOpacity,
   Platform,
-} from 'react-native';
-import { connect } from 'react-redux';
-import CustomText from '../../components/customText';
-import styles from './style';
-import Constant from '../../utils/constants';
-import CustomInputText from '../../components/customInputText';
-import Language from '../../utils/localization';
-import CustomButton from '../../components/customButton';
-import { showOrHideModal } from '../../components/customModal/action';
-import { isEmail } from '../../utils/helper';
-import { loginApi, resetLoginState } from './action';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
+} from "react-native";
+import { connect } from "react-redux";
+import CustomText from "../../components/customText";
+import styles from "./style";
+import Constant from "../../utils/constants";
+import CustomInputText from "../../components/customInputText";
+import Language from "../../utils/localization";
+import CustomButton from "../../components/customButton";
+import { showOrHideModal } from "../../components/customModal/action";
+import { isEmail } from "../../utils/helper";
+import { loginApi, resetLoginState } from "./action";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
-let lang = Language['en'];
+let lang = Language["en"];
 class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       showPassword: false,
       isUser: true,
     };
@@ -34,7 +34,7 @@ class Login extends PureComponent {
     const { clearState, loginFailure } = this.props;
     if (loginFailure) {
       this.setState({
-        password: '',
+        password: "",
       });
       clearState();
     }
@@ -47,21 +47,21 @@ class Login extends PureComponent {
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => this.setState({ email: value })}
             placeholder={lang.login.Email}
             value={email}
             style={
               email
                 ? styles.inputTypeStyle
-                : [styles.inputTypeStyle, { fontWeight: '100' }]
+                : [styles.inputTypeStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
         </View>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => {
               this.setState({ password: value });
             }}
@@ -71,7 +71,7 @@ class Login extends PureComponent {
             style={
               password
                 ? styles.inputTypePasswordStyle
-                : [styles.inputTypePasswordStyle, { fontWeight: '100' }]
+                : [styles.inputTypePasswordStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
@@ -79,7 +79,7 @@ class Login extends PureComponent {
             onPress={() => this.setState({ showPassword: !showPassword })}
           >
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               source={
                 showPassword
                   ? staticImages.passwordVisibleIcon
@@ -103,7 +103,7 @@ class Login extends PureComponent {
         }}
       >
         <Image
-          resizeMode='contain'
+          resizeMode="contain"
           source={staticImages.crossIcon}
           style={styles.backIconStyle}
         />
@@ -114,11 +114,18 @@ class Login extends PureComponent {
   renderLogoView() {
     const { staticImages } = Constant.App;
     return (
-      <Image
-        resizeMode='contain'
-        source={staticImages.loginLogoImage}
-        style={styles.logoStyle}
-      />
+      <View style={styles.contentContainerStyle}>
+        <Image
+          resizeMode="contain"
+          source={staticImages.loginLogoImage}
+          style={styles.logoStyle}
+        />
+        <Image
+          resizeMode="contain"
+          source={staticImages.loginLogoImage2}
+          style={styles.logo2Style}
+        />
+      </View>
     );
   }
 
@@ -206,7 +213,7 @@ class Login extends PureComponent {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {this.renderCrossIconView()}
@@ -218,7 +225,7 @@ class Login extends PureComponent {
             {this.renderForgotPasswordView()}
           </View>
         </ScrollView>
-        {Platform.OS === 'ios' && <KeyboardSpacer />}
+        {Platform.OS === "ios" && <KeyboardSpacer />}
       </View>
     );
   }
@@ -234,4 +241,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearState: () => dispatch(resetLoginState()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

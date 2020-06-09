@@ -61,7 +61,7 @@ class Ask extends PureComponent {
             setTimeout(() => {
               let options = {
                 AppleAppID: "1487436865",
-                GooglePackageName: "com.klit",
+                GooglePackageName: "com.kiira",
                 preferredAndroidMarket: AndroidMarket.Google,
                 preferInApp: true,
                 openAppStoreIfInAppFails: true,
@@ -156,7 +156,7 @@ class Ask extends PureComponent {
             }
             size={70}
             rounded
-            source={{ uri: profileImageUrl ? profileImageUrl : null }}
+            source={{ uri: profileImageUrl ? profileImageUrl : "" }}
             activeOpacity={0.7}
           />
           <TouchableOpacity
@@ -286,7 +286,7 @@ class Ask extends PureComponent {
                       source={{
                         uri: item.profileInfo.profileImageUrl
                           ? item.profileInfo.profileImageUrl
-                          : null,
+                          : "",
                       }}
                       activeOpacity={0.7}
                     />
@@ -388,7 +388,7 @@ class Ask extends PureComponent {
                         source={{
                           uri: item.expertInfo.profileInfo.profileImageUrl
                             ? item.expertInfo.profileInfo.profileImageUrl
-                            : null,
+                            : "",
                         }}
                         activeOpacity={0.7}
                       />
@@ -464,7 +464,7 @@ class Ask extends PureComponent {
               source={{
                 uri: questionData.expertInfo.profileInfo.profileImageUrl
                   ? questionData.expertInfo.profileInfo.profileImageUrl
-                  : null,
+                  : "",
               }}
               activeOpacity={0.7}
             />

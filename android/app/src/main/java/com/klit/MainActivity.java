@@ -1,4 +1,4 @@
-package com.klit;
+package com.kiira;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -20,7 +20,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "klit";
+        return "kiira";
     }
 
     @Override

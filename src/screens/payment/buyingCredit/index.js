@@ -1,27 +1,27 @@
-import React, { PureComponent } from 'react';
-import { View, Image } from 'react-native';
-import { connect } from 'react-redux';
-import styles, { PaymentDropdownDimensions } from './style';
-import Constant from '../../../utils/constants';
-import CustomText from '../../../components/customText';
-import IconButton from '../../../components/IconButton';
-import Language from '../../../utils/localization';
-import FlyingLabelIcon from '../../../components/FlyingLabelIcon';
-import CustomButton from '../../../components/customButton';
-import ModalDropdown from 'react-native-modal-dropdown';
+import React, { PureComponent } from "react";
+import { View, Image } from "react-native";
+import { connect } from "react-redux";
+import styles, { PaymentDropdownDimensions } from "./style";
+import Constant from "../../../utils/constants";
+import CustomText from "../../../components/customText";
+import IconButton from "../../../components/IconButton";
+import Language from "../../../utils/localization";
+import FlyingLabelIcon from "../../../components/FlyingLabelIcon";
+import CustomButton from "../../../components/customButton";
+import ModalDropdown from "../../../components/modalDropdown";
 import {
   getCreditAmountsOptions,
   getPaymentMethods,
   buyCreditsWithCard,
   buyCreditsWithToken,
   buyCreditsUsingPayPal,
-} from '../action';
+} from "../action";
 import {
   defaultPaymentMethods,
   PaymentMethodsTypes,
-} from '../../../utils/helper/payment';
-import { payWithNativeModule } from '../../../utils/payment';
-import { showOrHideModal } from '../../../components/customModal/action';
+} from "../../../utils/helper/payment";
+import { payWithNativeModule } from "../../../utils/payment";
+import { showOrHideModal } from "../../../components/customModal/action";
 
 const lang = Language.en;
 
@@ -115,11 +115,11 @@ class BuyingCredit extends PureComponent {
           dropdownStyle={styles.amountDropdown}
           options={this.props.amountOptions}
           defaultIndex={0}
-          defaultValue=''
+          defaultValue=""
           showsVerticalScrollIndicator={false}
           renderRow={this.renderAmountDropdownCell}
           renderSeparator={() => null}
-          textStyle={{ color: 'transparent' }}
+          textStyle={{ color: "transparent" }}
           onSelect={(index, _) => {
             this.setState({ amountOptionIndex: index });
           }}
@@ -191,11 +191,11 @@ class BuyingCredit extends PureComponent {
           dropdownStyle={styles.paymentMethodsDropdown}
           options={paymentMethods}
           defaultIndex={paymentMethods.length > 0 ? 0 : -1}
-          defaultValue=''
+          defaultValue=""
           showsVerticalScrollIndicator={false}
           renderRow={this.renderPaymentDropdownCell}
           renderSeparator={() => null}
-          textStyle={{ color: 'transparent' }}
+          textStyle={{ color: "transparent" }}
           onSelect={(_, option) => {
             this.setState({ paymentMethodOption: option });
             if (option.type === PaymentMethodsTypes.addPaymentMethod) {
@@ -239,9 +239,9 @@ class BuyingCredit extends PureComponent {
           source={Constant.App.staticImages.creditCard}
           style={styles.paymentMethodIcon}
         />
-        <CustomText
-          style={styles.paymentMethodNumber}
-        >{`···· ${paymentMethod.last4Digits}`}</CustomText>
+        <CustomText style={styles.paymentMethodNumber}>{`···· ${
+          paymentMethod.last4Digits
+        }`}</CustomText>
       </View>
     );
   };
@@ -266,7 +266,7 @@ class BuyingCredit extends PureComponent {
         <Image
           source={Constant.App.staticImages.payPalIcon}
           style={styles.payPalIcon}
-          resizeMode='contain'
+          resizeMode="contain"
         />
         <CustomText style={styles.paymentMethodNumber}>{title}</CustomText>
       </View>
@@ -301,7 +301,7 @@ class BuyingCredit extends PureComponent {
     );
   };
 
-  amountDropdownDisplayOption = (credits) => credits + ' ' + this.creditsUnit;
+  amountDropdownDisplayOption = (credits) => credits + " " + this.creditsUnit;
 
   get currentCredits() {
     const { amountOptions } = this.props;
@@ -357,4 +357,7 @@ const mapDispatchToProps = (dispatch) => ({
   showAlert: (message) => dispatch(showOrHideModal(message)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BuyingCredit);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BuyingCredit);
