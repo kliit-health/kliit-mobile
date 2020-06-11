@@ -15,6 +15,7 @@ import Moment from "moment";
 
 let iosSelectedDate = null;
 const dateFormat = "MM-DD-YYYY";
+
 class DatePicker extends PureComponent {
   constructor(props) {
     super(props);

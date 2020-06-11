@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import Constant from '../../../utils/constants';
-import metrics from '../../../utils/metrices';
-
+import { StyleSheet } from "react-native";
+import Constant from "../../../utils/constants";
+import metrics from "../../../utils/metrices";
 
 export const PaymentDropdownDimensions = {
   cellHeight: 42,
@@ -15,101 +14,35 @@ const ContainerHeight = 414 - metrics.BOTTOM_SAVE_AREA;
 const PaymentDropDownCellStyle = {
   height: PaymentDropdownDimensions.cellHeight,
   flex: 1,
-  flexDirection: 'row',
-  alignItems: 'center',
+  flexDirection: "row",
+  alignItems: "center",
   backgroundColor: Constant.App.colors.whiteColor,
 };
 
 const styles = StyleSheet.create({
-  topContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: Constant.App.colors.dark40,
-  },
-  container: {
-    height: ContainerHeight,
-    borderTopLeftRadius: 19,
-    borderTopRightRadius: 19,
-    backgroundColor: Constant.App.colors.whiteColor,
-    paddingTop: 25,
-    paddingBottom: 55,
-    shadowColor: Constant.App.colors.darkishBlue21,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 1,
-  },
-  header: {
-    marginLeft: 23,
-    flexDirection: 'row',
+  addPaymentIcon: {
     height: 22,
-    alignItems: 'center',
+    width: 22,
   },
-  closeButton: {
-    width: 18,
-    height: 18,
+
+  addPaymentMethodCell: {
+    ...PaymentDropDownCellStyle,
+    paddingLeft: 14,
+    paddingRight: 12,
   },
-  title: {
-    fontFamily: Constant.App.fontFamily.avenirBook,
-    marginLeft: 25,
-    color: Constant.App.colors.blueGrey,
-    fontSize: Constant.App.textSize.Normal + 1,
-    letterSpacing: -0.41,
-    lineHeight: 22,
-  },
-  optionsContainer: {
-    marginTop: 22,
-    marginLeft: 41,
-    marginRight: 37,
-  },
-  amountContainer: {
-    marginTop: 12,
-  },
-  amountIcon: {
-    width: 24,
-    height: 23,
-    marginBottom: 7,
-  },
-  creditCardIcon: {
-    width: 31.6,
-    height: 22.8,
-    marginBottom: 8.2,
-  },
-  footerContainer: {
-    flexDirection: 'row',
-  },
-  totalText: {
-    fontFamily: Constant.App.fontFamily.headerSemiBold,
-    fontSize: Constant.App.textSize.xLarge + 2,
+
+  addPaymentTitle: {
+    fontFamily: Constant.App.fontFamily.avenirLight,
+    fontSize: Constant.App.textSize.Medium + 1,
     color: Constant.App.colors.blackColor,
-    marginTop: 44,
-    marginLeft: 45,
+    marginLeft: 14,
   },
-  buyCreditsButton: {
-    marginTop: 31,
-    marginLeft: 26,
-    width: 135,
-    height: 52,
-    borderRadius: 22,
-    backgroundColor: Constant.App.colors.blueColor,
-    justifyContent: 'center',
-  },
-  buyCreditsButtonText: {
-    paddingLeft: 27,
-    fontFamily: Constant.App.fontFamily.avenirMedium,
-    fontSize: Constant.App.textSize.Normal,
-    color: Constant.App.colors.whiteColor,
-  },
-  amountDropdownContainer: {
-    position: 'absolute',
-    flexDirection: 'row-reverse',
-    bottom: ContainerHeight - 59, // Subtract the top margin of the dropdown,
-    right: 24,
-  },
+
   amountDropdownButton: {
     height: 0,
     width: 102,
   },
+
   amountDropdown: {
     height: 226,
     borderRadius: 7,
@@ -123,26 +56,106 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     elevation: 1,
   },
+
+  amountContainer: {
+    marginTop: 12,
+  },
+
   amountDropdownCell: {
     height: 42,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
+
+  amountDropdownContainer: {
+    position: "absolute",
+    flexDirection: "row-reverse",
+    bottom: ContainerHeight - 59, // Subtract the top margin of the dropdown,
+    right: 24,
+  },
+
   amountDropdownOption: {
     fontFamily: Constant.App.fontFamily.avenirLight,
     fontSize: 18,
     color: Constant.App.colors.blackColor,
     marginLeft: 9,
   },
-  paymentMethodsDropdownContainer: {
-    position: 'absolute',
-    bottom: PaymentDropdownDimensions.marginBottom - metrics.BOTTOM_SAVE_AREA,
-    right: PaymentDropdownDimensions.marginRight,
+
+  amountIcon: {
+    width: 24,
+    height: 23,
+    marginBottom: 7,
   },
-  paymentMethodsDropdownButton: {
-    height: 0,
-    width: 210,
+
+  applePayIcon: {
+    height: 24,
+    width: 37,
   },
+
+  buyCreditsButton: {
+    marginTop: 31,
+    marginLeft: 26,
+    width: 135,
+    height: 52,
+    borderRadius: 22,
+    backgroundColor: Constant.App.colors.blueColor,
+    justifyContent: "center",
+  },
+
+  buyCreditsButtonText: {
+    paddingLeft: 27,
+    fontFamily: Constant.App.fontFamily.avenirMedium,
+    fontSize: Constant.App.textSize.Normal,
+    color: Constant.App.colors.whiteColor,
+  },
+
+  closeButton: {
+    width: 18,
+    height: 18,
+  },
+
+  container: {
+    height: ContainerHeight,
+    borderTopLeftRadius: 19,
+    borderTopRightRadius: 19,
+    backgroundColor: Constant.App.colors.whiteColor,
+    paddingTop: 25,
+    paddingBottom: 55,
+    shadowColor: Constant.App.colors.darkishBlue21,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 1,
+  },
+
+  creditCardIcon: {
+    width: 31.6,
+    height: 22.8,
+    marginBottom: 8.2,
+  },
+
+  footerContainer: {
+    flexDirection: "row",
+  },
+
+  header: {
+    marginLeft: 23,
+    flexDirection: "row",
+    height: 22,
+    alignItems: "center",
+  },
+
+  optionsContainer: {
+    marginTop: 22,
+    marginLeft: 41,
+    marginRight: 37,
+  },
+
+  paymentMethodCell: {
+    ...PaymentDropDownCellStyle,
+    paddingLeft: 12,
+  },
+
   paymentMethodsDropdown: {
     borderRadius: 7,
     borderWidth: 1,
@@ -155,46 +168,61 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     elevation: 1,
   },
-  addPaymentMethodCell: {
-    ...PaymentDropDownCellStyle,
-    paddingLeft: 14,
-    paddingRight: 12,
+
+  paymentMethodsDropdownButton: {
+    height: 0,
+    width: 210,
   },
-  addPaymentIcon: {
-    height: 22,
-    width: 22,
+
+  paymentMethodsDropdownContainer: {
+    position: "absolute",
+    bottom: PaymentDropdownDimensions.marginBottom - metrics.BOTTOM_SAVE_AREA,
+    right: PaymentDropdownDimensions.marginRight,
   },
-  addPaymentTitle: {
-    fontFamily: Constant.App.fontFamily.avenirLight,
-    fontSize: Constant.App.textSize.Medium + 1,
-    color: Constant.App.colors.blackColor,
-    marginLeft: 14,
-  },
-  paymentMethodCell: {
-    ...PaymentDropDownCellStyle,
-    paddingLeft: 12,
-  },
+
   paymentMethodIcon: {
     height: 22.8,
     width: 31.6,
   },
+
   paymentMethodNumber: {
     fontFamily: Constant.App.fontFamily.avenirLight,
     fontSize: Constant.App.textSize.Large,
     color: Constant.App.colors.blackColor,
     marginLeft: 14.6,
   },
-  payPalIcon: {
-    height: 24,
-    width: 50,
-  },
+
   payPalCell: {
     ...PaymentDropDownCellStyle,
     paddingLeft: 10,
   },
-  applePayIcon: {
+
+  payPalIcon: {
     height: 24,
-    width: 37,
+    width: 50,
+  },
+
+  title: {
+    fontFamily: Constant.App.fontFamily.avenirBook,
+    marginLeft: 25,
+    color: Constant.App.colors.blueGrey,
+    fontSize: Constant.App.textSize.Normal + 1,
+    letterSpacing: -0.41,
+    lineHeight: 22,
+  },
+
+  topContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: Constant.App.colors.dark40,
+  },
+
+  totalText: {
+    fontFamily: Constant.App.fontFamily.headerSemiBold,
+    fontSize: Constant.App.textSize.xLarge + 2,
+    color: Constant.App.colors.blackColor,
+    marginTop: 44,
+    marginLeft: 45,
   },
 });
 

@@ -2,9 +2,10 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   centerProductBox: {
+    flex: 6,
     justifyContent: "center",
     alignItems: "flex-start",
-    marginLeft: 20,
+    paddingHorizontal: 4,
   },
 
   circle: {
@@ -17,14 +18,6 @@ const styles = StyleSheet.create({
   circleFill: {
     borderWidth: 1,
     borderRadius: 10000,
-  },
-
-  container: {
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-around",
-    backgroundColor: "white",
-    marginBottom: 20,
   },
 
   icon: {

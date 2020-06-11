@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
   modalView: {
     margin: 20,
     height: 300,
@@ -32,15 +36,6 @@ const styles = StyleSheet.create({
     elevation: 2,
     width: 200,
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
   pickerUnit: {
     position: "absolute",
     top: 120,
@@ -48,6 +43,11 @@ const styles = StyleSheet.create({
     right: 110,
     fontSize: 18,
     color: "#B4B4B4",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

@@ -25,12 +25,55 @@ const styles = StyleSheet.create({
     color: Constant.App.colors.whiteColor,
   },
 
+  cancelTextStyle: {
+    textAlign: "left",
+    color: Constant.App.colors.blackColor,
+    fontSize: Constant.App.textSize.Medium,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+  },
+
   container: {
     flex: 1,
     flexDirection: "column",
     backgroundColor: Constant.App.colors.offWhiteColor,
     marginTop: getStatusBarHeight(),
   },
+
+  creditButtonStyle: {
+    marginLeft: -9,
+    marginTop: 14,
+    width: metrices.DEVICE_WIDTH * 0.49,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: Constant.App.colors.whiteColor,
+  },
+
+  creditButtonTextStyle: {
+    textAlign: "center",
+    paddingTop: 11,
+    fontFamily: Constant.App.fontFamily.avenirMedium,
+    fontSize: Constant.App.textSize.Normal,
+    color: Constant.App.colors.blueColor,
+  },
+
+  creditTextStyle: {
+    textAlign: "left",
+    paddingTop: 10,
+    color: Constant.App.colors.whiteColor,
+    fontSize: Constant.App.textSize.xLarge,
+    fontFamily: Constant.App.fontFamily.headerMedium,
+    fontWeight: "500",
+  },
+
+  genderTextStyle: {
+    textAlign: "left",
+    paddingTop: 5,
+    color: Constant.App.colors.whiteColor,
+    fontSize: Constant.App.textSize.xLarge,
+    fontFamily: Constant.App.fontFamily.headerLight,
+    fontWeight: "400",
+  },
+
   headerStyle: {
     flexDirection: "row",
     alignItems: "center",
@@ -40,63 +83,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Constant.App.colors.greyBgAsk,
     borderBottomWidth: 3,
   },
-  cancelTextStyle: {
-    textAlign: "left",
-    color: Constant.App.colors.blackColor,
-    fontSize: Constant.App.textSize.Medium,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-  },
-  titleTextStyle: {
-    textAlign: "left",
-    color: Constant.App.colors.blackColor,
-    fontSize: Constant.App.textSize.Large,
-    fontFamily: Constant.App.fontFamily.headerBold,
-  },
-  profileInfoParentContainerStyle: {
-    flexDirection: "column",
-    alignSelf: "center",
-    width: metrices.DEVICE_WIDTH - AVATAR_SIZE - parentPadding,
-  },
-  profileImageParentContainerStyle: {
-    flexDirection: "column",
-  },
-  nameTextStyle: {
-    textAlign: "left",
-    color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.xxLarge,
-    fontFamily: Constant.App.fontFamily.headerSemiBold,
-  },
-  genderTextStyle: {
-    textAlign: "left",
-    paddingTop: 5,
-    color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.xLarge,
-    fontFamily: Constant.App.fontFamily.headerLight,
-    fontWeight: "400",
-  },
-  creditTextStyle: {
-    textAlign: "left",
-    paddingTop: 10,
-    color: Constant.App.colors.whiteColor,
-    fontSize: Constant.App.textSize.xLarge,
-    fontFamily: Constant.App.fontFamily.headerMedium,
-    fontWeight: "500",
-  },
-  creditButtonStyle: {
-    marginLeft: -9,
-    marginTop: 14,
-    width: metrices.DEVICE_WIDTH * 0.49,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: Constant.App.colors.whiteColor,
-  },
-  creditButtonTextStyle: {
-    textAlign: "center",
-    paddingTop: 11,
-    fontFamily: Constant.App.fontFamily.avenirMedium,
-    fontSize: Constant.App.textSize.Normal,
-    color: Constant.App.colors.blueColor,
-  },
+
   itemsParentContainerStyle: {
     backgroundColor: Constant.App.colors.whiteColor,
     flexDirection: "row",
@@ -107,25 +94,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 1.5,
-  },
-  itemTextStyle: {
-    textAlign: "left",
-    paddingTop: 5,
-    color: Constant.App.colors.blackColor,
-    fontSize: Constant.App.textSize.Normal,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-  },
-  logoutParentContainerStyle: {
-    marginTop: metrices.DEVICE_WIDTH * 0.1,
-    marginBottom: metrices.DEVICE_WIDTH * 0.1,
-  },
-  logoutTextStyle: {
-    textAlign: "center",
-    paddingTop: 10,
-    color: Constant.App.colors.redColorLogout,
-    fontSize: Constant.App.textSize.xLarge,
-    width: metrices.DEVICE_WIDTH,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
   },
 
   inputTextContainerStyle: {
@@ -140,6 +108,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
   },
 
+  itemTextStyle: {
+    textAlign: "left",
+    paddingTop: 5,
+    color: Constant.App.colors.blackColor,
+    fontSize: Constant.App.textSize.Normal,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+  },
+
   inputTypeStyle: {
     paddingHorizontal: 0,
     color: Constant.App.colors.blackColor,
@@ -149,6 +125,44 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "200",
     textAlignVertical: "top",
+  },
+
+  logoutParentContainerStyle: {
+    marginTop: metrices.DEVICE_WIDTH * 0.1,
+    marginBottom: metrices.DEVICE_WIDTH * 0.1,
+  },
+
+  logoutTextStyle: {
+    textAlign: "center",
+    paddingTop: 10,
+    color: Constant.App.colors.redColorLogout,
+    fontSize: Constant.App.textSize.xLarge,
+    width: metrices.DEVICE_WIDTH,
+    fontFamily: Constant.App.fontFamily.bodyRegular,
+  },
+
+  nameTextStyle: {
+    textAlign: "left",
+    color: Constant.App.colors.whiteColor,
+    fontSize: Constant.App.textSize.xxLarge,
+    fontFamily: Constant.App.fontFamily.headerSemiBold,
+  },
+
+  profileInfoParentContainerStyle: {
+    flexDirection: "column",
+    alignSelf: "center",
+    width: metrices.DEVICE_WIDTH - AVATAR_SIZE - parentPadding,
+  },
+
+  profileImageParentContainerStyle: {
+    flexDirection: "column",
+  },
+
+  titleTextStyle: {
+    textAlign: "left",
+    color: Constant.App.colors.blackColor,
+    fontSize: Constant.App.textSize.Large,
+    fontFamily: Constant.App.fontFamily.headerBold,
   },
 });
 export default styles;

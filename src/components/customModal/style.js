@@ -1,20 +1,14 @@
-import { StyleSheet } from 'react-native';
-import Constant from '../../utils/constants';
-import metrices from '../../utils/metrices';
+import { StyleSheet } from "react-native";
+import Constant from "../../utils/constants";
+import metrices from "../../utils/metrices";
 
 export default StyleSheet.create({
-  parentContainerStyle: {
-    flex: 1,
-    backgroundColor: Constant.App.colors.modalBgSemiTransparentColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   innerContainerStyle: {
     borderRadius: 10,
-    flexWrap: 'wrap',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexWrap: "wrap",
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
     paddingLeft: 5,
     paddingRight: 5,
     paddingTop: 15,
@@ -23,14 +17,7 @@ export default StyleSheet.create({
     marginRight: 30,
     backgroundColor: Constant.App.colors.whiteColor,
   },
-  textStyle: {
-    width: metrices.DEVICE_WIDTH - 80,
-    color: Constant.App.colors.blackColor,
-    textAlign: 'center',
-    paddingLeft: 25,
-    paddingRight: 25,
-    fontSize: Constant.App.textSize.Large,
-  },
+
   okBtnErrorContainerStyle: {
     width: metrices.DEVICE_WIDTH - 100,
     padding: 10,
@@ -38,9 +25,26 @@ export default StyleSheet.create({
     marginTop: 15,
     borderRadius: 10,
   },
+
   okBtnErrorTextStyle: {
     color: Constant.App.colors.whiteColor,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
+  },
+
+  parentContainerStyle: {
+    flex: 1,
+    backgroundColor: Constant.App.colors.modalBgSemiTransparentColor,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  textStyle: {
+    width: metrices.DEVICE_WIDTH - 80,
+    color: Constant.App.colors.blackColor,
+    textAlign: "center",
+    paddingLeft: 25,
+    paddingRight: 25,
+    fontSize: Constant.App.textSize.Large,
   },
 });

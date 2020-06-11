@@ -1,19 +1,19 @@
-import { StyleSheet } from 'react-native';
-import metrices from '../../utils/metrices';
-import Constant from '../../utils/constants';
-import { getStatusBarHeight } from '../../components/iPhoneXHelper';
+import { StyleSheet } from "react-native";
+import metrices from "../../utils/metrices";
+import Constant from "../../utils/constants";
+import { getStatusBarHeight } from "../../components/iPhoneXHelper";
 
 const styles = StyleSheet.create({
   bannerImageStyle: {
-    height: metrices.DEVICE_HEIGHT * 0.90,
+    height: metrices.DEVICE_HEIGHT * 0.9,
     width: metrices.DEVICE_WIDTH,
   },
 
   buttonContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
-    height: metrices.DEVICE_HEIGHT * 0.10,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
+    height: metrices.DEVICE_HEIGHT * 0.1,
   },
 
   containerStyle: {
@@ -24,34 +24,34 @@ const styles = StyleSheet.create({
     padding: Constant.App.dimensions.btnPaddingGlobal,
     width: metrices.DEVICE_WIDTH * 0.45,
     borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Constant.App.colors.whiteColor,
     borderColor: Constant.App.colors.blueColor,
-    borderWidth: 1
+    borderWidth: 1,
   },
 
   loginButtonTextStyle: {
     fontFamily: Constant.App.fontFamily.bodyRegular,
     fontSize: Constant.App.textSize.Normal,
     color: Constant.App.colors.blueColor,
-    textAlign: 'center'
+    textAlign: "center",
   },
 
   logoImageStyle: {
     top: getStatusBarHeight(),
     height: 100,
     width: 130,
-    position: 'absolute',
-    alignSelf: 'center',
+    position: "absolute",
+    alignSelf: "center",
   },
 
   signupButtonStyle: {
     padding: Constant.App.dimensions.btnPaddingGlobal,
     width: metrices.DEVICE_WIDTH * 0.45,
     borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Constant.App.colors.blueColor,
     borderColor: Constant.App.colors.whiteColor,
     borderWidth: 1,
@@ -60,15 +60,14 @@ const styles = StyleSheet.create({
   signupButtonTextStyle: {
     fontSize: Constant.App.textSize.Normal,
     color: Constant.App.colors.whiteColor,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
 
   sliderViewStyle: {
-    height: metrices.DEVICE_HEIGHT * 0.90,
+    height: metrices.DEVICE_HEIGHT * 0.9,
     width: metrices.DEVICE_WIDTH,
   },
-  
 });
 
 export default styles;

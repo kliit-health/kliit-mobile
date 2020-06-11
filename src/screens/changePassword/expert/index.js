@@ -1,23 +1,23 @@
-import React, { PureComponent } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './style';
-import Language from '../../../utils/localization';
-import { hasSpecialCharactors } from '../../../utils/helper';
-import Constant from '../../../utils/constants';
-import CustomInputText from '../../../components/customInputText';
-import CustomText from '../../../components/customText';
-import CustomButton from '../../../components/customButton';
-import { changePassword } from '../action';
-import { showOrHideModal } from '../../../components/customModal/action';
+import React, { PureComponent } from "react";
+import { View, TouchableOpacity, Image } from "react-native";
+import { connect } from "react-redux";
+import styles from "./style";
+import Language from "../../../utils/localization";
+import { hasSpecialCharactors } from "../../../utils/helper";
+import Constant from "../../../utils/constants";
+import CustomInputText from "../../../components/customInputText";
+import CustomText from "../../../components/customText";
+import CustomButton from "../../../components/customButton";
+import { changePassword } from "../action";
+import { showOrHideModal } from "../../../components/customModal/action";
 
-let lang = Language['en'];
+let lang = Language["en"];
 class ChangePasswordExpert extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentPassword: '',
-      newPassword: '',
+      currentPassword: "",
+      newPassword: "",
       showNewPassword: false,
       showCurrentPassword: false,
       isPasswordHasSpecialChar: false,
@@ -57,7 +57,7 @@ class ChangePasswordExpert extends PureComponent {
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => {
               this.setState({ currentPassword: value });
             }}
@@ -67,7 +67,7 @@ class ChangePasswordExpert extends PureComponent {
             style={
               currentPassword
                 ? styles.inputTypePasswordStyle
-                : [styles.inputTypePasswordStyle, { fontWeight: '100' }]
+                : [styles.inputTypePasswordStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
@@ -77,7 +77,7 @@ class ChangePasswordExpert extends PureComponent {
             }
           >
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               source={
                 showCurrentPassword
                   ? staticImages.passwordVisibleIcon
@@ -89,7 +89,7 @@ class ChangePasswordExpert extends PureComponent {
         </View>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => {
               this.setState({ newPassword: value });
               if (value.trim().length < 7) {
@@ -109,7 +109,7 @@ class ChangePasswordExpert extends PureComponent {
             style={
               newPassword
                 ? styles.inputTypePasswordStyle
-                : [styles.inputTypePasswordStyle, { fontWeight: '100' }]
+                : [styles.inputTypePasswordStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
@@ -117,7 +117,7 @@ class ChangePasswordExpert extends PureComponent {
             onPress={() => this.setState({ showNewPassword: !showNewPassword })}
           >
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               source={
                 showNewPassword
                   ? staticImages.passwordVisibleIcon
@@ -141,13 +141,13 @@ class ChangePasswordExpert extends PureComponent {
       <View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode='contain'
+            resizeMode="contain"
             source={
               isPasswordContainsSevenChar
                 ? staticImages.checkGreenIcon
                 : staticImages.checkGreyIcon
             }
-            style={styles.passwordValidChecboxIconStyle}
+            style={styles.passwordValidCheckboxIconStyle}
           />
           <CustomText style={styles.passwordValidationTextStyle}>
             {lang.signUp.passwordCharLimitValidMsg}
@@ -155,13 +155,13 @@ class ChangePasswordExpert extends PureComponent {
         </View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode='contain'
+            resizeMode="contain"
             source={
               isPasswordHasSpecialChar
                 ? staticImages.checkGreenIcon
                 : staticImages.checkGreyIcon
             }
-            style={styles.passwordValidChecboxIconStyle}
+            style={styles.passwordValidCheckboxIconStyle}
           />
           <CustomText style={styles.passwordValidationTextStyle}>
             {lang.signUp.passwordSpecialCharValidMsg}

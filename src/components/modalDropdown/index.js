@@ -1,10 +1,8 @@
 "use strict";
 
 import React, { Component } from "react";
-
 import {
   FlatList,
-  StyleSheet,
   Dimensions,
   View,
   Text,
@@ -15,9 +13,8 @@ import {
   Modal,
   ActivityIndicator,
 } from "react-native";
-
-// import ListView from "deprecated-react-native-listview";
 import PropTypes from "prop-types";
+import styles from "./styles";
 
 const TOUCHABLE_ELEMENTS = [
   "TouchableHighlight",
@@ -26,7 +23,7 @@ const TOUCHABLE_ELEMENTS = [
   "TouchableNativeFeedback",
 ];
 
-export default class ModalDropdown extends Component {
+class ModalDropdown extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     scrollEnabled: PropTypes.bool,
@@ -316,11 +313,10 @@ export default class ModalDropdown extends Component {
       options,
     } = this.props;
     const Separator = <View style={styles.separator} />;
+
     return (
       <FlatList
         scrollEnabled={scrollEnabled}
-        style={styles.list}
-        // dataSource={this._dataSource}
         ItemSeparatorComponent={this._renderSeparator}
         data={options}
         keyExtractor={this._keyExtractor}
@@ -333,14 +329,6 @@ export default class ModalDropdown extends Component {
   }
 
   _keyExtractor = (item, index) => `${index}`;
-
-  // get _dataSource() {
-  //   const {options} = this.props;
-  //   const ds = new ListView.DataSource({
-  //     rowHasChanged: (r1, r2) => r1 !== r2
-  //   });
-  //   return ds.cloneWithRows(options);
-  // }
 
   _renderRow = ({ item: rowData, index: rowID, separators }) => {
     const {
@@ -429,44 +417,4 @@ export default class ModalDropdown extends Component {
   };
 }
 
-const styles = StyleSheet.create({
-  button: {
-    justifyContent: "center",
-  },
-  buttonText: {
-    fontSize: 12,
-  },
-  modal: {
-    flexGrow: 1,
-  },
-  dropdown: {
-    position: "absolute",
-    height: (33 + StyleSheet.hairlineWidth) * 5,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "lightgray",
-    borderRadius: 2,
-    backgroundColor: "white",
-    justifyContent: "center",
-  },
-  loading: {
-    alignSelf: "center",
-  },
-  list: {
-    //flexGrow: 1,
-  },
-  rowText: {
-    paddingHorizontal: 6,
-    paddingVertical: 10,
-    fontSize: 11,
-    color: "gray",
-    backgroundColor: "white",
-    textAlignVertical: "center",
-  },
-  highlightedRowText: {
-    color: "black",
-  },
-  separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: "lightgray",
-  },
-});
+export default ModalDropdown;

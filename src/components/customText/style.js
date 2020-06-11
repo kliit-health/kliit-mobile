@@ -1,12 +1,9 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   textStyle: {
-    flexWrap: 'wrap',
-  },
-  boldTextStyle: {
-    flexWrap: 'wrap',
-    // fontFamily: '',
+    flexWrap: "wrap",
   },
 });
+
 export default styles;

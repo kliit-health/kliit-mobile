@@ -1,14 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Animated, TouchableOpacity } from "react-native";
+import styles from "./styles";
 
-class RadioButtonRN extends React.Component {
+class RadioButtonRN extends Component {
   constructor(props) {
     super(props);
 
@@ -17,7 +12,6 @@ class RadioButtonRN extends React.Component {
       fadeAnim: new Animated.Value(0),
       animations: [],
     };
-    // this.fadeAnim = new Animated.Value(0);
 
     this.animations = [
       {
@@ -104,7 +98,6 @@ class RadioButtonRN extends React.Component {
   }
 
   fadeInAnimation = () => {
-    // this.fadeAnim.setValue(0)
     Animated.timing(this.state.fadeAnim, {
       toValue: 0,
       duration: 0,
@@ -229,50 +222,6 @@ class RadioButtonRN extends React.Component {
   }
 }
 
-/* Styles ====================================== */
-const styles = StyleSheet.create({
-  productBox: {
-    flexDirection: "row",
-    borderRadius: 7,
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    marginTop: 10,
-  },
-  productBoxLess: {
-    flexDirection: "row",
-    marginTop: 10,
-  },
-  leftProductBox: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  centerProductBox: {
-    flex: 6,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    paddingHorizontal: 4,
-  },
-  circle: {
-    borderWidth: 1,
-    borderRadius: 10000,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    borderWidth: 1,
-    borderRadius: 10000,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  circleFill: {
-    borderWidth: 1,
-    borderRadius: 10000,
-  },
-});
-
-/* Props ======================================= */
 RadioButtonRN.propTypes = {
   style: PropTypes.object,
   boxStyle: PropTypes.object,
@@ -285,8 +234,6 @@ RadioButtonRN.propTypes = {
   selectedBtn: PropTypes.func,
   activeColor: PropTypes.string,
   deactiveColor: PropTypes.string,
-  // textActiveColor: PropTypes.string,
-  // textDeactiveColor: PropTypes.string,
   boxActiveBgColor: PropTypes.string,
   boxDeactiveBgColor: PropTypes.string,
   textColor: PropTypes.string,
@@ -311,5 +258,4 @@ RadioButtonRN.defaultProps = {
   box: true,
 };
 
-/* Export Component ============================ */
 export default RadioButtonRN;
