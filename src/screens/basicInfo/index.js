@@ -6,7 +6,7 @@ import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
-import BasicInfoStaticData from "../../utils/constants/basicInfo";
+import HealthHistory from "../../utils/constants/healthHistory";
 import CustomInputText from "../../components/customInputText";
 import CustomButton from "../../components/customButton";
 import DatePicker from "../../components/datePicker";
@@ -164,7 +164,7 @@ class BasicInfo extends PureComponent {
               show={true}
               title={"Height"}
               pickerText={"Save"}
-              data={BasicInfoStaticData.height}
+              data={HealthHistory.BasicInfo.height}
               setValue={this.setHeight}
             />
           ) : null}
@@ -173,7 +173,7 @@ class BasicInfo extends PureComponent {
               show={true}
               title={"Weight"}
               pickerText={"Save"}
-              data={BasicInfoStaticData.weight}
+              data={HealthHistory.BasicInfo.weight}
               setValue={this.setWeight}
               pickerUnit="lbs"
             />

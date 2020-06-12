@@ -125,11 +125,7 @@ class Setting extends PureComponent {
               showHideErrorModal(lang.addProfileData.emptyFirstNameMsg);
             } else if (!lastName.trim()) {
               showHideErrorModal(lang.addProfileData.emptyLastNameMsg);
-            }
-            // else if (!dob) {
-            //   showHideErrorModal(lang.addProfileData.emptyDobMsg);
-            // }
-            else if (!selectedState) {
+            } else if (!selectedState) {
               showHideErrorModal(lang.addProfileData.emptyStateSelectionMsg);
             } else if (
               pronounsArr.length > 0 &&
@@ -170,6 +166,7 @@ class Setting extends PureComponent {
                   filename,
                 };
               }
+              console.log("payloadData: ", payloadData);
               updateUserData(payloadData);
             }
           }}

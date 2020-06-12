@@ -3,11 +3,9 @@ import { View, TouchableOpacity, Image, ScrollView, Text } from "react-native";
 import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
-import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 
-let lang = Language["en"];
 class PregnancyCurrent extends PureComponent {
   constructor(props) {
     super(props);

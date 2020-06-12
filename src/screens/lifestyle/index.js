@@ -7,10 +7,8 @@ import CustomButton from "../../components/customButton";
 import CustomPicker from "../../components/customPicker";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
-import BasicInfoStaticData from "../../utils/constants/basicInfo";
-import Language from "../../utils/localization";
+import HealthHistory from "../../utils/constants/healthHistory";
 
-let lang = Language["en"];
 class Lifestyle extends PureComponent {
   constructor(props) {
     super(props);
@@ -52,6 +50,7 @@ class Lifestyle extends PureComponent {
   renderHeaderView() {
     const { navigation } = this.props;
     const { staticImages } = Constant.App;
+
     return (
       <View style={styles.headerStyle}>
         <TouchableOpacity
@@ -222,7 +221,7 @@ class Lifestyle extends PureComponent {
             show={true}
             title={"Male Partners"}
             pickerText={"Save"}
-            data={BasicInfoStaticData.weight}
+            data={HealthHistory.BasicInfo.weight}
             setValue={(value) => this.setPartners(value, "Male")}
           />
         ) : null}
@@ -231,7 +230,7 @@ class Lifestyle extends PureComponent {
             show={true}
             title={"Female Partners"}
             pickerText={"Save"}
-            data={BasicInfoStaticData.weight}
+            data={HealthHistory.BasicInfo.weight}
             setValue={(value) => this.setPartners(value, "Female")}
           />
         ) : null}

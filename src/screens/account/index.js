@@ -17,17 +17,8 @@ import Constant from "../../utils/constants";
 import { Avatar } from "react-native-elements";
 
 let lang = Language["en"];
+
 class Account extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {}
-
   render() {
     const { navigation, signOut, userData } = this.props;
     const { staticImages } = Constant.App;

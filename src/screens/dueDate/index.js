@@ -68,7 +68,7 @@ class DueDate extends PureComponent {
                 >
                   <DatePicker
                     format="MMM Do YYYY"
-                    selectedDate={dob}
+                    // selectedDate={dob}
                     placeHolder="Due Date"
                     textStyle={styles.birthDayTextStyle}
                     onSelection={(date) => {

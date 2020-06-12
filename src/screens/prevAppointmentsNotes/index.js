@@ -1,22 +1,11 @@
 import React, { PureComponent } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Linking,
-} from "react-native";
+import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { connect } from "react-redux";
-import styles, { AVATAR_SIZE } from "./style";
+import styles from "./style";
 import CustomText from "../../components/customText";
-import CustomButton from "../../components/customButton";
-import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
-// import { signoutApihit } from "./action";
 import Constant from "../../utils/constants";
-import { Avatar } from "react-native-elements";
 
-let lang = Language["en"];
 class PrevAppointmentNotes extends PureComponent {
   constructor(props) {
     super(props);
@@ -51,8 +40,7 @@ class PrevAppointmentNotes extends PureComponent {
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
-    const { staticImages } = Constant.App;
+    const { userData } = this.props;
     return (
       userData && (
         <View style={styles.container}>

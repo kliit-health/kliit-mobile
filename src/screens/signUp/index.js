@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   ScrollView,
@@ -6,33 +6,34 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-} from 'react-native';
-import { connect } from 'react-redux';
-import CustomText from '../../components/customText';
-import styles from './style';
-import Constant from '../../utils/constants';
-import CustomInputText from '../../components/customInputText';
-import Language from '../../utils/localization';
-import CustomButton from '../../components/customButton';
-import { isEmail, hasSpecialCharactors } from '../../utils/helper';
-import { showOrHideModal } from '../../components/customModal/action';
-import { createUser } from './action';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import _ from 'lodash';
+} from "react-native";
+import { connect } from "react-redux";
+import CustomText from "../../components/customText";
+import styles from "./style";
+import Constant from "../../utils/constants";
+import CustomInputText from "../../components/customInputText";
+import Language from "../../utils/localization";
+import CustomButton from "../../components/customButton";
+import { isEmail, hasSpecialCharactors } from "../../utils/helper";
+import { showOrHideModal } from "../../components/customModal/action";
+import { createUser } from "./action";
+import KeyboardSpacer from "react-native-keyboard-spacer";
+import _ from "lodash";
 
 let lang = Language.en;
+
 class SignUp extends PureComponent {
   constructor(props) {
     super(props);
     this.onSignUpClicked = _.debounce(this.onSignUp, 500);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       showPassword: false,
       isUser: true,
       isPasswordHasSpecialChar: false,
       isPasswordContainsSevenChar: false,
-      referalCode: '',
+      referalCode: "",
     };
   }
 
@@ -43,21 +44,21 @@ class SignUp extends PureComponent {
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => this.setState({ email: value })}
             placeholder={lang.login.Email}
             value={email}
             style={
               email
                 ? styles.inputTypeStyle
-                : [styles.inputTypeStyle, { fontWeight: '100' }]
+                : [styles.inputTypeStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
         </View>
         <View style={styles.inputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => {
               this.setState({ password: value });
               if (value.trim().length < 7) {
@@ -77,7 +78,7 @@ class SignUp extends PureComponent {
             style={
               password
                 ? styles.inputTypePasswordStyle
-                : [styles.inputTypePasswordStyle, { fontWeight: '100' }]
+                : [styles.inputTypePasswordStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
@@ -85,7 +86,7 @@ class SignUp extends PureComponent {
             onPress={() => this.setState({ showPassword: !showPassword })}
           >
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               source={
                 showPassword
                   ? staticImages.passwordVisibleIcon
@@ -140,7 +141,7 @@ class SignUp extends PureComponent {
         }}
       >
         <Image
-          resizeMode='contain'
+          resizeMode="contain"
           source={staticImages.crossIcon}
           style={styles.backIconStyle}
         />
@@ -152,7 +153,7 @@ class SignUp extends PureComponent {
     const { staticImages } = Constant.App;
     return (
       <Image
-        resizeMode='contain'
+        resizeMode="contain"
         source={staticImages.loginLogoImage}
         style={styles.logoStyle}
       />
@@ -182,7 +183,7 @@ class SignUp extends PureComponent {
       <View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode='contain'
+            resizeMode="contain"
             source={
               isPasswordContainsSevenChar
                 ? staticImages.checkGreenIcon
@@ -196,7 +197,7 @@ class SignUp extends PureComponent {
         </View>
         <View style={styles.passwordValidationContainerStyle}>
           <Image
-            resizeMode='contain'
+            resizeMode="contain"
             source={
               isPasswordHasSpecialChar
                 ? staticImages.checkGreenIcon
@@ -263,7 +264,7 @@ class SignUp extends PureComponent {
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.referalCodeInputTextContainerStyle}>
           <CustomInputText
-            autoCapitalize='none'
+            autoCapitalize="none"
             onChangeText={(value) => {
               this.setState({
                 referalCode: value,
@@ -274,7 +275,7 @@ class SignUp extends PureComponent {
             style={
               referalCode
                 ? styles.referalCodeInputTypeStyle
-                : [styles.referalCodeInputTypeStyle, { fontWeight: '100' }]
+                : [styles.referalCodeInputTypeStyle, { fontWeight: "100" }]
             }
             placeholderTextColor={Constant.App.colors.blackColor}
           />
@@ -287,7 +288,7 @@ class SignUp extends PureComponent {
     return (
       <View style={styles.parentContainerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {this.renderCrossIconView()}
@@ -302,7 +303,7 @@ class SignUp extends PureComponent {
             {this.renderDescriptionView()}
           </View>
         </ScrollView>
-        {Platform.OS === 'ios' && <KeyboardSpacer />}
+        {Platform.OS === "ios" && <KeyboardSpacer />}
       </View>
     );
   }
@@ -313,4 +314,7 @@ const mapDispatchToProps = (dispatch) => ({
   signUp: (value) => dispatch(createUser(value, dispatch)),
 });
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);

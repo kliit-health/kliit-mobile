@@ -3,14 +3,11 @@ import { View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
-import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 import CustomButton from "../../components/customButton";
 import DatePicker from "../../components/datePicker";
-import moment from "moment";
 
-let lang = Language["en"];
 class AddChild extends PureComponent {
   constructor(props) {
     super(props);
@@ -47,14 +44,7 @@ class AddChild extends PureComponent {
 
   render() {
     const { staticImages } = Constant.App;
-    let {
-      dob,
-      gender,
-      showSelectHeight,
-      showSelectWeight,
-      weight,
-      height,
-    } = this.state;
+    let { dob, showSelectHeight } = this.state;
 
     return (
       <View style={styles.container}>

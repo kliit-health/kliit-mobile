@@ -1,127 +1,35 @@
-/* eslint-disable react/prop-types */
-import React, { PureComponent } from "react";
-import {
-  View,
-  Modal,
-  TouchableOpacity,
-  DatePickerAndroid,
-  DatePickerIOS,
-  Platform,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Modal, TouchableOpacity, Platform } from "react-native";
 import CustomText from "../customText";
 import styles from "./style";
 import CustomButton from "../customButton";
 import Moment from "moment";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
-let iosSelectedDate = null;
-const dateFormat = "MM-DD-YYYY";
+const DatePicker = (props) => {
+  const { placeHolder, textStyle, onSelection, selectedDate } = props;
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState("");
 
-class DatePicker extends PureComponent {
-  constructor(props) {
-    super(props);
-    const { selectedDate } = this.props;
-    this.state = {
-      showIosDateModal: false,
-      selectedDate: selectedDate ? selectedDate : "",
-    };
-  }
-
-  openDatePicker() {
-    if (Platform.OS === "ios") {
-      iosSelectedDate = Moment(new Date()).format(
-        this.props.format || dateFormat
-      );
-      const { showIosDateModal } = this.state;
-      this.showHideModal(showIosDateModal);
-    } else {
-      this.openAndroidDatePicker();
-    }
-  }
-
-  onDateChange(date) {
-    iosSelectedDate = Moment(date).format(this.props.format || dateFormat);
-  }
-
-  doneButtonModalDatePickerClick = () => {
-    const { showIosDateModal } = this.state;
-    const { onSelection } = this.props;
-    if (iosSelectedDate) {
-      this.setState({ selectedDate: iosSelectedDate });
-      onSelection(iosSelectedDate);
-      iosSelectedDate = "";
-    }
-    this.showHideModal(showIosDateModal);
+  const dateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
   };
 
-  showHideModal(showIosDateModal) {
-    this.setState({ showIosDateModal: !showIosDateModal });
-  }
+  const doneButtonModalDatePickerClick = () => {
+    const selectedDate = Moment(date).format("MMM Do YYYY");
+    console.log(selectedDate);
+    onSelection(selectedDate);
+    setSelected(selectedDate);
+    setShow(!show);
+  };
 
-  async openAndroidDatePicker() {
-    const { onSelection } = this.props;
+  const renderDatePickerModalView = () => {
     const deliveryWindow = new Date();
     deliveryWindow.setDate(deliveryWindow.getDate() + 365);
-    try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        date: new Date(),
-        maxDate: deliveryWindow,
-      });
-      if (action !== DatePickerAndroid.dismissedAction) {
-        const formatedDate = `${
-          month + 1 === 1
-            ? "01"
-            : month + 1 === 2
-            ? "02"
-            : month + 1 === 3
-            ? "03"
-            : month + 1 === 4
-            ? "04"
-            : month + 1 === 5
-            ? "05"
-            : month + 1 === 6
-            ? "06"
-            : month + 1 === 7
-            ? "07"
-            : month + 1 === 8
-            ? "08"
-            : month + 1 === 9
-            ? "09"
-            : month + 1
-        }-${
-          day === 1
-            ? "01"
-            : day === 2
-            ? "02"
-            : day === 3
-            ? "03"
-            : day === 4
-            ? "04"
-            : day === 5
-            ? "05"
-            : day === 6
-            ? "06"
-            : day === 7
-            ? "07"
-            : day === 8
-            ? "08"
-            : day === 9
-            ? "09"
-            : day
-        }-${year}`;
-        this.setState({
-          selectedDate: formatedDate,
-        });
-        onSelection(formatedDate);
-      }
-    } catch ({ code, message }) {
-      console.log("Cannot open date picker", message);
-    }
-  }
 
-  renderIosDatePickerModalView() {
-    const { showIosDateModal } = this.state;
-    const deliveryWindow = new Date();
-    deliveryWindow.setDate(deliveryWindow.getDate() + 365);
     return (
       <Modal
         animationType="slide"
@@ -141,50 +49,42 @@ class DatePicker extends PureComponent {
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
               text={"Close"}
-              onPress={() => this.showHideModal(showIosDateModal)}
+              onPress={() => setShow(!show)}
             />
             <CustomButton
               buttonStyle={styles.cancelDatePicketButtonStyle}
               textStyle={styles.cancelDatePicketButtonTextStyle}
               text={"Done"}
-              onPress={() => this.doneButtonModalDatePickerClick()}
+              onPress={doneButtonModalDatePickerClick}
             />
           </View>
           <View style={{ backgroundColor: "white" }}>
-            <DatePickerIOS
-              date={new Date()}
+            <RNDateTimePicker
+              value={new Date()}
               maximumDate={deliveryWindow}
               mode="date"
-              onDateChange={(date) => this.onDateChange(date)}
+              onChange={dateChange}
             />
           </View>
         </View>
       </Modal>
     );
-  }
+  };
 
-  render() {
-    const { selectedDate, showIosDateModal } = this.state;
-    const { placeHolder, textStyle } = this.props;
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            this.openDatePicker();
-          }}
-        >
-          <CustomText style={textStyle ? textStyle : styles.dateTextStyle}>
-            {selectedDate
-              ? selectedDate
-              : placeHolder
-              ? placeHolder
-              : "Select date"}
-          </CustomText>
-        </TouchableOpacity>
-        {showIosDateModal ? this.renderIosDatePickerModalView() : null}
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          setShow(!show);
+        }}
+      >
+        <CustomText style={textStyle ? textStyle : styles.dateTextStyle}>
+          {selected ? selected : placeHolder ? placeHolder : "Select date"}
+        </CustomText>
+      </TouchableOpacity>
+      {show ? renderDatePickerModalView() : null}
+    </View>
+  );
+};
 
 export default DatePicker;

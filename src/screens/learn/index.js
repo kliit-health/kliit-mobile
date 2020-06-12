@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
-import { View, Linking } from 'react-native';
-import { connect } from 'react-redux';
-import { getStatusBarHeight } from '../../components/iPhoneXHelper';
-import Constant from '../../utils/constants';
+import React, { PureComponent } from "react";
+import { View, Linking } from "react-native";
+import { connect } from "react-redux";
+import { getStatusBarHeight } from "../../components/iPhoneXHelper";
+import Constant from "../../utils/constants";
 
 class Learn extends PureComponent {
   constructor(props) {
@@ -11,7 +11,7 @@ class Learn extends PureComponent {
 
   componentDidUpdate() {
     const { navigation, userData, appScreen } = this.props;
-    console.log('appScreen  ', appScreen);
+    console.log("appScreen  ", appScreen);
     if (
       appScreen &&
       (appScreen.currentScreen === Constant.App.screenNames.Learn ||
@@ -19,7 +19,7 @@ class Learn extends PureComponent {
     ) {
       Linking.openURL(Constant.App.learnTabUrl);
       setTimeout(() => {
-        if (userData.role === 'Expert') {
+        if (userData.role === "Expert") {
           navigation.navigate(
             appScreen.prevScreen
               ? appScreen.prevScreen
@@ -41,10 +41,10 @@ class Learn extends PureComponent {
       <View
         style={{
           flex: 1,
-          flexDirection: 'column',
+          flexDirection: "column",
           marginTop: getStatusBarHeight(),
         }}
-      ></View>
+      />
     );
   }
 }

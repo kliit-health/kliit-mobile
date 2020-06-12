@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
-import Constant from '../../utils/constants';
-import metrics from '../../utils/metrices';
+import { StyleSheet } from "react-native";
+import Constant from "../../utils/constants";
 
 export default StyleSheet.create({
   modalDatePickerContainer: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     backgroundColor: Constant.App.colors.whiteColor,
     borderBottomColor: Constant.App.colors.blackColor,
@@ -14,7 +13,7 @@ export default StyleSheet.create({
   },
   cancelDatePicketButtonTextStyle: {
     color: Constant.App.colors.whiteColor,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
@@ -27,7 +26,7 @@ export default StyleSheet.create({
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
-    alignSelf: 'center',
+    textAlign: "left",
+    alignSelf: "center",
   },
 });

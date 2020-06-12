@@ -23,6 +23,7 @@ import Rate, { AndroidMarket } from "react-native-rate";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const lang = language.en;
+
 class Ask extends PureComponent {
   constructor(props) {
     super(props);
@@ -127,6 +128,7 @@ class Ask extends PureComponent {
     const { userData, questionData } = this.props;
     const { firstName, lastName, profileImageUrl } = userData.profileInfo;
     const { staticImages } = Constant.App;
+
     return (
       <View style={styles.headingProfileImageParentContainer}>
         <View style={styles.headingTextContainerStyle}>

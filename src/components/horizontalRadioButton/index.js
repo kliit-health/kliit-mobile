@@ -117,7 +117,6 @@ class RadioButtonRN extends Component {
     let { activeIndex, fadeAnim, animations } = this.state;
     let {
       boxStyle,
-      style,
       circleSize,
       textStyle,
       data,

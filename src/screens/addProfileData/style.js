@@ -1,25 +1,18 @@
-import { StyleSheet , Platform} from 'react-native';
-import Constant from '../../utils/constants';
-import metrics from '../../utils/metrices';
-import { getStatusBarHeight } from '../../components/iPhoneXHelper';
+import { StyleSheet, Platform } from "react-native";
+import Constant from "../../utils/constants";
+import metrics from "../../utils/metrices";
+import { getStatusBarHeight } from "../../components/iPhoneXHelper";
 
 let parentPaddingValue = metrics.DEVICE_WIDTH * 0.08;
 let parentPadding = parentPaddingValue * 2;
 let childPaddingValue = metrics.DEVICE_WIDTH * 0.03;
-let childPadding = parentPadding + (childPaddingValue * 2);
+let childPadding = parentPadding + childPaddingValue * 2;
 
 const styles = StyleSheet.create({
-  backIconStyle: {
-    margin: metrics.DEVICE_HEIGHT * 0.02,
-    height: metrics.DEVICE_WIDTH * 0.05,
-    width: metrics.DEVICE_WIDTH * 0.05,
-    alignSelf: 'flex-end',
-  },
-
   birthDayContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: metrics.DEVICE_WIDTH - childPadding,
     marginTop: metrics.DEVICE_HEIGHT * 0.03,
     borderBottomColor: Constant.App.colors.blackColor,
@@ -31,13 +24,13 @@ const styles = StyleSheet.create({
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
-    alignSelf: 'center',
+    textAlign: "left",
+    alignSelf: "center",
     width: metrics.DEVICE_WIDTH - childPadding,
   },
 
   buttonContainerStyle: {
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: Constant.App.dimensions.btnBorderRadiusGlobal,
     padding: Constant.App.dimensions.btnPaddingGlobal,
     width: metrics.DEVICE_WIDTH - childPadding,
@@ -46,29 +39,29 @@ const styles = StyleSheet.create({
   },
 
   buttonTextStyle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
     color: Constant.App.colors.whiteColor,
   },
 
   cameraIconContainerStyle: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: Constant.App.colors.blueColor,
-    borderRadius: (metrics.DEVICE_WIDTH * 0.08) * 0.5,
+    borderRadius: metrics.DEVICE_WIDTH * 0.08 * 0.5,
     height: metrics.DEVICE_WIDTH * 0.08,
     width: metrics.DEVICE_WIDTH * 0.08,
-    justifyContent: 'center',
-    position: 'absolute',
+    justifyContent: "center",
+    position: "absolute",
     top: 0,
-    right: metrics.DEVICE_WIDTH * 0.32 - (metrics.DEVICE_WIDTH * 0.32) * 0.2,
+    right: metrics.DEVICE_WIDTH * 0.32 - metrics.DEVICE_WIDTH * 0.32 * 0.2,
   },
 
   cameraIconStyle: {
     height: metrics.DEVICE_WIDTH * 0.04,
     width: metrics.DEVICE_WIDTH * 0.04,
   },
-  
+
   contentContainerStyle: {
     padding: parentPaddingValue,
   },
@@ -79,7 +72,7 @@ const styles = StyleSheet.create({
   },
 
   inputTextParentContainerStyle: {
-    flexDirection: 'column',
+    flexDirection: "column",
     width: metrics.DEVICE_WIDTH - parentPadding,
     paddingLeft: childPaddingValue,
     paddingRight: childPaddingValue,
@@ -87,19 +80,19 @@ const styles = StyleSheet.create({
   },
 
   inputTextContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     width: metrics.DEVICE_WIDTH - childPadding,
     marginTop: metrics.DEVICE_HEIGHT * 0.01,
   },
 
   inputTextFirstNameContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: (metrics.DEVICE_WIDTH - childPadding) * 0.47,
-    paddingBottom: Platform.OS === 'ios' ? metrics.DEVICE_HEIGHT * 0.01 : 0,
+    paddingBottom: Platform.OS === "ios" ? metrics.DEVICE_HEIGHT * 0.01 : 0,
     borderBottomColor: Constant.App.colors.blackColor,
     borderBottomWidth: 0.5,
   },
@@ -108,44 +101,43 @@ const styles = StyleSheet.create({
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
+    textAlign: "left",
     width: (metrics.DEVICE_WIDTH - childPadding) * 0.47,
   },
-  
+
   parentContainerStyle: {
     flex: 1,
     marginTop: getStatusBarHeight(),
   },
-  
 
   profileImgViewStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     width: metrics.DEVICE_WIDTH - parentPadding,
   },
 
   pronounsParentContainerStyle: {
     marginTop: metrics.DEVICE_HEIGHT * 0.03,
     width: metrics.DEVICE_WIDTH - parentPadding,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   pronounsTitleTextStyle: {
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Large,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
+    textAlign: "left",
     width: metrics.DEVICE_WIDTH - parentPadding,
   },
 
   pronounsContainerStyle: {
     marginTop: metrics.DEVICE_HEIGHT * 0.02,
     width: metrics.DEVICE_WIDTH - parentPadding,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   pronounsTextStyle: {
@@ -153,8 +145,8 @@ const styles = StyleSheet.create({
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
-    width: metrics.DEVICE_WIDTH - parentPadding - (metrics.DEVICE_WIDTH * 0.05),
+    textAlign: "left",
+    width: metrics.DEVICE_WIDTH - parentPadding - metrics.DEVICE_WIDTH * 0.05,
   },
 
   pronounsChecboxIconStyle: {
@@ -163,9 +155,9 @@ const styles = StyleSheet.create({
   },
 
   stateDropDownContainerStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: metrics.DEVICE_WIDTH - childPadding,
     marginTop: metrics.DEVICE_HEIGHT * 0.03,
     borderBottomColor: Constant.App.colors.blackColor,
@@ -177,15 +169,15 @@ const styles = StyleSheet.create({
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Normal,
     fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: 'left',
-    alignSelf: 'center',
-    width: metrics.DEVICE_WIDTH - childPadding - (metrics.DEVICE_WIDTH * 0.05),
+    textAlign: "left",
+    alignSelf: "center",
+    width: metrics.DEVICE_WIDTH - childPadding - metrics.DEVICE_WIDTH * 0.05,
   },
 
   titleContainer: {
     fontFamily: Constant.App.fontFamily.headerBold,
     marginTop: metrics.DEVICE_HEIGHT * 0.05,
-    flexDirection: 'column',
+    flexDirection: "column",
     width: metrics.DEVICE_WIDTH - parentPadding,
     paddingLeft: childPaddingValue,
     paddingRight: childPaddingValue,
@@ -193,7 +185,7 @@ const styles = StyleSheet.create({
 
   titleTextStyle: {
     fontFamily: Constant.App.fontFamily.headerBold,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: Constant.App.textSize.xxLarge,
     color: Constant.App.colors.blackColor,
     width: metrics.DEVICE_WIDTH - childPadding,
@@ -205,16 +197,16 @@ const styles = StyleSheet.create({
     width: metrics.DEVICE_WIDTH - parentPadding,
     paddingLeft: childPaddingValue,
     paddingRight: childPaddingValue,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   termsConditionsTextStyle: {
     marginTop: 2,
     padding: 2,
-    textAlign: 'center',
+    textAlign: "center",
     color: Constant.App.colors.blackColor,
     fontSize: Constant.App.textSize.Small,
     fontFamily: Constant.App.fontFamily.bodyRegular,
@@ -222,12 +214,11 @@ const styles = StyleSheet.create({
 
   termsConditionsTextHighlightedStyle: {
     padding: 2,
-    textAlign: 'center',
+    textAlign: "center",
     color: Constant.App.colors.blueColor,
     fontSize: Constant.App.textSize.Small,
     fontFamily: Constant.App.fontFamily.bodyRegular,
   },
-  
 });
 
 export default styles;

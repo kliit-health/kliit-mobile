@@ -5,11 +5,9 @@ import styles from "./style";
 import InputText from "../../components/customInputText/simpleInputText";
 import CustomButton from "../../components/customButton";
 import CustomText from "../../components/customText";
-import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 
-let lang = Language["en"];
 class MedicalHistory extends PureComponent {
   constructor(props) {
     super(props);

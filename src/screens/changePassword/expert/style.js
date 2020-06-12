@@ -74,14 +74,6 @@ const styles = StyleSheet.create({
     width: metrics.DEVICE_WIDTH - parentPadding - metrics.DEVICE_WIDTH * 0.05,
   },
 
-  inputTypeStyle: {
-    color: Constant.App.colors.blackColor,
-    width: metrics.DEVICE_WIDTH - parentPadding,
-    fontSize: Constant.App.textSize.Normal,
-    fontFamily: Constant.App.fontFamily.bodyRegular,
-    textAlign: "left",
-  },
-
   passwordHideShowIconStyle: {
     height: metrics.DEVICE_WIDTH * 0.05,
     width: metrics.DEVICE_WIDTH * 0.05,

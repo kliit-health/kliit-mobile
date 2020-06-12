@@ -5,11 +5,9 @@ import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import RadioButtonRN from "../../components/horizontalRadioButton";
-import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 
-let lang = Language["en"];
 class PregnancyHistory extends PureComponent {
   constructor(props) {
     super(props);

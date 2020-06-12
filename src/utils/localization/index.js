@@ -155,9 +155,9 @@ const Language = {
     },
 
     getStarted: {
-      title: "Welcome to the Kliit app, ",
+      title: "Welcome to the Kiira app, ",
       content:
-        "Now it's as easy as a text message to get your sexual and reproductive health questions answered by our experts. Got a question? Ask away\n\nThank you for joining kliit",
+        "Now it's as easy as a text message to get your sexual and reproductive health questions answered by our experts. Got a question? Ask away\n\nThank you for joining kiira",
       btnText: "Get Started",
     },
 

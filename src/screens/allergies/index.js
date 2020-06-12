@@ -6,9 +6,7 @@ import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
-import Language from "../../utils/localization";
 
-let lang = Language["en"];
 class Allergies extends PureComponent {
   constructor(props) {
     super(props);

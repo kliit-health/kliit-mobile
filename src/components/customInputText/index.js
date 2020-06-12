@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import { Text, View, TextInput, Animated } from 'react-native';
-import styles from './style';
+import React, { PureComponent } from "react";
+import { Text, View, TextInput, Animated } from "react-native";
+import styles from "./style";
 
 class FloatingLabel extends PureComponent {
   constructor(props) {
@@ -49,17 +49,16 @@ class FloatingLabel extends PureComponent {
   }
 }
 
-class CustomInputText extends PureComponent {
-  render() {
-    const { style, value, placeholder } = this.props;
-    return (
-      <View style={styles.container}>
-        <FloatingLabel visible={value}>
-          <Text style={[styles.fieldLabel]}>{placeholder}</Text>
-        </FloatingLabel>
-        <TextInput {...this.props} style={[styles.valueText, style]} />
-      </View>
-    );
-  }
-}
+const CustomInputText = (props) => {
+  const { style, value, placeholder } = props;
+  return (
+    <View style={styles.container}>
+      <FloatingLabel visible={value}>
+        <Text style={[styles.fieldLabel]}>{placeholder}</Text>
+      </FloatingLabel>
+      <TextInput {...props} style={[styles.valueText, style]} />
+    </View>
+  );
+};
+
 export default CustomInputText;
