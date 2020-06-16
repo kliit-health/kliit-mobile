@@ -5,6 +5,7 @@ import styles from "./style";
 import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
 import { showOrHideModal } from "../../components/customModal/action";
+import { updateBasicInfo } from "./action";
 import Constant from "../../utils/constants";
 import HealthHistory from "../../utils/constants/healthHistory";
 import CustomInputText from "../../components/customInputText";
@@ -17,7 +18,7 @@ class BasicInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dob: "",
+      dob: this.props.userData.profileInfo.dob,
       gender: "",
       showSelectHeight: false,
       showSelectWeight: false,
@@ -71,6 +72,21 @@ class BasicInfo extends PureComponent {
       height,
     } = this.state;
 
+    const { updateBasicInfo, navigation, userData } = this.props;
+
+    const payloadData = {
+      basicInfoParams: {
+        uid: userData.uid,
+        basicInfo: {
+          dob,
+          gender,
+          height,
+          weight,
+        },
+      },
+      navigation,
+    };
+
     return (
       <View style={styles.container}>
         {this.renderHeaderView()}
@@ -98,7 +114,7 @@ class BasicInfo extends PureComponent {
             <View style={styles.birthDayContainerStyle}>
               <DatePicker
                 selectedDate={dob}
-                placeHolder={lang.addProfileData.yourBirthDay}
+                placeHolder={this.state.dob || lang.addProfileData.yourBirthDay}
                 textStyle={styles.birthDayTextStyle}
                 onSelection={(date) => {
                   this.setState({
@@ -154,7 +170,7 @@ class BasicInfo extends PureComponent {
               buttonStyle={styles.buttonContainerStyle}
               textStyle={styles.buttonTextStyle}
               onPress={() => {
-                console.log("");
+                updateBasicInfo(payloadData);
               }}
               text="Save My Basic Information"
             />
@@ -189,6 +205,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  updateBasicInfo: (value) => dispatch(updateBasicInfo(value)),
   showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
   signOut: (value) => dispatch(signoutApihit(value)),
 });

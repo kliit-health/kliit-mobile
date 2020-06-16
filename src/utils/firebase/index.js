@@ -9,6 +9,90 @@ const bits = 1024;
 const exponent = "10001";
 const mySecretSalt = "kiira280391";
 
+export function addHealthHistory(obj, uid) {
+  try {
+    return firebase
+      .firestore()
+      .collection("healthHistory")
+      .where("uid", "==", uid)
+      .get()
+      .then((querySnapshot) => {
+        var userData;
+        querySnapshot.docs.forEach((element) => {
+          userData = element.data();
+        });
+
+        return userData
+          ? firebase
+              .firestore()
+              .collection("healthHistory")
+              .doc(uid)
+              .update(obj)
+              .then(
+                function() {
+                  const data = {
+                    success: true,
+                  };
+                  return data;
+                },
+                (error) => {
+                  const { message, code } = error;
+                  displayConsole("error message", message);
+                  displayConsole("error code", code);
+                  const data = {
+                    success: false,
+                    message: message,
+                  };
+
+                  return data;
+                }
+              )
+          : firebase
+              .firestore()
+              .collection("healthHistory")
+              .doc(uid)
+              .set(obj)
+              .then(
+                function() {
+                  const data = {
+                    success: true,
+                  };
+                  return data;
+                },
+                (error) => {
+                  const { message, code } = error;
+                  displayConsole("error message", message);
+                  displayConsole("error code", code);
+                  const data = {
+                    success: false,
+                    message: message,
+                  };
+
+                  return data;
+                }
+              );
+      })
+      .catch((error) => {
+        displayConsole("e", error);
+        const { message, code } = error;
+        displayConsole("error message", message);
+        displayConsole("error code", code);
+        const data = {
+          success: false,
+          message: message,
+        };
+
+        return data;
+      });
+  } catch (error) {
+    const data = {
+      success: false,
+    };
+    displayConsole("Crash error", error);
+    return data;
+  }
+}
+
 export async function addNewPaymentCard(obj) {
   try {
     const { card_number, exp_month, exp_year, cvc } = obj;

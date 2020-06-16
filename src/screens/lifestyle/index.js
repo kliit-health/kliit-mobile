@@ -8,6 +8,7 @@ import CustomPicker from "../../components/customPicker";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
 import HealthHistory from "../../utils/constants/healthHistory";
+import { updateLifestyle } from "./action";
 
 class Lifestyle extends PureComponent {
   constructor(props) {
@@ -239,8 +240,23 @@ class Lifestyle extends PureComponent {
   }
 
   renderReview = () => {
-    console.log(this.state);
-    const { question, questions, answers } = this.state;
+    const { questions, answers } = this.state;
+    const { userData, navigation, updateLifestyle } = this.props;
+
+    const payloadData = {
+      LifestyleParams: {
+        uid: userData.uid,
+        lifestyle: {
+          currentActive: answers[0],
+          everActive: answers[1],
+          sexWithMales: answers[2],
+          malePartners: answers[3],
+          sexWithFemales: answers[4],
+          femalePartners: answers[5],
+        },
+      },
+      navigation,
+    };
     return (
       <ScrollView
         keyboardShouldPersistTaps="handled"
@@ -271,7 +287,7 @@ class Lifestyle extends PureComponent {
         <CustomButton
           buttonStyle={styles.buttonContainerStyle}
           textStyle={styles.buttonTextStyle}
-          onPress={this.handleConfirm}
+          onPress={() => updateLifestyle(payloadData)}
           text="Save"
         />
       </ScrollView>
@@ -295,6 +311,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  updateLifestyle: (value) => dispatch(updateLifestyle(value)),
   showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
   signOut: (value) => dispatch(signoutApihit(value)),
 });

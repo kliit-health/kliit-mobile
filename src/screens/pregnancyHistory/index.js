@@ -5,12 +5,19 @@ import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import RadioButtonRN from "../../components/horizontalRadioButton";
-import { showOrHideModal } from "../../components/customModal/action";
+import { updatePregnancyHistory } from "./action";
 import Constant from "../../utils/constants";
 
 class PregnancyHistory extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      allPregnancy: "",
+      fullTerm: "",
+      premature: "",
+      abortions: "",
+      miscarriages: "",
+    };
   }
 
   renderHeaderView() {
@@ -40,8 +47,6 @@ class PregnancyHistory extends PureComponent {
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
-    const { staticImages } = Constant.App;
     const data = [
       {
         label: "0",
@@ -56,92 +61,119 @@ class PregnancyHistory extends PureComponent {
         label: "3+",
       },
     ];
-    return (
-      userData && (
-        <View style={styles.container}>
-          {this.renderHeaderView()}
-          <ScrollView
-            style={{ marginTop: 20 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>
-                How many times have you been pregnant
-              </Text>
-              <Text style={styles.question}>
-                (including miscarriages and abortions)?
-              </Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
 
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>
-                How many full-term babies have you had
-              </Text>
-              <Text style={styles.question}>(37+ weeks)?</Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>
-                How many premature babies have you had
-              </Text>
-              <Text style={styles.question}>(20-36 weeks)?</Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>
-                How many abortions have you had?
-              </Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
-            <View style={styles.questionContainer}>
-              <Text style={styles.question}>
-                How many miscarriages have you had?
-              </Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
-            <CustomButton
-              buttonStyle={styles.buttonContainerStyle}
-              textStyle={styles.buttonTextStyle}
-              onPress={() => {
-                console.log("");
-              }}
-              text="Save My Pregnancy History"
-            />
-          </ScrollView>
-        </View>
-      )
+    const {
+      allPregnancy,
+      fullTerm,
+      premature,
+      abortions,
+      miscarriages,
+    } = this.state;
+
+    const { updatePregnancyHistory, navigation, userData } = this.props;
+
+    const payloadData = {
+      pregnancyHistoryParams: {
+        uid: userData.uid,
+        pregnancyHistory: {
+          allPregnancy,
+          fullTerm,
+          premature,
+          abortions,
+          miscarriages,
+        },
+      },
+      navigation,
+    };
+
+    return (
+      <View style={styles.container}>
+        {this.renderHeaderView()}
+        <ScrollView
+          style={{ marginTop: 20 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.questionContainer}>
+            <Text style={styles.question}>
+              How many times have you been pregnant
+            </Text>
+            <Text style={styles.question}>
+              (including miscarriages and abortions)?
+            </Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={data}
+            selectedBtn={(option) =>
+              this.setState({ allPregnancy: option.label })
+            }
+          />
+
+          <View style={styles.questionContainer}>
+            <Text style={styles.question}>
+              How many full-term babies have you had
+            </Text>
+            <Text style={styles.question}>(37+ weeks)?</Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={data}
+            selectedBtn={(option) => this.setState({ fullTerm: option.label })}
+          />
+          <View style={styles.questionContainer}>
+            <Text style={styles.question}>
+              How many premature babies have you had
+            </Text>
+            <Text style={styles.question}>(20-36 weeks)?</Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={data}
+            selectedBtn={(option) => this.setState({ premature: option.label })}
+          />
+          <View style={styles.questionContainer}>
+            <Text style={styles.question}>
+              How many abortions have you had?
+            </Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={data}
+            selectedBtn={(option) => this.setState({ abortions: option.label })}
+          />
+          <View style={styles.questionContainer}>
+            <Text style={styles.question}>
+              How many miscarriages have you had?
+            </Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={data}
+            selectedBtn={(option) =>
+              this.setState({ miscarriages: option.label })
+            }
+          />
+          <CustomButton
+            buttonStyle={styles.buttonContainerStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => {
+              updatePregnancyHistory(payloadData);
+            }}
+            text="Save My Pregnancy History"
+          />
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -151,8 +183,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
-  signOut: (value) => dispatch(signoutApihit(value)),
+  updatePregnancyHistory: (value) => dispatch(updatePregnancyHistory(value)),
 });
 
 export default connect(
