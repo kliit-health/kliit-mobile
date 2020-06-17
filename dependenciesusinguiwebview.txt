@@ -1,0 +1,7 @@
+node_modules/create-react-class/node_modules/fbjs/lib/UserAgent.js.flow:   * - UIWebView
+node_modules/create-react-class/node_modules/fbjs/lib/UserAgent.js:   * - UIWebView
+node_modules/fbjs/lib/UserAgent.js.flow:   * - UIWebView
+node_modules/fbjs/lib/UserAgent.js:   * - UIWebView
+node_modules/jsc-android/dist/include/JSContextPrivate.h:/*! @abstract The delegate the context will use when trying to load a module. Note, this delegate will be ignored for contexts returned by UIWebView. */
+node_modules/react-native-webview/README.md:- [7.0.1](https://github.com/react-native-community/react-native-webview/releases/tag/v7.0.1) - Removed UIWebView
+node_modules/ua-parser-js/test/browser-test.json:        "ua"      : "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A456 QQ/6.5.3.410 V1_IPH_SQ_6.5.3_1_APP_A Pixel/1080 Core/UIWebView NetType/WIFI Mem/26",

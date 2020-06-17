@@ -17,6 +17,20 @@ class PregnancyHistory extends PureComponent {
       premature: "",
       abortions: "",
       miscarriages: "",
+      data: [
+        {
+          label: "0",
+        },
+        {
+          label: "1",
+        },
+        {
+          label: "2",
+        },
+        {
+          label: "3+",
+        },
+      ],
     };
   }
 
@@ -47,27 +61,13 @@ class PregnancyHistory extends PureComponent {
   }
 
   render() {
-    const data = [
-      {
-        label: "0",
-      },
-      {
-        label: "1",
-      },
-      {
-        label: "2",
-      },
-      {
-        label: "3+",
-      },
-    ];
-
     const {
       allPregnancy,
       fullTerm,
       premature,
       abortions,
       miscarriages,
+      data,
     } = this.state;
 
     const { updatePregnancyHistory, navigation, userData } = this.props;

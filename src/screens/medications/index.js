@@ -7,6 +7,7 @@ import CustomButton from "../../components/customButton";
 import CustomText from "../../components/customText";
 import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import { updateMedications } from "./action";
 
 class Medications extends PureComponent {
   constructor(props) {
@@ -45,7 +46,7 @@ class Medications extends PureComponent {
 
   renderCurrentMedications() {
     const { question } = this.props;
-    const { questionText } = this.state;
+    const { medicationCurrent } = this.state;
     return (
       <View style={styles.inputTextContainerStyle}>
         <InputText
@@ -54,11 +55,11 @@ class Medications extends PureComponent {
           autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
-              questionText: value,
+              medicationCurrent: value,
             });
           }}
           placeholder="Do you take any medications regularly?"
-          value={questionText}
+          value={medicationCurrent}
           style={
             question
               ? styles.inputTypeStyle
@@ -72,7 +73,7 @@ class Medications extends PureComponent {
 
   renderPastMedications() {
     const { question } = this.props;
-    const { questionText } = this.state;
+    const { medicationPast } = this.state;
     return (
       <View style={styles.inputTextContainerStyle}>
         <InputText
@@ -81,11 +82,11 @@ class Medications extends PureComponent {
           autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
-              questionText: value,
+              medicationPast: value,
             });
           }}
           placeholder="What medications have you taken in the past?"
-          value={questionText}
+          value={medicationPast}
           style={
             question
               ? styles.inputTypeStyle
@@ -98,37 +99,42 @@ class Medications extends PureComponent {
   }
 
   renderButtonView() {
-    const { navigation, question } = this.props;
+    const { medicationCurrent, medicationPast } = this.state;
+    const { userData, navigation, updateMedications } = this.props;
+
+    const payloadData = {
+      MedicationsParams: {
+        uid: userData.uid,
+        medications: {
+          currentMedications: medicationCurrent,
+          pastMedications: medicationPast,
+        },
+      },
+      navigation,
+    };
     return (
       <CustomButton
-        disabled={question ? false : true}
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
-        onPress={() => {
-          navigation.navigate(Constant.App.screenNames.ChooseExpert);
-        }}
+        onPress={() => updateMedications(payloadData)}
         text="Save"
       />
     );
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
-    const { staticImages } = Constant.App;
     return (
-      userData && (
-        <View style={styles.container}>
-          {this.renderHeaderView()}
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            {this.renderCurrentMedications()}
-            {this.renderPastMedications()}
-            {this.renderButtonView()}
-          </ScrollView>
-        </View>
-      )
+      <View style={styles.container}>
+        {this.renderHeaderView()}
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          {this.renderCurrentMedications()}
+          {this.renderPastMedications()}
+          {this.renderButtonView()}
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -140,6 +146,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
   signOut: (value) => dispatch(signoutApihit(value)),
+  updateMedications: (value) => dispatch(updateMedications(value)),
 });
 
 export default connect(

@@ -5,15 +5,15 @@ import styles from "./style";
 import InputText from "../../components/customInputText/simpleInputText";
 import CustomButton from "../../components/customButton";
 import CustomText from "../../components/customText";
-import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import { updateMedicalHistory } from "./action";
 
 class MedicalHistory extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      medicationCurrent: "",
-      medicationPast: "",
+      currentConditions: "",
+      pastConditions: "",
     };
   }
 
@@ -43,9 +43,9 @@ class MedicalHistory extends PureComponent {
     );
   }
 
-  renderCurrentMedications() {
+  renderCurrentConditions() {
     const { question } = this.props;
-    const { questionText } = this.state;
+    const { currentConditions } = this.state;
     return (
       <View style={styles.inputTextContainerStyle}>
         <InputText
@@ -54,11 +54,11 @@ class MedicalHistory extends PureComponent {
           autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
-              questionText: value,
+              currentConditions: value,
             });
           }}
-          placeholder="Do you have any ongoing health issues??"
-          value={questionText}
+          placeholder="Do you have any ongoing health issues?"
+          value={currentConditions}
           style={
             question
               ? styles.inputTypeStyle
@@ -70,9 +70,9 @@ class MedicalHistory extends PureComponent {
     );
   }
 
-  renderPastMedications() {
+  renderPastConditions() {
     const { question } = this.props;
-    const { questionText } = this.state;
+    const { pastConditions } = this.state;
     return (
       <View style={styles.inputTextContainerStyle}>
         <InputText
@@ -81,11 +81,11 @@ class MedicalHistory extends PureComponent {
           autoCapitalize="sentences"
           onChangeText={(value) => {
             this.setState({
-              questionText: value,
+              pastConditions: value,
             });
           }}
           placeholder="Tell us about your medical history."
-          value={questionText}
+          value={pastConditions}
           style={
             question
               ? styles.inputTypeStyle
@@ -98,14 +98,26 @@ class MedicalHistory extends PureComponent {
   }
 
   renderButtonView() {
-    const { navigation, question } = this.props;
+    const { userData, navigation, updateMedicalHistory } = this.props;
+    const { currentConditions, pastConditions } = this.state;
+
+    const payloadData = {
+      MedicalHistoryParams: {
+        uid: userData.uid,
+        medicalHistory: {
+          currentConditions,
+          pastConditions,
+        },
+      },
+      navigation,
+    };
+
     return (
       <CustomButton
-        disabled={question ? false : true}
         buttonStyle={styles.buttonContainerStyle}
         textStyle={styles.buttonTextStyle}
         onPress={() => {
-          navigation.navigate(Constant.App.screenNames.ChooseExpert);
+          updateMedicalHistory(payloadData);
         }}
         text="Save"
       />
@@ -123,8 +135,8 @@ class MedicalHistory extends PureComponent {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            {this.renderCurrentMedications()}
-            {this.renderPastMedications()}
+            {this.renderCurrentConditions()}
+            {this.renderPastConditions()}
             {this.renderButtonView()}
           </ScrollView>
         </View>
@@ -138,8 +150,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
-  signOut: (value) => dispatch(signoutApihit(value)),
+  updateMedicalHistory: (value) => dispatch(updateMedicalHistory(value)),
 });
 
 export default connect(

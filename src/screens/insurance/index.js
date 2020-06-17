@@ -6,13 +6,42 @@ import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
 import RadioButtonRN from "../../components/verticalRadioButton";
 import Language from "../../utils/localization";
-import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import { updateInsurance } from "./action";
 
 let lang = Language["en"];
 class Insurance extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      insurance: "",
+      providers: [
+        {
+          label: "Aetna Health",
+        },
+        {
+          label: "Blue Cross / Blue Shield",
+        },
+        {
+          label: "Cigna",
+        },
+        {
+          label: "Humana",
+        },
+        {
+          label: "Kaiser",
+        },
+        {
+          label: "United Health",
+        },
+        {
+          label: "WellPoint",
+        },
+        {
+          label: "Other",
+        },
+      ],
+    };
   }
 
   renderHeaderView() {
@@ -42,64 +71,47 @@ class Insurance extends PureComponent {
   }
 
   render() {
-    const { navigation, signOut, userData } = this.props;
-    const { staticImages } = Constant.App;
-    const data = [
-      {
-        label: "Aetna Health",
+    const { navigation, updateInsurance, userData } = this.props;
+    const { insurance, providers } = this.state;
+
+    const payloadData = {
+      InsuranceParams: {
+        uid: userData.uid,
+        insurance: {
+          provider: insurance,
+        },
       },
-      {
-        label: "Blue Cross / Blue Shield",
-      },
-      {
-        label: "Cigna",
-      },
-      {
-        label: "Humana",
-      },
-      {
-        label: "Kaiser",
-      },
-      {
-        label: "United Health",
-      },
-      {
-        label: "WellPoint",
-      },
-      {
-        label: "Other",
-      },
-    ];
+      navigation,
+    };
+
     return (
-      userData && (
-        <View style={styles.container}>
-          {this.renderHeaderView()}
-          <ScrollView
-            style={{ marginTop: 20 }}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.questionContainer}>
-              <Text style={styles.title}>What insurance do you have?</Text>
-            </View>
-            <RadioButtonRN
-              box={false}
-              textColor={Constant.App.colors.greyColorText}
-              textStyle={{ fontSize: 14 }}
-              data={data}
-              selectedBtn={(e) => console.log(e)}
-            />
-            <CustomButton
-              buttonStyle={styles.buttonContainerStyle}
-              textStyle={styles.buttonTextStyle}
-              onPress={() => {
-                console.log("");
-              }}
-              text="Save"
-            />
-          </ScrollView>
-        </View>
-      )
+      <View style={styles.container}>
+        {this.renderHeaderView()}
+        <ScrollView
+          style={{ marginTop: 20 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.questionContainer}>
+            <Text style={styles.title}>What insurance do you have?</Text>
+          </View>
+          <RadioButtonRN
+            box={false}
+            textColor={Constant.App.colors.greyColorText}
+            textStyle={{ fontSize: 14 }}
+            data={providers}
+            selectedBtn={(provider) =>
+              this.setState({ insurance: provider.label })
+            }
+          />
+          <CustomButton
+            buttonStyle={styles.buttonContainerStyle}
+            textStyle={styles.buttonTextStyle}
+            onPress={() => updateInsurance(payloadData)}
+            text="Save"
+          />
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -109,8 +121,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
-  signOut: (value) => dispatch(signoutApihit(value)),
+  updateInsurance: (value) => dispatch(updateInsurance(value)),
 });
 
 export default connect(

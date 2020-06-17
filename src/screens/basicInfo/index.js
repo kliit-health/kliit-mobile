@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
 import Language from "../../utils/localization";
-import { showOrHideModal } from "../../components/customModal/action";
 import { updateBasicInfo } from "./action";
 import Constant from "../../utils/constants";
 import HealthHistory from "../../utils/constants/healthHistory";
@@ -206,8 +205,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateBasicInfo: (value) => dispatch(updateBasicInfo(value)),
-  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
-  signOut: (value) => dispatch(signoutApihit(value)),
 });
 
 export default connect(

@@ -13,7 +13,7 @@ const DatePicker = (props) => {
   const [selected, setSelected] = useState("");
 
   const dateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
@@ -60,7 +60,7 @@ const DatePicker = (props) => {
           </View>
           <View style={{ backgroundColor: "white" }}>
             <RNDateTimePicker
-              value={new Date()}
+              value={date}
               maximumDate={deliveryWindow}
               mode="date"
               onChange={dateChange}

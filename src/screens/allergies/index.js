@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import styles from "./style";
 import CustomText from "../../components/customText";
 import CustomButton from "../../components/customButton";
-import { showOrHideModal } from "../../components/customModal/action";
 import Constant from "../../utils/constants";
+import { updateAllergies } from "./action";
 
 class Allergies extends PureComponent {
   constructor(props) {
@@ -268,8 +268,22 @@ class Allergies extends PureComponent {
   }
 
   renderReview = () => {
-    const { medinceList, foodList, question, questions, answers } = this.state;
+    const { medinceList, foodList, questions, answers } = this.state;
+    const { userData, navigation, updateAllergies } = this.props;
     const allergies = [[], medinceList, [], foodList];
+
+    const payloadData = {
+      AllergiesParams: {
+        uid: userData.uid,
+        allergies: {
+          medicationAllergies: answers[0],
+          medicationsList: allergies[1],
+          foodAllergies: answers[2],
+          foodsList: allergies[3],
+        },
+      },
+      navigation,
+    };
 
     return (
       <ScrollView
@@ -308,7 +322,7 @@ class Allergies extends PureComponent {
         <CustomButton
           buttonStyle={styles.buttonContainerStyle}
           textStyle={styles.buttonTextStyle}
-          onPress={this.handleConfirm}
+          onPress={() => updateAllergies(payloadData)}
           text="Save"
         />
       </ScrollView>
@@ -332,8 +346,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showHideErrorModal: (value) => dispatch(showOrHideModal(value)),
-  signOut: (value) => dispatch(signoutApihit(value)),
+  updateAllergies: (value) => dispatch(updateAllergies(value)),
 });
 
 export default connect(
