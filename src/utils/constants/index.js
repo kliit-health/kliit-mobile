@@ -91,7 +91,7 @@ const Constant = {
     },
 
     helpUrl: "http://www.kliit.com/help",
-    learnTabUrl: "https://www.kliit.com/topics",
+    learnTabUrl: "https://medium.com/get-kiira",
     logoutInterval: 1000 * 20 * 60,
     Modal: {
       gender: [{ value: "Male", code: "M" }, { value: "Female", code: "F" }],

@@ -22,6 +22,8 @@ import moment from "moment";
 import Rate, { AndroidMarket } from "react-native-rate";
 import AsyncStorage from "@react-native-community/async-storage";
 
+import ChatBotView from "../chatBot";
+
 const lang = language.en;
 
 class Ask extends PureComponent {
@@ -66,7 +68,7 @@ class Ask extends PureComponent {
                 preferredAndroidMarket: AndroidMarket.Google,
                 preferInApp: true,
                 openAppStoreIfInAppFails: true,
-                fallbackPlatformURL: "https://kliit.com",
+                fallbackPlatformURL: "https://kiira.io",
               };
               Rate.rate(options, (success) => {
                 if (success) {
@@ -511,29 +513,33 @@ class Ask extends PureComponent {
     } = this.props;
     return (
       <View style={styles.container}>
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          {this.renderHeadingProfileView()}
-          {this.renderCreditView()}
-          {questionData
-            ? this.renderAskedQuestionView()
-            : userData && userData.credits > 0
-            ? this.renderInputTextView()
-            : null}
-          {!questionData && userData.credits > 0 && this.renderButtonView()}
-          {!questionData &&
-            userData.credits === 0 &&
-            this.renderEmptyCreditView()}
-          {recentExpertData &&
-            recentExpertData.length > 0 &&
-            this.renderRecentExpertView()}
-          {previousQuestionData &&
-            previousQuestionData.length > 0 &&
-            this.renderPreviousQuestionView()}
-          {Platform.OS === "ios" && <KeyboardSpacer />}
-        </ScrollView>
+        {userData.firstLogin ? (
+          <ChatBotView />
+        ) : (
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            {this.renderHeadingProfileView()}
+            {this.renderCreditView()}
+            {questionData
+              ? this.renderAskedQuestionView()
+              : userData && userData.credits > 0
+              ? this.renderInputTextView()
+              : null}
+            {!questionData && userData.credits > 0 && this.renderButtonView()}
+            {!questionData &&
+              userData.credits === 0 &&
+              this.renderEmptyCreditView()}
+            {recentExpertData &&
+              recentExpertData.length > 0 &&
+              this.renderRecentExpertView()}
+            {previousQuestionData &&
+              previousQuestionData.length > 0 &&
+              this.renderPreviousQuestionView()}
+            {Platform.OS === "ios" && <KeyboardSpacer />}
+          </ScrollView>
+        )}
       </View>
     );
   }
@@ -550,7 +556,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getQuestion: (value) => dispatch(getQuestionData(value, dispatch)),
   setQuestionText: (value) => dispatch(updateQuestion(value)),
-  // setNewKeyToUserTable: (id, data) => dispatch(updateUserDataWithNewKey(id, data)),
 });
 
 export default connect(

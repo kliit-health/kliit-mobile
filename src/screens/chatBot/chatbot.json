@@ -1,0 +1,83 @@
+{
+  "chatone": [
+    {
+      "id": "1",
+      "message": "Hi, i'm Kiira, your personal health assistant. I'm here to help you navigate your health. \n \n Let's get to know each other shall we?",
+      "user": "false",
+      "options": [
+        { "value": "Yes", "trigger": "4", "imageU": "", "imageS": "" },
+        { "value": "No", "trigger": "4", "imageU": "", "imageS": "" }
+      ],
+      "slider": [],
+      "custom": "true",
+      "customid": "",
+      "trigger": "2",
+      "end": "false"
+    },
+    {
+      "id": "2",
+      "message": "Great! let's start with your first name.",
+      "user": "true",
+      "options": [],
+      "slider": [],
+      "custom": "false",
+      "customid": "",
+      "trigger": "3",
+      "end": "false"
+    },
+    {
+      "id": "3",
+      "message": "Great! let's start with your first name.",
+      "user": "true",
+      "multipleOptionsSelect": "false",
+      "options": [
+        { "value": "Yes", "trigger": "4", "imageU": "", "imageS": "" },
+        { "value": "No", "trigger": "4", "imageU": "", "imageS": "" }
+      ],
+      "slider": [],
+      "custom": "false",
+      "customid": "",
+      "trigger": "",
+      "end": "false"
+    },
+    {
+      "id": "4",
+      "message": "Great! let's start with your first name.",
+      "user": "false",
+      "options": [],
+      "slider": [],
+      "custom": "true",
+      "customid": "CustomID",
+      "trigger": "5",
+      "end": "false"
+    },
+    {
+      "id": "5",
+      "message": "Great! let's start with your first name.",
+      "user": "true",
+      "options": [],
+      "slider": [
+        { "value": "1", "trigger": "6", "marker": "None" },
+        { "value": "2", "trigger": "6", "marker": "Little" },
+        { "value": "3", "trigger": "6", "marker": "Somewhat" },
+        { "value": "4", "trigger": "6", "marker": "A bit" },
+        { "value": "5", "trigger": "6", "marker": "A lot" }
+      ],
+      "custom": "false",
+      "customid": "",
+      "trigger": "",
+      "end": "false"
+    },
+    {
+      "id": "6",
+      "message": "Thank you.",
+      "user": "false",
+      "options": [],
+      "slider": [],
+      "custom": "false",
+      "customid": "",
+      "trigger": "",
+      "end": "true"
+    }
+  ]
+}

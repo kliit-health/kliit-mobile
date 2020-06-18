@@ -112,6 +112,7 @@ class Medications extends PureComponent {
       },
       navigation,
     };
+
     return (
       <CustomButton
         buttonStyle={styles.buttonContainerStyle}

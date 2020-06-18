@@ -274,6 +274,7 @@ class Setting extends PureComponent {
       selectedState,
     } = this.state;
     const { staticImages } = Constant.App;
+
     return (
       <View style={styles.inputTextParentContainerStyle}>
         <View style={styles.inputTextContainerStyle}>
