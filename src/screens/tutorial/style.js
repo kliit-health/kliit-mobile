@@ -9,6 +9,15 @@ const styles = StyleSheet.create({
     width: metrices.DEVICE_WIDTH,
   },
 
+  bannerTextView: {
+    flex: 1,
+    fontSize: 50,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    textAlign: "center",
+    marginBottom: 50,
+  },
+
   buttonContainerStyle: {
     flexDirection: "row",
     alignItems: "flex-start",

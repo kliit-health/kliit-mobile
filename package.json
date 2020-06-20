@@ -11,6 +11,7 @@
     "postinstall": "npx jetify && cd ios && pod install"
   },
   "dependencies": {
+    "@react-native-community/art": "^1.2.0",
     "@react-native-community/async-storage": "^1.6.1",
     "@react-native-community/datetimepicker": "^2.4.1",
     "@react-native-community/picker": "^1.6.0",
@@ -20,8 +21,11 @@
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "random-id": "^1.0.4",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-4-bubbles-loader": "^1.0.1",
+    "react-native-animated-loader": "^0.0.8",
     "react-native-auto-height-image": "^1.1.1",
     "react-native-background-timer": "^2.1.1",
     "react-native-banner-carousel": "^1.0.3",

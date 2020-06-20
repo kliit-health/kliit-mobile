@@ -1,11 +1,18 @@
-import React, { PureComponent } from 'react';
-import { View, Image, ScrollView, Dimensions } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './style';
-import Constant from '../../utils/constants';
-import CustomButton from '../../components/customButton';
-import Language from '../../utils/localization';
-import Carousel from 'react-native-banner-carousel';
+import React, { PureComponent, Fragment } from "react";
+import {
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Dimensions,
+  Text,
+} from "react-native";
+import { connect } from "react-redux";
+import styles from "./style";
+import Constant from "../../utils/constants";
+import CustomButton from "../../components/customButton";
+import Language from "../../utils/localization";
+import Carousel from "react-native-banner-carousel";
 let banner = [
   {
     id: 1,
@@ -20,7 +27,9 @@ let banner = [
     image: Constant.App.staticImages.tutorialImageThree,
   },
 ];
-let lang = Language['en'];
+
+let titles = ["Crystal", "I need", "some text"];
+let lang = Language["en"];
 class Tutorial extends PureComponent {
   constructor(props) {
     super(props);
@@ -34,20 +43,24 @@ class Tutorial extends PureComponent {
           autoplayTimeout={5000}
           loop
           index={0}
-          pageSize={Dimensions.get('window').width}
+          pageSize={Dimensions.get("window").width}
           activePageIndicatorStyle={{
             backgroundColor: Constant.App.colors.blueColor,
           }}
         >
           {banner.map((item, key) => (
             <View key={key}>
-              <Image
-                resizeMode={'stretch'}
+              <ImageBackground
+                resizeMode={"contain"}
                 source={item.image}
                 style={styles.bannerImageStyle}
-              />
+              >
+                <View style={styles.bannerTextView}>
+                  <Text style={styles.bannerTextView}>{titles[key]}</Text>
+                </View>
+              </ImageBackground>
               <Image
-                resizeMode={'contain'}
+                resizeMode={"contain"}
                 source={Constant.App.staticImages.logoHorizontal}
                 style={styles.logoImageStyle}
               />
@@ -82,7 +95,7 @@ class Tutorial extends PureComponent {
     return (
       <View style={styles.containerStyle}>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {this.renderSliderView()}
@@ -97,4 +110,7 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tutorial);
